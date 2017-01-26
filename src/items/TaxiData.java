@@ -1,13 +1,14 @@
 package items;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class TaxiData {
 
-	private HashMap<String,Taxi> taxis;
-	private ArrayList<Destination> currentYearDestinations;
-	private ArrayList<Destination> previousYearDestinations;
-	private ArrayList<Destination> journeys;
+	private TreeMap<String,Taxi> taxis;
+	private TreeMap<String, Destination> currentYearDestinations;
+	private TreeMap<String, Destination> previousYearDestinations;
+	private TreeMap<String, ArrayList<Journey>> journeys;
 	
 	
 	public String formatInfoLine(Taxi taxi, Destination destination, Journey journey){
@@ -50,7 +51,7 @@ public class TaxiData {
 		return null;
 	}
 	
-	private ArrayList<Taxi> findJourneys(Taxi taxi){
+	private ArrayList<Journey> findJourneys(Taxi taxi){
 		
 		return null;
 	}
@@ -78,28 +79,28 @@ public class TaxiData {
 	
 	/* Getters and Setters */
 	
-	public HashMap<String, Taxi> getTaxis() {
+	public TreeMap<String, Taxi> getTaxis() {
 		return taxis;
 	}
-	public void setTaxis(HashMap<String, Taxi> taxis) {
+	public void setTaxis(TreeMap<String, Taxi> taxis) {
 		this.taxis = taxis;
 	}
-	public ArrayList<Destination> getCurrentYearDestinations() {
+	public TreeMap<String, Destination> getCurrentYearDestinations() {
 		return currentYearDestinations;
 	}
-	public void setCurrentYearDestinations(ArrayList<Destination> currentYearDestinations) {
+	public void setCurrentYearDestinations(TreeMap<String, Destination> currentYearDestinations) {
 		this.currentYearDestinations = currentYearDestinations;
 	}
-	public ArrayList<Destination> getPreviousYearDestinations() {
+	public TreeMap<String, Destination> getPreviousYearDestinations() {
 		return previousYearDestinations;
 	}
-	public void setPreviousYearDestinations(ArrayList<Destination> previousYearDestinations) {
+	public void setPreviousYearDestinations(TreeMap<String, Destination> previousYearDestinations) {
 		this.previousYearDestinations = previousYearDestinations;
 	}
-	public ArrayList<Destination> getJourneys() {
+	public TreeMap<String, ArrayList<Journey>> getJourneys() {
 		return journeys;
 	}
-	public void setJourneys(ArrayList<Destination> journeys) {
+	public void setJourneys (TreeMap<String, ArrayList<Journey>> journeys) {
 		this.journeys = journeys;
 	}
 	
