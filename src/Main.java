@@ -1,9 +1,14 @@
+import view.MenuDisplayer;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-			System.out.println("Hello");
+		
+		TaxiService taxiService = new TaxiService();
+
+		taxiService.start();
+		
 
 	}
 
