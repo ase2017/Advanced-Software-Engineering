@@ -13,6 +13,12 @@ public class DestinationtTreeMap {
 	}
 
 	
+	public void addDestination(Destination destination){
+		
+		destinations.put(destination.getName(), destination);
+		
+	}
+	
 	/* Getters and Setters */
 	
 	public TreeMap<String, Destination> getDestinations() {
