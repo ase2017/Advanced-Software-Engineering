@@ -1,57 +1,70 @@
 package utils;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+
+
 public class DataFormatValidator {
 
-	private static String TAXI_REGISTRATION_NUMBER_LENGTH = "";
-	private static String MIN_DESTINATION_NAME_LENGTH = "";
-	private static String MAX_DESTINATION_NAME_LENGTH = "";
+	private static String TAXI_REGISTRATION_NUMBER_LENGTH = "7";
+	private static String MIN_DESTINATION_NAME_LENGTH = "3";
+	private static String MAX_DESTINATION_NAME_LENGTH = "30";
 	private static double MIN_DISTANCE = 0;
-	private static double MAX_DISTANCE = 0;
-	private static int MIN_NUMBER_OF_PASSENGERS = 0;
-	private static int MAX_NUMBER_OF_PASSENGERS = 0;
-	private static String MIN_DRIVER_NAME_LENGTH = "";
-	private static String MAX_DRIVER_NAME_LENGTH = "";
+	private static double MAX_DISTANCE = 200;
+	private static int MIN_NUMBER_OF_PASSENGERS = 1;
+	private static int MAX_NUMBER_OF_PASSENGERS = 8;
+	private static String MIN_DRIVER_NAME_LENGTH = "5";
+	private static String MAX_DRIVER_NAME_LENGTH = "30";
 	
-	public DataFormatValidator(){
+
+	
+	public static boolean validateRegistrationNumber( String registrationNumber ) {
+		
+		
+		if ( registrationNumber.length() == Integer.parseInt(TAXI_REGISTRATION_NUMBER_LENGTH) )
+			return true;
+		else
+			return false;
 		
 	}
 	
-	public boolean validateRegistrationNumber(){
+	public static boolean validateDriverName( String driverName ){
 		
-		return false;
+		if ( driverName.length() >= Integer.parseInt(MIN_DESTINATION_NAME_LENGTH) && driverName.length() <= Integer.parseInt(MAX_DESTINATION_NAME_LENGTH) )
+			return true;
+		else
+			return false;
 	}
 	
-	public boolean validateDriverName(){
-		
-		return false;
-	}
-	
-	public boolean validateBrand(){
-		
-		return false;
-	}
-	
-	public boolean validateDestinationName(){
-		
-		return false;
-	}
-	
-	public boolean validateDistance(){
+	public static boolean validateBrand( String brandName ){
 		
 		return false;
 	}
 	
-	public boolean validatePassengerNumber(){
+	public static boolean validateDestinationName(){
 		
 		return false;
 	}
 	
-	public boolean validateTime(){
+	public static boolean validateDistance(){
 		
 		return false;
 	}
 	
-	public boolean validateMaximumVelocity(){
+	public static boolean validatePassengerNumber(){
+		
+		return false;
+	}
+	
+	public static boolean validateTime(){
+		
+		return false;
+	}
+	
+	public static boolean validateMaximumVelocity(){
 		
 		return false;
 	}
