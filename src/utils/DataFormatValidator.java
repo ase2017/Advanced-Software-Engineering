@@ -18,6 +18,9 @@ public class DataFormatValidator {
 	private static int MAX_NUMBER_OF_PASSENGERS = 8;
 	private static String MIN_DRIVER_NAME_LENGTH = "5";
 	private static String MAX_DRIVER_NAME_LENGTH = "30";
+	private static String MIN_BRAND_NAME = "3";
+	private static String MAX_BRAND_NAME = "15";
+
 	
 
 	
@@ -33,7 +36,7 @@ public class DataFormatValidator {
 	
 	public static boolean validateDriverName( String driverName ){
 		
-		if ( driverName.length() >= Integer.parseInt(MIN_DESTINATION_NAME_LENGTH) && driverName.length() <= Integer.parseInt(MAX_DESTINATION_NAME_LENGTH) )
+		if ( driverName.length() >= Integer.parseInt(MIN_DRIVER_NAME_LENGTH) && driverName.length() <= Integer.parseInt(MAX_DRIVER_NAME_LENGTH) )
 			return true;
 		else
 			return false;
@@ -41,30 +44,36 @@ public class DataFormatValidator {
 	
 	public static boolean validateBrand( String brandName ){
 		
-		return false;
+		if ( brandName.length() >= Integer.parseInt(MIN_BRAND_NAME) && brandName.length() <= Integer.parseInt(MAX_BRAND_NAME) )
+			return true;
+		else
+			return false;
 	}
 	
-	public static boolean validateDestinationName(){
+	public static boolean validateDestinationName( String destinationName ){
+		
+		if ( destinationName.length() >= Integer.parseInt(MIN_DESTINATION_NAME_LENGTH) && destinationName.length() <= Integer.parseInt(MAX_DESTINATION_NAME_LENGTH) )
+			return true;
+		else
+			return false;
+	}
+	
+	public static boolean validateDistance( String distance ){
 		
 		return false;
 	}
 	
-	public static boolean validateDistance(){
+	public static boolean validatePassengerNumber( String passengerNumber ){
 		
 		return false;
 	}
 	
-	public static boolean validatePassengerNumber(){
+	public static boolean validateTime( String time ){
 		
 		return false;
 	}
 	
-	public static boolean validateTime(){
-		
-		return false;
-	}
-	
-	public static boolean validateMaximumVelocity(){
+	public static boolean validateMaximumVelocity( String maxVelocity ){
 		
 		return false;
 	}
