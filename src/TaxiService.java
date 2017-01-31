@@ -6,7 +6,8 @@ public class TaxiService {
 	public TaxiData taxidata;
 	
 	public void start(){
-		
+
+		taxidata = new TaxiData();
 	}
 	
 	private boolean readFiles(){
