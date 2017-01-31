@@ -14,6 +14,7 @@ public class TaxiTreeMap {
 
 	public void addTaxi(Taxi taxi){
 		
+		taxis.put(taxi.getRegistrationNumber(), taxi);
 		
 	}
 	

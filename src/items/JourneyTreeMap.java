@@ -13,6 +13,12 @@ public class JourneyTreeMap {
 		
 	}
 
+	public void addJourney(ArrayList<Journey> journeys){
+	
+		
+		
+	}
+	
 	
 	/* Getters and Setters */
 	
