@@ -13,8 +13,10 @@ public class JourneyTreeMap {
 		
 	}
 
-	public void addJourney(ArrayList<Journey> journeys){
+	public void addJourney(ArrayList<Journey> journey){
 	
+		//TODO: Ask how is this going to be implemented?
+		
 		
 		
 	}
