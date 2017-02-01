@@ -1,18 +1,19 @@
-
 package items;
 
 public class Journey {
 
 	private String taxiRegistrationNumber;
-	private String destinationName;
+	private String destinationID;
 	private int numberOfPassengers;
 	private double time;
 	private double maximumVelocity;
 	
-	public Journey(String taxiRegistrationNumber, String destinationName, int numberOfPassengers, double time, double maximumVelocity){
+	public Journey(String destinationID, String taxiRegistrationNumber, 
+			int numberOfPassengers, double time, double maximumVelocity){
 		
+		
+		this.destinationID = destinationID;
 		this.taxiRegistrationNumber = taxiRegistrationNumber;
-		this.destinationName = destinationName;
 		this.numberOfPassengers = numberOfPassengers;
 		this.time = time;
 		this.maximumVelocity = maximumVelocity;
@@ -30,12 +31,12 @@ public class Journey {
 		this.taxiRegistrationNumber = taxiRegistrationNumber;
 	}
 
-	public String getDestinationName() {
-		return destinationName;
+	public String getDestinationID() {
+		return destinationID;
 	}
 
-	public void setDestinationName(String destinationName) {
-		this.destinationName = destinationName;
+	public void setDestinationID(String destinationID) {
+		this.destinationID = destinationID;
 	}
 
 	public int getNumberOfPassengers() {
