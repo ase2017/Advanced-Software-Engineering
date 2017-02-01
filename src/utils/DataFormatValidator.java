@@ -58,8 +58,11 @@ public class DataFormatValidator {
 			return false;
 	}
 	
-	public static boolean validateDistance( String distance ){
+	public static boolean validateDistance( String distance ) {
 		
+		if (distance=="fg")
+			return false;
+			
 		return false;
 	}
 	
