@@ -25,7 +25,6 @@ public class DataFileReader {
 	public static String FILE_NAME_DESTINATIONS_2017 = "";
 	
 	
-	
 	public DataFileReader ()  {
 		
 		
