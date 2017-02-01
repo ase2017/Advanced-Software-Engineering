@@ -87,7 +87,7 @@ public class DataFileReader {
 	
 	public TreeMap<String, ArrayList<Journey>> loadJourney(){
 		
-		
+		System.out.println("Nothing");
 		return null;
 	}
 	
