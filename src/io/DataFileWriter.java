@@ -4,9 +4,9 @@ import items.TaxiData;
 
 public class DataFileWriter {
 	
-	private static String FILE_NAME_TOP_5 = "";
-	private static String FILE_NAME_PLACES_PER_DRIVER = "";
-	private static String FILE_NAME_PLACES = "";
+	private static final String FILE_NAME_TOP_5 = "";
+	private static final String FILE_NAME_PLACES_PER_DRIVER = "";
+	private static final String FILE_NAME_PLACES = "";
 	
 	public void writeFiles(TaxiData taxidata){
 		

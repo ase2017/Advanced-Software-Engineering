@@ -16,16 +16,24 @@ public class TaxiService {
 
 	private boolean readFiles() {
 
+		System.out.print("\n");
 		DataFileReader fr = new DataFileReader();
 
-		taxidata.setTaxis(fr.loadTaxis());
-		taxidata.setJourneys(fr.loadJourney());
-		taxidata.setPreviousYearDestinations(fr.loadDestinations2016());
-		taxidata.setCurrentYearDestinations(fr.loadDestinations2017());
+		try{
+			taxidata.setTaxis(fr.loadTaxis());
+		}
+		catch(Exception e){
+			//System.out.println(e.getMessage());
+		}
+		
+		//taxidata.setJourneys(fr.loadJourney());
+		//taxidata.setPreviousYearDestinations(fr.loadDestinations2016());
+		//taxidata.setCurrentYearDestinations(fr.loadDestinations2017());
 
 		try {
-			if (taxidata.getTaxis().size() > 0) {
-
+			if (taxidata.getCurrentYearDestinations().size() > 0 && taxidata.getJourneys() .size() > 0
+					&& taxidata.getPreviousYearDestinations().size() > 0 && taxidata.getTaxis().size() > 0) {
+				
 				return true;
 			} else {
 

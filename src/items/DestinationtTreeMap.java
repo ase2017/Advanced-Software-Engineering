@@ -11,11 +11,10 @@ public class DestinationtTreeMap {
 		this.destinations = destinations;
 		
 	}
-
 	
 	public void addDestination(Destination destination){
 		
-		destinations.put(destination.getName(), destination);
+		destinations.put(destination.getDestinationName(), destination);
 		
 	}
 	

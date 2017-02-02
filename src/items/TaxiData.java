@@ -22,7 +22,7 @@ public class TaxiData {
 		String res = "";
 		if(taxi != null && destination != null && journey != null) {
 			res += journey.getTaxiRegistrationNumber() + "   "
-					+ destination.getName() + "   "
+					+ destination.getDestinationName() + "   "
 					+ destination.getDistance() + " miles   "
 					+ journey.getNumberOfPassengers() + "   "
 					+ "Cost £" + calculateFee(journey)
@@ -193,7 +193,7 @@ public class TaxiData {
 							Destination tmpDestination = findDestination(j);
 
 							if (tmpDestination != null) {
-								destinationNamesSorted.add(tmpDestination.getName());
+								destinationNamesSorted.add(tmpDestination.getDestinationName());
 							} else {
 								System.out.println("No destinations were found in our records for given journey.\n");
 							}
@@ -278,9 +278,9 @@ public class TaxiData {
 
 			for(Destination l : currentYearDestinations.values()) {
 				if(previousYearDestinations.values().contains(l)) {
-					placesVisitedInBothYearsSet.add(l.getName());
+					placesVisitedInBothYearsSet.add(l.getDestinationName());
 				} else {
-					currentYearVisitedPlacesSet.add(l.getName());
+					currentYearVisitedPlacesSet.add(l.getDestinationName());
 				}
 			}
 
@@ -288,7 +288,7 @@ public class TaxiData {
 				if(currentYearDestinations.values().contains(l)) {
 					// do nothing, it's already added in previous loop
 				} else {
-					previousYearVisitedPlacesSet.add(l.getName());
+					previousYearVisitedPlacesSet.add(l.getDestinationName());
 				}
 			}
 

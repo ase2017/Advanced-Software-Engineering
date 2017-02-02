@@ -15,13 +15,12 @@ public class JourneyTreeMap {
 
 	public void addJourney(ArrayList<Journey> journey){
 	
-		//TODO: Ask how is this going to be implemented?
-		
-		
+		for(int i = 0; i < journey.size(); i++){
+			journeys.put(journey.get(i).getDestinationID(), journey);
+		}
 		
 	}
-	
-	
+
 	/* Getters and Setters */
 	
 	public TreeMap<String, ArrayList<Journey>> getJourneys() {
