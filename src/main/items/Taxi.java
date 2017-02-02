@@ -1,10 +1,10 @@
 package main.items;
 
-import exceptions.InvalidBrandNameException;
-import exceptions.InvalidRegistrationNumberException;
-import exceptions.InvalidTaxiNameException;
-import io.DataFileReader;
-import utils.DataFormatValidator;
+import main.exceptions.InvalidBrandNameException;
+import main.exceptions.InvalidRegistrationNumberException;
+import main.exceptions.InvalidTaxiNameException;
+import main.io.DataFileReader;
+import main.utils.DataFormatValidator;
 
 public class Taxi {
 
