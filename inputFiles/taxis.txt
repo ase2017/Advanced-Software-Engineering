@@ -10,6 +10,6 @@ OP902JR,Justin Robinson,Nissan
 LX120RG,Steven Hoffmann,Bentley
 LZ879HF,Ivy Stewart,Nissan
 BB247GE,Louis Hoffmann,Toyota
-ZZ842VV,Diana Thompson,Mercedes
+BZ842VV,Diana Thompson,Mercedes
 ZZ478HS,Marco Hansen,Mercedes
 AZ345JR,Walter Scott,Audi

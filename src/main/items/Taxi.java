@@ -1,5 +1,11 @@
 package main.items;
 
+import exceptions.InvalidBrandNameException;
+import exceptions.InvalidRegistrationNumberException;
+import exceptions.InvalidTaxiNameException;
+import io.DataFileReader;
+import utils.DataFormatValidator;
+
 public class Taxi {
 
 	private String registrationNumber;
@@ -12,6 +18,27 @@ public class Taxi {
 		this.driverName = driverName;
 		this.brand = brand;
 		
+		/* Checks */
+		
+		try{
+			
+			if ( !DataFormatValidator.validateRegistrationNumber(registrationNumber)) 
+				throw new InvalidRegistrationNumberException(DataFileReader.FILE_NAME_TAXIS, DataFileReader.line_counter);		
+			
+			if ( !DataFormatValidator.validateDriverName(driverName)) 
+				throw new InvalidTaxiNameException(DataFileReader.FILE_NAME_TAXIS, DataFileReader.line_counter);
+				
+			if ( !DataFormatValidator.validateBrand(brand))		
+				throw new InvalidBrandNameException(DataFileReader.FILE_NAME_TAXIS, DataFileReader.line_counter);
+			
+		} catch(InvalidRegistrationNumberException | InvalidTaxiNameException | 
+				InvalidBrandNameException e){
+			
+			System.out.println(e.getMessage());
+			
+		}	
+		
+		/* End of checks */
 	}
 
 	/* Getters and Setters */
@@ -39,7 +66,6 @@ public class Taxi {
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
-	
 	
 }
 

@@ -1,5 +1,13 @@
 package main.items;
 
+import exceptions.InvalidBrandNameException;
+import exceptions.InvalidDestinationNameException;
+import exceptions.InvalidMaximumVelocityException;
+import exceptions.InvalidTaxiNameException;
+import exceptions.InvalidTimeException;
+import io.DataFileReader;
+import utils.DataFormatValidator;
+
 public class Journey {
 
 	private String taxiRegistrationNumber;
@@ -10,13 +18,38 @@ public class Journey {
 	
 	public Journey(String destinationID, String taxiRegistrationNumber, 
 			int numberOfPassengers, double time, double maximumVelocity){
-		
-		
+			
 		this.destinationID = destinationID;
 		this.taxiRegistrationNumber = taxiRegistrationNumber;
 		this.numberOfPassengers = numberOfPassengers;
 		this.time = time;
 		this.maximumVelocity = maximumVelocity;
+		
+		try{
+			
+			if ( !DataFormatValidator.validateDestinationName(destinationID)) 
+				throw new InvalidDestinationNameException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
+				
+			if ( !DataFormatValidator.validateRegistrationNumber(taxiRegistrationNumber)) 
+				throw new InvalidTaxiNameException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
+				
+			if ( !DataFormatValidator.validatePassengerNumber(numberOfPassengers))		
+				throw new InvalidBrandNameException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);	
+			
+			if ( !DataFormatValidator.validateTime(time))		
+				throw new InvalidTimeException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
+			
+			if ( !DataFormatValidator.validateMaximumVelocity(maximumVelocity))		
+				throw new InvalidMaximumVelocityException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
+			
+			
+		} catch(InvalidDestinationNameException | InvalidTaxiNameException | 
+				InvalidBrandNameException | InvalidTimeException 
+				| InvalidMaximumVelocityException e){
+			
+			System.out.println(e.getMessage());
+			
+		}
 	}
 	
 	
