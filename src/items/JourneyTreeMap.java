@@ -12,6 +12,16 @@ public class JourneyTreeMap {
 		this.journeys = journeys;
 		
 	}
+	public void addJourney(Journey journey) {
+		
+		if(journeys.containsKey(journey.getTaxiRegistrationNumber())) {
+			journeys.get(journey.getTaxiRegistrationNumber()).add(journey);
+		} else {
+			ArrayList<Journey> temporary = new ArrayList<>();
+			temporary.add(journey);
+			journeys.put(journey.getDestinationID(), temporary);
+		}
+	}
 
 	public void addJourney(ArrayList<Journey> journey){
 	
