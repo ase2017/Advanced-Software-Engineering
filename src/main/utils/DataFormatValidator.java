@@ -99,4 +99,9 @@ public class DataFormatValidator {
 		else
 			return false;
 	}
+	
+	public static int validateDestinationID(int destinationID){
+	
+		return false;
+	}
 }
