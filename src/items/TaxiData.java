@@ -104,9 +104,38 @@ public class TaxiData {
 		return null;
 	}
 
+	/**
+	 *
+	 * @param journey
+	 * @return
+	 * Requirement : it is expected that Journey and Destination information is correct
+     */
 	private double calculateFee(Journey journey){
 
-		return 55;
+
+
+		double POUNDS_PER_MILE = 5.0;
+		double POUNDS_PER_MINUTE = 5.2;
+		double CHARGE_COEFFICIENT = 1.0;
+
+		if(journey != null) {
+			Destination dest = findDestination(journey);
+
+			if(dest != null) {
+
+				if  (dest.isUrban()) {
+					CHARGE_COEFFICIENT = 1.1;
+				}
+				// The taxi company takes the highest fee of both possible fees
+				if (POUNDS_PER_MILE * dest.getDistance() < POUNDS_PER_MINUTE * journey.getTime()) {
+					return CHARGE_COEFFICIENT * (3 + POUNDS_PER_MINUTE * journey.getTime() + 0.5 * journey.getNumberOfPassengers());
+				} else {
+					return CHARGE_COEFFICIENT * (3 + POUNDS_PER_MILE * journey.getTime() + 0.5 * journey.getNumberOfPassengers());
+				}
+			}
+
+		}
+		return -1;
 	}
 
 	/**
@@ -118,13 +147,17 @@ public class TaxiData {
 		TreeMap<Double,ArrayList<Journey>> topNJourneysWithSamePrice = new TreeMap<>();
 		for(Map.Entry<String,ArrayList<Journey>> entry : journeys.entrySet()) {
 			for(Journey j : entry.getValue()) {
-				if(topNJourneysWithSamePrice.containsKey(calculateFee(j))) {
-					topNJourneysWithSamePrice.get(calculateFee(j)).add(j);
-				} else {
-					ArrayList<Journey> tmpJourneys = new ArrayList<>();
-					topNJourneysWithSamePrice.put(calculateFee(j),tmpJourneys);
-					topNJourneysWithSamePrice.get(calculateFee(j)).add(j);
+				double fee = calculateFee(j);
+				if(fee != -1) {
+					if(topNJourneysWithSamePrice.containsKey(calculateFee(j))) {
+						topNJourneysWithSamePrice.get(calculateFee(j)).add(j);
+					} else {
+						ArrayList<Journey> tmpJourneys = new ArrayList<>();
+						topNJourneysWithSamePrice.put(calculateFee(j),tmpJourneys);
+						topNJourneysWithSamePrice.get(calculateFee(j)).add(j);
+					}
 				}
+
 
 			}
 
