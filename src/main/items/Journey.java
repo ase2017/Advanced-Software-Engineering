@@ -27,7 +27,7 @@ public class Journey {
 		
 		try{
 			
-			if ( !DataFormatValidator.validateDestinationName(destinationID)) 
+			if ( !DataFormatValidator.validateDestinationID(destinationID)) 
 				throw new InvalidDestinationNameException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
 				
 			if ( !DataFormatValidator.validateRegistrationNumber(taxiRegistrationNumber)) 
