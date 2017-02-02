@@ -1,12 +1,12 @@
 package main.items;
 
-import exceptions.InvalidBrandNameException;
-import exceptions.InvalidDestinationNameException;
-import exceptions.InvalidMaximumVelocityException;
-import exceptions.InvalidTaxiNameException;
-import exceptions.InvalidTimeException;
-import io.DataFileReader;
-import utils.DataFormatValidator;
+import main.exceptions.InvalidBrandNameException;
+import main.exceptions.InvalidDestinationNameException;
+import main.exceptions.InvalidMaximumVelocityException;
+import main.exceptions.InvalidTaxiNameException;
+import main.exceptions.InvalidTimeException;
+import main.io.DataFileReader;
+import main.utils.DataFormatValidator;
 
 public class Journey {
 
