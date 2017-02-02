@@ -11,12 +11,12 @@ import main.utils.DataFormatValidator;
 public class Journey {
 
 	private String taxiRegistrationNumber;
-	private String destinationID;
+	private int destinationID;
 	private int numberOfPassengers;
 	private double time;
 	private double maximumVelocity;
 	
-	public Journey(String destinationID, String taxiRegistrationNumber, 
+	public Journey(int destinationID, String taxiRegistrationNumber, 
 			int numberOfPassengers, double time, double maximumVelocity){
 			
 		this.destinationID = destinationID;
@@ -64,11 +64,11 @@ public class Journey {
 		this.taxiRegistrationNumber = taxiRegistrationNumber;
 	}
 
-	public String getDestinationID() {
+	public int getDestinationID() {
 		return destinationID;
 	}
 
-	public void setDestinationID(String destinationID) {
+	public void setDestinationID(int destinationID) {
 		this.destinationID = destinationID;
 	}
 
