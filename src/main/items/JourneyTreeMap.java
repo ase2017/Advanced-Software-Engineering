@@ -19,14 +19,14 @@ public class JourneyTreeMap {
 		} else {
 			ArrayList<Journey> temporary = new ArrayList<>();
 			temporary.add(journey);
-			journeys.put(journey.getDestinationID(), temporary);
+			journeys.put(journey.getTaxiRegistrationNumber(), temporary);
 		}
 	}
 
 	public void addJourney(ArrayList<Journey> journey){
 	
 		for(int i = 0; i < journey.size(); i++){
-			journeys.put(journey.get(i).getDestinationID(), journey);
+			journeys.put(journey.get(i).getTaxiRegistrationNumber(), journey);
 		}
 		
 	}

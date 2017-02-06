@@ -4,10 +4,17 @@ import java.util.*;
 
 public class TaxiData {
 
+	/*
 	private TreeMap<String,Taxi> taxis;
 	private TreeMap<String, Destination> currentYearDestinations;
 	private TreeMap<String, Destination> previousYearDestinations;
 	private TreeMap<String, ArrayList<Journey>> journeys;
+	*/
+
+	private TaxiTreeMap taxis;
+	private DestinationtTreeMap currentYearDestinations;
+	private DestinationtTreeMap previousYearDestinations;
+	private JourneyTreeMap journeys;
 
 
 	/**
@@ -34,7 +41,7 @@ public class TaxiData {
 	/**
 	 * Formats and returns the top most expensive given number of journeys
 	 * @param numberOfJourneys : the number of top journeys that we are interested in
-	 * @return
+	 * @return a String, which is the content of the first part of the first output file
 	 */
 	public String formatMostExpensiveJourneys(int numberOfJourneys){
 
@@ -43,7 +50,7 @@ public class TaxiData {
 		if(numberOfJourneys <= 0) {
 			result = "Invalid input number of journeys.";
 		} else {
-			if (journeys.size() == 0) {
+			if (journeys == null || journeys.getJourneys() == null || journeys.getJourneys().size() == 0) {
 				result = "There was no journey in our records.";
 			} else {
 
@@ -55,7 +62,7 @@ public class TaxiData {
 
 				Iterator it = sortedJourneysByPrice.entrySet().iterator();
 
-				if(numberOfJourneys <= journeys.size()) {
+				if(numberOfJourneys <= journeys.getJourneys().size()) {
 					result = "CHARGES FOR THE TOP " + numberOfJourneys + " JOURNEYS\n";
 
 					while(it.hasNext() && topNjourneys.size() < numberOfJourneys) {
@@ -69,12 +76,12 @@ public class TaxiData {
 
 					// If the parameter is bigger than the number of stored journeys, we stop to the number of stored journeys
 				} else {
-					result = "CHARGES FOR THE TOP " + journeys.size() + " JOURNEYS\n";
+					result = "CHARGES FOR THE TOP " + journeys.getJourneys().size() + " JOURNEYS\n";
 
-					while(it.hasNext() && topNjourneys.size() < journeys.size()) {
+					while(it.hasNext() && topNjourneys.size() < journeys.getJourneys().size()) {
 						ArrayList<Journey> temporaryJourneyArrayList = (ArrayList<Journey>)it.next();
 						for (Journey j : temporaryJourneyArrayList) {
-							if(topNjourneys.size() < journeys.size()) {
+							if(topNjourneys.size() < journeys.getJourneys().size()) {
 								topNjourneys.add(j);
 							}
 						}
@@ -97,7 +104,7 @@ public class TaxiData {
 	/**
 	 * Formats and returns the top least expensive given number of journeys
 	 * @param numberOfJourneys
-	 * @return
+	 * @return a String, which is the second part of the first output file
      */
 	public String formatLessExpensiveJourneys(int numberOfJourneys){
 
@@ -107,7 +114,7 @@ public class TaxiData {
 	/**
 	 *
 	 * @param journey
-	 * @return
+	 * @return the fee of a given journey
 	 * Requirement : it is expected that Journey and Destination information is correct
      */
 	private double calculateFee(Journey journey){
@@ -135,17 +142,17 @@ public class TaxiData {
 			}
 
 		}
-		return -1;
+		return -1; // -1 is returned if there was an issue
 	}
 
 	/**
 	 * Returns a treemap of arraylist of journeys, with keys being the price
-	 * @return
+	 * @return a treemap of arraylist of journeys, with keys being the price
      */
 	private TreeMap<Double,ArrayList<Journey>> getJourneysByPrice() {
 
 		TreeMap<Double,ArrayList<Journey>> topNJourneysWithSamePrice = new TreeMap<>();
-		for(Map.Entry<String,ArrayList<Journey>> entry : journeys.entrySet()) {
+		for(Map.Entry<String,ArrayList<Journey>> entry : journeys.getJourneys().entrySet()) {
 			for(Journey j : entry.getValue()) {
 				double fee = calculateFee(j);
 				if(fee != -1) {
@@ -169,13 +176,13 @@ public class TaxiData {
 
 	/**
 	 * Finds and returns the taxi associated to the given journey
-	 * @param journey
-	 * @return
+	 * @param journey the journey object, from which we try to find the Taxi
+	 * @return a Taxi object related to the given journey
      */
 	private Taxi findTaxi(Journey journey){
 
-		if(journey != null && taxis != null && taxis.containsKey(journey.getTaxiRegistrationNumber())) {
-			return (taxis.get(journey.getTaxiRegistrationNumber()));
+		if(journey != null && taxis != null && taxis.getTaxis() != null && taxis.getTaxis().containsKey(journey.getTaxiRegistrationNumber())) {
+			return (taxis.getTaxis().get(journey.getTaxiRegistrationNumber()));
 		}
 
 		return null;
@@ -188,8 +195,9 @@ public class TaxiData {
      */
 	private Destination findDestination(Journey journey){
 
-		if(journey != null && currentYearDestinations != null && currentYearDestinations.containsKey(journey.getDestinationID())) {
-			return (currentYearDestinations.get(journey.getDestinationID()));
+		if(journey != null && currentYearDestinations != null && currentYearDestinations.getDestinations() != null
+				&& currentYearDestinations.getDestinations().containsKey(journey.getDestinationID())) {
+			return (currentYearDestinations.getDestinations().get(journey.getDestinationID()));
 		}
 
 		return null;
@@ -203,7 +211,7 @@ public class TaxiData {
 
 		String res = "";
 
-		if(taxis != null && taxis.size() < 0) {
+		if(taxis != null && taxis.getTaxis() != null && taxis.getTaxis().size() > 0) {
 			TreeMap<String,ArrayList<Taxi>> sortedTaxi = sortTaxisByName();
 			res = "PLACES VISITED PER DRIVER\n\n";
 
@@ -261,8 +269,8 @@ public class TaxiData {
 
 		TreeMap<String,ArrayList<Taxi>> sortedTaxiTreeMap = new TreeMap<String,ArrayList<Taxi>>();
 
-		if(taxis != null && taxis.size() > 0) {
-			for(Map.Entry<String,Taxi> mapItem : taxis.entrySet()) {
+		if(taxis != null && taxis.getTaxis() != null && taxis.getTaxis().size() > 0) {
+			for(Map.Entry<String,Taxi> mapItem : taxis.getTaxis().entrySet()) {
 
 				// handles if more at least one other driver has same name
 				if(sortedTaxiTreeMap.containsKey(mapItem.getKey())) {
@@ -287,8 +295,8 @@ public class TaxiData {
 	 */
 	private ArrayList<Journey> findJourneys(Taxi taxi){
 
-		if(taxi != null && journeys != null && journeys.containsKey(taxi.getRegistrationNumber())) {
-			return (journeys.get(taxi.getRegistrationNumber()));
+		if(taxi != null && journeys != null && journeys.getJourneys() != null && journeys.getJourneys().containsKey(taxi.getRegistrationNumber())) {
+			return (journeys.getJourneys().get(taxi.getRegistrationNumber()));
 		}
 
 		return null;
@@ -302,23 +310,23 @@ public class TaxiData {
 
 		String res = "";
 
-		if(previousYearDestinations!= null && previousYearDestinations.size() > 0
-				&& currentYearDestinations != null && currentYearDestinations.size() > 0) {
+		if(previousYearDestinations!= null && previousYearDestinations.getDestinations() != null && previousYearDestinations.getDestinations().size() > 0
+				&& currentYearDestinations != null && currentYearDestinations.getDestinations() != null && currentYearDestinations.getDestinations().size() > 0) {
 
 			TreeSet<String> currentYearVisitedPlacesSet  = new TreeSet<>();
 			TreeSet<String> previousYearVisitedPlacesSet  = new TreeSet<>();
 			TreeSet<String> placesVisitedInBothYearsSet  = new TreeSet<>();
 
-			for(Destination l : currentYearDestinations.values()) {
-				if(previousYearDestinations.values().contains(l)) {
+			for(Destination l : currentYearDestinations.getDestinations().values()) {
+				if(previousYearDestinations.getDestinations().values().contains(l)) {
 					placesVisitedInBothYearsSet.add(l.getDestinationName());
 				} else {
 					currentYearVisitedPlacesSet.add(l.getDestinationName());
 				}
 			}
 
-			for(Destination l : previousYearDestinations.values()) {
-				if(currentYearDestinations.values().contains(l)) {
+			for(Destination l : previousYearDestinations.getDestinations().values()) {
+				if(currentYearDestinations.getDestinations().values().contains(l)) {
 					// do nothing, it's already added in previous loop
 				} else {
 					previousYearVisitedPlacesSet.add(l.getDestinationName());
@@ -412,30 +420,35 @@ public class TaxiData {
 	
 	/* Getters and Setters */
 
-	public TreeMap<String, Taxi> getTaxis() {
-		return taxis;
-	}
-	public void setTaxis(TreeMap<String, Taxi> taxis) {
-		this.taxis = taxis;
-	}
-	public TreeMap<String, Destination> getCurrentYearDestinations() {
-		return currentYearDestinations;
-	}
-	public void setCurrentYearDestinations(TreeMap<String, Destination> currentYearDestinations) {
-		this.currentYearDestinations = currentYearDestinations;
-	}
-	public TreeMap<String, Destination> getPreviousYearDestinations() {
-		return previousYearDestinations;
-	}
-	public void setPreviousYearDestinations(TreeMap<String, Destination> previousYearDestinations) {
-		this.previousYearDestinations = previousYearDestinations;
-	}
-	public TreeMap<String, ArrayList<Journey>> getJourneys() {
+	public JourneyTreeMap getJourneys() {
 		return journeys;
 	}
-	public void setJourneys (TreeMap<String, ArrayList<Journey>> journeys) {
+
+	public void setJourneys(JourneyTreeMap journeys) {
 		this.journeys = journeys;
 	}
 
+	public TaxiTreeMap getTaxis() {
+		return taxis;
+	}
 
+	public void setTaxis(TaxiTreeMap taxis) {
+		this.taxis = taxis;
+	}
+
+	public DestinationtTreeMap getCurrentYearDestinations() {
+		return currentYearDestinations;
+	}
+
+	public void setCurrentYearDestinations(DestinationtTreeMap currentYearDestinations) {
+		this.currentYearDestinations = currentYearDestinations;
+	}
+
+	public DestinationtTreeMap getPreviousYearDestinations() {
+		return previousYearDestinations;
+	}
+
+	public void setPreviousYearDestinations(DestinationtTreeMap previousYearDestinations) {
+		this.previousYearDestinations = previousYearDestinations;
+	}
 }

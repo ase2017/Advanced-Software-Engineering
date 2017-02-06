@@ -100,7 +100,7 @@ public class DataFormatValidator {
 			return false;
 	}
 	
-	public static int validateDestinationID(int destinationID){
+	public static boolean validateDestinationID(int destinationID){
 	
 		return false;
 	}
