@@ -21,9 +21,10 @@ public class DataFileReader {
 	public static final String FILE_NAME_DESTINATIONS_2017 = FILE_NAME_FOLDER + "destinations_2017.txt";
 	public static int line_counter = 0;
 	
-	public TreeMap<String, ArrayList<Journey>> loadJourney() {
+	public JourneyTreeMap loadJourney() {
 
-		TreeMap<String, ArrayList<Journey>> journeyTreeMap = new TreeMap<String, ArrayList<Journey>>();
+		TreeMap<String, ArrayList<Journey>> treeMap = new TreeMap<String, ArrayList<Journey>>();
+		JourneyTreeMap journeyTreeMap = new JourneyTreeMap(treeMap);
 
 		try {
 
@@ -68,9 +69,10 @@ public class DataFileReader {
 		return journeyTreeMap;
 	}
 
-	public TreeMap<String, Taxi> loadTaxis(){
+	public TaxiTreeMap loadTaxis(){
 
-		TreeMap<String, Taxi> taxiTreeMap = new TreeMap<String, Taxi>();
+		TreeMap<String, Taxi> treeMap = new TreeMap<String, Taxi>();
+		TaxiTreeMap taxiTreeMap = new TaxiTreeMap(treeMap);
 
 		try {
 
@@ -111,7 +113,7 @@ public class DataFileReader {
 					Taxi tx = new Taxi(taxi_info[0].trim(), taxi_info[1], taxi_info[2].trim());
 
 					if (tx != null) {
-						taxiTreeMap.put(taxi_info[0], tx);
+						treeMap.put(taxi_info[0], tx);
 						System.out.println(line);
 					}
 
@@ -134,9 +136,10 @@ public class DataFileReader {
 		return taxiTreeMap;
 	}
 
-	public TreeMap<String, Destination> loadDestinations2016() {
+	public DestinationtTreeMap loadDestinations2016() {
 
-		TreeMap<String, Destination> destination2016_TreeMap = new TreeMap<String, Destination>();
+		TreeMap<String, Destination> treeMap = new TreeMap<String, Destination>();
+		DestinationtTreeMap destination2016_TreeMap = new DestinationtTreeMap(treeMap);
 
 		try {
 
@@ -159,7 +162,7 @@ public class DataFileReader {
 
 					if (ds != null) {
 
-						destination2016_TreeMap.put(destination_2016_info[0], ds);
+						treeMap.put(destination_2016_info[0], ds);
 
 					}
 				}

@@ -33,8 +33,8 @@ public class TaxiService {
 		//taxidata.setCurrentYearDestinations(fr.loadDestinations2017());
 
 		try {
-			if (taxidata.getCurrentYearDestinations().size() > 0 && taxidata.getJourneys() .size() > 0
-					&& taxidata.getPreviousYearDestinations().size() > 0 && taxidata.getTaxis().size() > 0) {
+			if (taxidata.getCurrentYearDestinations().getDestinations().size() > 0 && taxidata.getJourneys().getJourneys().size() > 0
+					&& taxidata.getPreviousYearDestinations().getDestinations().size() > 0 && taxidata.getTaxis().getTaxis().size() > 0) {
 				
 				return true;
 			} else {
