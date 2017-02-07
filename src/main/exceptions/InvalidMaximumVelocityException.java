@@ -1,5 +1,6 @@
 package main.exceptions;
 
+@SuppressWarnings("serial")
 public class InvalidMaximumVelocityException extends Exception{
 
 	public InvalidMaximumVelocityException(String filename, int line){

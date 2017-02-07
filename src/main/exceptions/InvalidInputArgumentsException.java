@@ -1,5 +1,6 @@
 package main.exceptions;
 
+@SuppressWarnings("serial")
 public class InvalidInputArgumentsException extends Exception{
 
 	public InvalidInputArgumentsException(String filename, int line){

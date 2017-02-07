@@ -1,8 +1,9 @@
 package main.exceptions;
 
-public class InvalidTaxiNameException extends Exception{
+@SuppressWarnings("serial")
+public class InvalidDriverNameException extends Exception{
 
-	public InvalidTaxiNameException(String filename, int line){
+	public InvalidDriverNameException(String filename, int line){
 		
 		super("Error! Wrong driver`s name (in file " + filename + " in line: " + Integer.toString(line) + " ).");
 		

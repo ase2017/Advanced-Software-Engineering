@@ -1,6 +1,8 @@
 package main;
 
 import java.util.Scanner;
+
+import main.exceptions.InvalidDriverNameException;
 import main.io.DataFileReader;
 import main.io.DataFileWriter;
 import main.items.TaxiData;
@@ -21,17 +23,16 @@ public class TaxiService {
 		System.out.print("\n");
 		DataFileReader fr = new DataFileReader();
 
-		try{
+		try {
 			taxidata.setTaxis(fr.loadTaxis());
-		}
-		catch(Exception e){
+		} catch(Exception e) {
 			//System.out.println(e.getMessage());
-		}
-		
-		//taxidata.setJourneys(fr.loadJourney());
-		//taxidata.setPreviousYearDestinations(fr.loadDestinations2016());
-		//taxidata.setCurrentYearDestinations(fr.loadDestinations2017());
 
+
+			//taxidata.setJourneys(fr.loadJourney());
+			//taxidata.setPreviousYearDestinations(fr.loadDestinations2016());
+			//taxidata.setCurrentYearDestinations(fr.loadDestinations2017());
+		}
 		try {
 			if (taxidata.getCurrentYearDestinations().getDestinations().size() > 0 && taxidata.getJourneys().getJourneys().size() > 0
 					&& taxidata.getPreviousYearDestinations().getDestinations().size() > 0 && taxidata.getTaxis().getTaxis().size() > 0) {

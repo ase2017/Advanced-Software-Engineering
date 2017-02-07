@@ -1,13 +1,6 @@
-
 package main.utils;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
 public class DataFormatValidator {
-
 
 	private static final String TAXI_REGISTRATION_NUMBER_LENGTH = "7";
 	private static final String MIN_DESTINATION_NAME_LENGTH = "3";
@@ -92,16 +85,11 @@ public class DataFormatValidator {
 			return false;
 	}
 
-	public static boolean validateUrban(String urban) {
+	public static boolean validateDestinationID(Integer destinationID){
 
-		if (urban == "Y" || urban == "N")
+		if (destinationID > 0)
 			return true;
 		else
 			return false;
-	}
-	
-	public static boolean validateDestinationID(int destinationID){
-	
-		return false;
 	}
 }

@@ -1,5 +1,6 @@
 package main.exceptions;
 
+@SuppressWarnings("serial")
 public class InvalidDestinationNameException extends Exception{
 
 	public InvalidDestinationNameException(String filename, int line){
