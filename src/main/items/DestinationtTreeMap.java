@@ -26,7 +26,6 @@ public class DestinationtTreeMap {
 		} else {
 			destinations.put(destination.getDestinationID(), destination);
 		}
-
 	}
 	
 	/* Getters and Setters */
