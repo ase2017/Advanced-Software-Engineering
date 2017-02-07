@@ -35,8 +35,8 @@ public class DataFileReader {
 	public JourneyTreeMap loadJourney() {
 
 
-		JourneyTreeMap journeyTreeMap = new JourneyTreeMap(null);
-
+		TreeMap<String,ArrayList<Journey>> temporaryTreeMap = new TreeMap<>();
+		JourneyTreeMap journeyTreeMap = new JourneyTreeMap(temporaryTreeMap);
 
 
 		FileReader fd_journeys = null;
@@ -115,8 +115,9 @@ public class DataFileReader {
 
 					if ( jrn != null ) {
 
+						
 						journeyTreeMap.addJourney(jrn);
-						//System.out.println(line);
+						
 					}
 
 
@@ -208,8 +209,8 @@ public class DataFileReader {
 
 					if ( tx != null ) {
 
-						temporaryTreeMap.put(tx.getRegistrationNumber(),tx);
-						//System.out.println(line);
+						taxiTreeMap.addTaxi(tx);
+						
 					}
 
 
@@ -249,8 +250,9 @@ public class DataFileReader {
 
 	public DestinationtTreeMap loadDestinations2016() {
 
-
-		DestinationtTreeMap destination2016_TreeMap = new DestinationtTreeMap(null);
+		
+		TreeMap<Integer,Destination> temporaryTreeMap = new TreeMap<>();
+		DestinationtTreeMap destination2016_TreeMap = new DestinationtTreeMap(temporaryTreeMap);
 
 		FileReader fd_destination_2016 = null;
 
@@ -290,6 +292,7 @@ public class DataFileReader {
 						//try {
 
 							destination2016_TreeMap.addDestination(dest2016);
+							temporaryTreeMap.put(dest2016.getDestinationID(),dest2016);
 
 						/*} catch (DuplicateIDException e) {
 
@@ -336,8 +339,9 @@ public class DataFileReader {
 
 	public DestinationtTreeMap loadDestinations2017() {
 
-
-		DestinationtTreeMap destination2017_TreeMap = new DestinationtTreeMap(null);
+		
+		TreeMap<Integer,Destination> temporaryTreeMap = new TreeMap<>();
+		DestinationtTreeMap destination2017_TreeMap = new DestinationtTreeMap(temporaryTreeMap);
 
 
 		FileReader fd_destination_2017 = null;
@@ -411,7 +415,8 @@ public class DataFileReader {
 
 						//try {
 
-							destination2017_TreeMap.addDestination( dest2017 );
+							destination2017_TreeMap.addDestination(dest2017);
+							temporaryTreeMap.put(dest2017.getDestinationID(),dest2017);
 
 						/*} catch (DuplicateIDException e) {
 
