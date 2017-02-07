@@ -43,7 +43,7 @@ public class DataFileWriter {
 			System.out.println("\t->Error occured in " + FILE_NAME_PLACES + "...");
 
 
-		if ( file1_OK && file1_OK && file1_OK )
+		if ( file1_OK && file2_OK && file3_OK )
 			System.out.println("\nProcess completed!!!");
 		else
 			System.out.println("\nProcess ended with errors...");
