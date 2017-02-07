@@ -28,7 +28,7 @@ public class TaxiService {
 			taxidata.setPreviousYearDestinations(fr.loadDestinations2016());
 		}
 		catch(Exception e){
-			//System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
 		//System.out.println(taxidata.getTaxis().getTaxis().size());
