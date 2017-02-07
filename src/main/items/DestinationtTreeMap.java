@@ -32,6 +32,18 @@ public class DestinationtTreeMap {
 			destinations.put(destination.getDestinationID(), destination);
 		}
 	}
+
+	public boolean containsDestinationName(Destination destination) {
+		//System.out.println("DESTINATION :" + destination.getDestinationName());
+		for(Destination d : destinations.values()) {
+			//System.out.println("COMPARING IT TO : " + d.getDestinationName());
+			if(d.getDestinationName().equals(destination.getDestinationName())){
+				//System.out.println("\n");
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	/* Getters and Setters */
 	

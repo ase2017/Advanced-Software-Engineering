@@ -20,4 +20,19 @@ public class DestinationTreeSet {
     }
 
 
+    public boolean containsDestinationName(Destination destination) {
+        //System.out.println("DESTINATION :" + destination.getDestinationName());
+        for(Destination d : destinations) {
+            //System.out.println("COMPARING IT TO : " + d.getDestinationName());
+            if(d.getDestinationName().equals(destination.getDestinationName())) {
+                //System.out.println("\n");
+                //System.out.println("FOUND");
+                return true;
+            }
+
+
+        }
+        //System.out.println("NOT FOUND");
+        return false;
+    }
 }

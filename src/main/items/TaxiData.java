@@ -35,6 +35,7 @@ public class TaxiData {
 					+ journey.getNumberOfPassengers() + "   "
 					+ "Cost £" + calculateFee(journey)
 					+ "\n";
+			return res;
 		}
 		return null;
 	}
@@ -247,7 +248,7 @@ public class TaxiData {
 							res += "\t " + destinationName + "\n";
 						}
 					} else {
-						System.out.println("No journeys were found in our records for given taxi.\n");
+						System.out.println("No journeys were found in our records for given taxi.\n" + t.toString() + "\n");
 					}
 
 				}
@@ -317,21 +318,33 @@ public class TaxiData {
 			TreeSet<String> previousYearVisitedPlacesSet  = new TreeSet<>();
 			TreeSet<String> placesVisitedInBothYearsSet  = new TreeSet<>();
 
+
+
 			for(Destination l : currentYearDestinations.getDestinations().values()) {
-				if(previousYearDestinations.getDestinations().contains(l)) {
+				//System.out.print(l.getDestinationName());
+				if(previousYearDestinations.containsDestinationName(l)) {
+					//System.out.println("BOTH YEARS");
 					placesVisitedInBothYearsSet.add(l.getDestinationName());
 				} else {
+					//System.out.println("ONLY THIS YEAR");
 					currentYearVisitedPlacesSet.add(l.getDestinationName());
 				}
 			}
 
+
+
 			for(Destination l : previousYearDestinations.getDestinations()) {
-				if(currentYearDestinations.getDestinations().values().contains(l)) {
+
+				if(currentYearDestinations.containsDestinationName(l)) {
 					// do nothing, it's already added in previous loop
+
 				} else {
+
 					previousYearVisitedPlacesSet.add(l.getDestinationName());
 				}
 			}
+
+
 
 			res += formatCurrentYearVisitedPlaces(currentYearVisitedPlacesSet)
 					+ formatPreviousYearVisitedPlaces(previousYearVisitedPlacesSet)
@@ -359,9 +372,9 @@ public class TaxiData {
 			for(String str : currentYearVisitedPlacesSet) {
 				res += str + "\n";
 			}
-			res += "\n";
+			res += "\n\n";
 		} else {
-			res = "Sorry, no destinations were found in our record of current year";
+			res = "Sorry, no destinations were found in our record of current year\n\n";
 		}
 
 		return res;

@@ -66,6 +66,14 @@ public class Taxi {
 	public void setBrand(String brand) {
 		this.brand = brand;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Taxi{" +
+				"registrationNumber='" + registrationNumber + '\'' +
+				", driverName='" + driverName + '\'' +
+				", brand='" + brand + '\'' +
+				'}';
+	}
 }
 
