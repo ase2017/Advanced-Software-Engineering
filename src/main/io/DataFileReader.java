@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import main.exceptions.DuplicateIDException;
 import main.exceptions.InvalidBrandNameException;
@@ -248,11 +249,11 @@ public class DataFileReader {
 	}
 
 
-	public DestinationtTreeMap loadDestinations2016() {
+	public DestinationTreeSet loadDestinations2016() {
 
-		
-		TreeMap<Integer,Destination> temporaryTreeMap = new TreeMap<>();
-		DestinationtTreeMap destination2016_TreeMap = new DestinationtTreeMap(temporaryTreeMap);
+		TreeSet<Destination> temporaryTreeSet = new TreeSet<Destination>();
+		DestinationTreeSet destinations2016 = new DestinationTreeSet(temporaryTreeSet);
+
 
 		FileReader fd_destination_2016 = null;
 
@@ -276,34 +277,23 @@ public class DataFileReader {
 
 						throw new InvalidInputArgumentsException(FILE_NAME_DESTINATIONS_2016, line_counter);
 					}
-
 					if ( destination_2016_info[0].isEmpty() || destination_2016_info[0].length() == 0 || destination_2016_info[0] == null ) {
 
 						throw new InvalidDestinationNameException(FILE_NAME_DESTINATIONS_2016, line_counter);
 					}
-
-
-
 					Destination dest2016 = new Destination( destination_2016_info[0] );
-
 
 					if ( dest2016 != null ) {
 
-						//try {
+						temporaryTreeSet.add(dest2016);
 
-							destination2016_TreeMap.addDestination(dest2016);
-							temporaryTreeMap.put(dest2016.getDestinationID(),dest2016);
-
-						/*} catch (DuplicateIDException e) {
-
-							System.out.println(e.getMessage());
-						};*/
 
 					}
 
 
 				} catch ( InvalidDestinationNameException | InvalidInputArgumentsException e ) {
 
+					System.out.println("Name : " + destination_2016_info[0]);
 					System.out.println(e.getMessage());
 
 				} catch (ArrayIndexOutOfBoundsException e){
@@ -332,13 +322,12 @@ public class DataFileReader {
 		}
 
 
-		return destination2016_TreeMap;
+		return destinations2016;
 
 	}
 
 
 	public DestinationtTreeMap loadDestinations2017() {
-
 		
 		TreeMap<Integer,Destination> temporaryTreeMap = new TreeMap<>();
 		DestinationtTreeMap destination2017_TreeMap = new DestinationtTreeMap(temporaryTreeMap);
@@ -413,16 +402,16 @@ public class DataFileReader {
 
 					if ( dest2017 != null ) {
 
-						//try {
+						try {
 
-							destination2017_TreeMap.addDestination(dest2017);
-							temporaryTreeMap.put(dest2017.getDestinationID(),dest2017);
+							destination2017_TreeMap.addDestination2017(dest2017);
 
-						/*} catch (DuplicateIDException e) {
+
+						} catch (DuplicateIDException e) {
 
 							System.out.println(e.getMessage());
 
-						}*/
+						}
 
 					}
 

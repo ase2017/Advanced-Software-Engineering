@@ -1,7 +1,6 @@
 package main.items;
 
 import java.util.TreeMap;
-
 import main.exceptions.DuplicateIDException;
 import main.io.DataFileReader;
 
@@ -15,8 +14,14 @@ public class DestinationtTreeMap {
 		
 	}
 	
-	public void addDestination(Destination destination){
-		
+	public void addDestination2016(Destination destination){
+
+		destinations.put(destination.getDestinationID(), destination);
+
+	}
+
+	public void addDestination2017(Destination destination) throws DuplicateIDException{
+
 		if(destinations.containsKey(destination.getDestinationID())){
 			try {
 				throw new DuplicateIDException(DataFileReader.FILE_NAME_DESTINATIONS_2017, DataFileReader.line_counter);

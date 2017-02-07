@@ -69,9 +69,7 @@ public class DataFileWriter {
 
 			fileContents = taxidata.formatMostExpensiveJourneys(5);
 			buffWriterFile1.write(fileContents);
-
-			//fileContents = "\nCHARGES FOR THE CHEAPEST 5 JOURNEYS\n";
-			//buffWriterFile1.write(fileContents);
+			System.out.println(fileContents);
 
 			fileContents = taxidata.formatLessExpensiveJourneys(5);
 			buffWriterFile1.write(fileContents);

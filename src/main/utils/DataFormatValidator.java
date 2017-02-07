@@ -102,6 +102,10 @@ public class DataFormatValidator {
 	
 	public static boolean validateDestinationID(int destinationID){
 	
+		if(destinationID > 0) {
+			return true;
+		}
+
 		return false;
 	}
 }
