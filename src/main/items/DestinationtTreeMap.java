@@ -4,9 +4,9 @@ import java.util.TreeMap;
 
 public class DestinationtTreeMap {
 	
-	private TreeMap<String, Destination> destinations;
+	private TreeMap<Integer, Destination> destinations;
 	
-	public DestinationtTreeMap(TreeMap<String, Destination> destinations){
+	public DestinationtTreeMap(TreeMap<Integer, Destination> destinations){
 	
 		this.destinations = destinations;
 		
@@ -14,17 +14,17 @@ public class DestinationtTreeMap {
 	
 	public void addDestination(Destination destination){
 		
-		destinations.put(destination.getDestinationName(), destination);
+		destinations.put(destination.getDestinationID(), destination);
 		
 	}
 	
 	/* Getters and Setters */
 	
-	public TreeMap<String, Destination> getDestinations() {
+	public TreeMap<Integer, Destination> getDestinations() {
 		return destinations;
 	}
 
-	public void setDestinations(TreeMap<String, Destination> destinations) {
+	public void setDestinations(TreeMap<Integer, Destination> destinations) {
 		this.destinations = destinations;
 	}
 	
