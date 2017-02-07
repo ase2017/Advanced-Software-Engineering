@@ -28,7 +28,7 @@ public class TaxiData {
 
 		String res = "";
 		if(taxi != null && destination != null && journey != null) {
-			res += journey.getTaxiRegistrationNumber() + "   "
+			res += journey.getRegistrationNumber() + "   "
 					+ destination.getDestinationName() + "   "
 					+ destination.getDistance() + " miles   "
 					+ journey.getNumberOfPassengers() + "   "
@@ -152,7 +152,7 @@ public class TaxiData {
 	private TreeMap<Double,ArrayList<Journey>> getJourneysByPrice() {
 
 		TreeMap<Double,ArrayList<Journey>> topNJourneysWithSamePrice = new TreeMap<>();
-		for(Map.Entry<String,ArrayList<Journey>> entry : journeys.getJourneys().entrySet()) {
+		for(Map.Entry<Integer,ArrayList<Journey>> entry : journeys.getJourneys().entrySet()) {
 			for(Journey j : entry.getValue()) {
 				double fee = calculateFee(j);
 				if(fee != -1) {
@@ -181,8 +181,8 @@ public class TaxiData {
      */
 	private Taxi findTaxi(Journey journey){
 
-		if(journey != null && taxis != null && taxis.getTaxis() != null && taxis.getTaxis().containsKey(journey.getTaxiRegistrationNumber())) {
-			return (taxis.getTaxis().get(journey.getTaxiRegistrationNumber()));
+		if(journey != null && taxis != null && taxis.getTaxis() != null && taxis.getTaxis().containsKey(journey.getRegistrationNumber())) {
+			return (taxis.getTaxis().get(journey.getRegistrationNumber()));
 		}
 
 		return null;

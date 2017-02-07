@@ -1,5 +1,6 @@
 package main.exceptions;
 
+@SuppressWarnings("serial")
 public class InvalidRegistrationNumberException extends Exception{
 
 	public InvalidRegistrationNumberException(String filename, int line){

@@ -1,5 +1,6 @@
 package main.exceptions;
 
+@SuppressWarnings("serial")
 public class InvalidDistanceException extends Exception{
 
 	public InvalidDistanceException(String filename, int line){

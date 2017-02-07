@@ -2,64 +2,67 @@ package main.items;
 
 import main.exceptions.InvalidDestinationNameException;
 import main.exceptions.InvalidDistanceException;
+import main.exceptions.InvalidIDException;
 import main.io.DataFileReader;
 import main.utils.DataFormatValidator;
 
 public class Destination {
 
-	private int destinationID;
+	private Integer destinationID;
 	private String destinationName;
 	private double distance;
 	private boolean urban;
 
-	public Destination(int destinationID, String destinationName, double distance, boolean urban){
+	public Destination(Integer destinationID, String destinationName, double distance, boolean urban){
 
 		this.destinationID = destinationID;
 		this.destinationName = destinationName;
 		this.distance = distance;
 		this.urban = urban;
-		
+
 		/* Checks */
-		
+
 		try{
-			
-			if ( !DataFormatValidator.validateDriverName(destinationName) ) 
+
+			if ( !DataFormatValidator.validateDestinationName(destinationName) )
 				throw new InvalidDestinationNameException(DataFileReader.FILE_NAME_DESTINATIONS_2017, DataFileReader.line_counter);
-						
-			if ( !DataFormatValidator.validateDistance(distance) ) 
+
+			if ( !DataFormatValidator.validateDistance(distance) )
 				throw new InvalidDistanceException(DataFileReader.FILE_NAME_DESTINATIONS_2017, DataFileReader.line_counter);
-							
-		} catch(InvalidDestinationNameException | InvalidDistanceException e){
-			
+
+			if ( !DataFormatValidator.validateDestinationID(destinationID))
+				throw new InvalidIDException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
+
+		} catch(InvalidDestinationNameException | InvalidDistanceException | InvalidIDException  e){
+
 			System.out.println(e.getMessage());
-			
-		}	
-		
+
+		}
+
 		/* End of checks */
 	}
 
-
 	public Destination(String destinationName){
-		
+
 		this.destinationName = destinationName;
-		
+
 		try{
-			if ( !DataFormatValidator.validateDriverName(destinationName) ) 
+			if ( !DataFormatValidator.validateDriverName(destinationName) )
 				throw new InvalidDestinationNameException(DataFileReader.FILE_NAME_DESTINATIONS_2017, 0);
 		}
 		catch(InvalidDestinationNameException e){
 			System.out.println(e.getMessage());
 		}
-		
+
 	}
-	
+
 	/* Getters and Setters */
-	
-	public int getDestinationID() {
+
+	public Integer getDestinationID() {
 		return destinationID;
 	}
 
-	public void setDestinationID(int destinationID) {
+	public void setDestinationID(Integer destinationID) {
 		this.destinationID = destinationID;
 	}
 
@@ -87,6 +90,4 @@ public class Destination {
 		this.urban = urban;
 	}
 
-	
 }
-

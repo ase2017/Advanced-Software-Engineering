@@ -1,8 +1,8 @@
 package main.items;
 
 import main.exceptions.InvalidBrandNameException;
+import main.exceptions.InvalidDriverNameException;
 import main.exceptions.InvalidRegistrationNumberException;
-import main.exceptions.InvalidTaxiNameException;
 import main.io.DataFileReader;
 import main.utils.DataFormatValidator;
 
@@ -26,12 +26,12 @@ public class Taxi {
 				throw new InvalidRegistrationNumberException(DataFileReader.FILE_NAME_TAXIS, DataFileReader.line_counter);		
 			
 			if ( !DataFormatValidator.validateDriverName(driverName)) 
-				throw new InvalidTaxiNameException(DataFileReader.FILE_NAME_TAXIS, DataFileReader.line_counter);
+				throw new InvalidDriverNameException(DataFileReader.FILE_NAME_TAXIS, DataFileReader.line_counter);
 				
 			if ( !DataFormatValidator.validateBrand(brand))		
 				throw new InvalidBrandNameException(DataFileReader.FILE_NAME_TAXIS, DataFileReader.line_counter);
 			
-		} catch(InvalidRegistrationNumberException | InvalidTaxiNameException | 
+		} catch(InvalidRegistrationNumberException | InvalidDriverNameException | 
 				InvalidBrandNameException e){
 			
 			System.out.println(e.getMessage());

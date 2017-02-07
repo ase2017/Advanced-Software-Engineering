@@ -1,5 +1,6 @@
 package main.exceptions;
 
+@SuppressWarnings("serial")
 public class InvalidNumberOfPassengersException extends Exception{
 
 	public InvalidNumberOfPassengersException(String filename, int line){

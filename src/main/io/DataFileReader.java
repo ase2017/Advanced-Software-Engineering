@@ -23,7 +23,7 @@ public class DataFileReader {
 	
 	public JourneyTreeMap loadJourney() {
 
-		TreeMap<String, ArrayList<Journey>> treeMap = new TreeMap<String, ArrayList<Journey>>();
+		TreeMap<Integer, ArrayList<Journey>> treeMap = new TreeMap<Integer, ArrayList<Journey>>();
 		JourneyTreeMap journeyTreeMap = new JourneyTreeMap(treeMap);
 
 		try {
@@ -102,7 +102,7 @@ public class DataFileReader {
 
 					if (taxi_info[1].isEmpty() || taxi_info[1].length() == 0 || taxi_info[1] == null) {
 
-						throw new InvalidTaxiNameException(FILE_NAME_TAXIS, line_counter);
+						throw new InvalidDriverNameException(FILE_NAME_TAXIS, line_counter);
 					}
 
 					if (taxi_info[2].trim().isEmpty() || taxi_info[2].trim().length() == 0 || taxi_info[2] == null) {
@@ -117,7 +117,7 @@ public class DataFileReader {
 						System.out.println(line);
 					}
 
-				} catch (InvalidRegistrationNumberException | InvalidTaxiNameException | InvalidBrandNameException 
+				} catch (InvalidRegistrationNumberException | InvalidDriverNameException | InvalidBrandNameException
 						| InvalidInputArgumentsException e) {
 
 					System.out.println(e.getMessage());
@@ -138,7 +138,7 @@ public class DataFileReader {
 
 	public DestinationtTreeMap loadDestinations2016() {
 
-		TreeMap<String, Destination> treeMap = new TreeMap<String, Destination>();
+		TreeMap<Integer, Destination> treeMap = new TreeMap<Integer, Destination>();
 		DestinationtTreeMap destination2016_TreeMap = new DestinationtTreeMap(treeMap);
 
 		try {
@@ -161,8 +161,12 @@ public class DataFileReader {
 					Destination ds = new Destination(destination_2016_info[0]);
 
 					if (ds != null) {
+						try {
+							int temporary = Integer.parseInt(destination_2016_info[0]); // to be caught
+							treeMap.put(temporary, ds);
+						} catch (NumberFormatException e) {
 
-						treeMap.put(destination_2016_info[0], ds);
+						}
 
 					}
 				}

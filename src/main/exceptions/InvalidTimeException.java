@@ -1,5 +1,6 @@
 package main.exceptions;
 
+@SuppressWarnings("serial")
 public class InvalidTimeException extends Exception{
 
 	public InvalidTimeException(String filename, int line){
