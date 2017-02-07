@@ -113,7 +113,7 @@ public class DataFileWriter {
 
 			String fileContents = "";
 
-			fileWriterFile2 = new FileWriter(FILE_NAME_TOP_5);
+			fileWriterFile2 = new FileWriter(FILE_NAME_PLACES_PER_DRIVER);
 			buffWriterFile2 = new BufferedWriter(fileWriterFile2);
 
 			buffWriterFile2.write(fileContents);
@@ -163,7 +163,7 @@ public class DataFileWriter {
 
 			String fileContents = "";
 
-			fileWriterFile3 = new FileWriter(FILE_NAME_TOP_5);
+			fileWriterFile3 = new FileWriter(FILE_NAME_PLACES);
 			buffWriterFile3 = new BufferedWriter(fileWriterFile3);
 
 			buffWriterFile3.write(fileContents);
