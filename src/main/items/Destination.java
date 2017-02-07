@@ -5,7 +5,7 @@ import main.exceptions.InvalidDistanceException;
 import main.io.DataFileReader;
 import main.utils.DataFormatValidator;
 
-public class Destination {
+public class Destination implements Comparable<Destination>{
 
 	private int destinationID;
 	private String destinationName;
@@ -45,7 +45,7 @@ public class Destination {
 		
 		try{
 			if ( !DataFormatValidator.validateDriverName(destinationName) ) 
-				throw new InvalidDestinationNameException(DataFileReader.FILE_NAME_DESTINATIONS_2017, 0);
+				throw new InvalidDestinationNameException(DataFileReader.FILE_NAME_DESTINATIONS_2016, 0);
 		}
 		catch(InvalidDestinationNameException e){
 			System.out.println(e.getMessage());
@@ -87,6 +87,25 @@ public class Destination {
 		this.urban = urban;
 	}
 
-	
+	@Override
+	public String toString() {
+		if (destinationID == 0) {
+			return "destinationName=" + destinationName;
+		}
+
+			return "Destination{" +
+					"destinationID=" + destinationID +
+					", destinationName='" + destinationName + '\'' +
+					", distance=" + distance +
+					", urban=" + urban +
+					'}';
+
+	}
+
+	@Override
+	public int compareTo(Destination d) {
+		//return String.compare(this.getDestinationName(),d.getDestinationName());
+		return this.destinationName.compareTo(d.getDestinationName());
+	}
 }
 

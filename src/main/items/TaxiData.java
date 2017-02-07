@@ -13,8 +13,9 @@ public class TaxiData {
 
 	private TaxiTreeMap taxis;
 	private DestinationtTreeMap currentYearDestinations;
-	private DestinationtTreeMap previousYearDestinations;
+	//private DestinationtTreeMap previousYearDestinations;
 	private JourneyTreeMap journeys;
+	DestinationTreeSet previousYearDestinations;
 
 
 	/**
@@ -60,7 +61,7 @@ public class TaxiData {
 				TreeMap<Double,ArrayList<Journey>> sortedJourneysByPrice = getJourneysByPrice();
 				ArrayList<Journey> topNjourneys = new ArrayList<>();
 
-				Iterator it = sortedJourneysByPrice.entrySet().iterator();
+				Iterator it = sortedJourneysByPrice.values().iterator();
 
 				if(numberOfJourneys <= journeys.getJourneys().size()) {
 					result = "CHARGES FOR THE TOP " + numberOfJourneys + " JOURNEYS\n";
@@ -108,7 +109,7 @@ public class TaxiData {
      */
 	public String formatLessExpensiveJourneys(int numberOfJourneys){
 
-		return null;
+		return "NOT YET IMPLEMENTED";
 	}
 
 	/**
@@ -307,7 +308,6 @@ public class TaxiData {
 	 * @return a String of the content to be put in the third file
      */
 	public String formatPlacesVisited(){
-
 		String res = "";
 
 		if(previousYearDestinations!= null && previousYearDestinations.getDestinations() != null && previousYearDestinations.getDestinations().size() > 0
@@ -318,14 +318,14 @@ public class TaxiData {
 			TreeSet<String> placesVisitedInBothYearsSet  = new TreeSet<>();
 
 			for(Destination l : currentYearDestinations.getDestinations().values()) {
-				if(previousYearDestinations.getDestinations().values().contains(l)) {
+				if(previousYearDestinations.getDestinations().contains(l)) {
 					placesVisitedInBothYearsSet.add(l.getDestinationName());
 				} else {
 					currentYearVisitedPlacesSet.add(l.getDestinationName());
 				}
 			}
 
-			for(Destination l : previousYearDestinations.getDestinations().values()) {
+			for(Destination l : previousYearDestinations.getDestinations()) {
 				if(currentYearDestinations.getDestinations().values().contains(l)) {
 					// do nothing, it's already added in previous loop
 				} else {
@@ -444,11 +444,11 @@ public class TaxiData {
 		this.currentYearDestinations = currentYearDestinations;
 	}
 
-	public DestinationtTreeMap getPreviousYearDestinations() {
+	public DestinationTreeSet getPreviousYearDestinations() {
 		return previousYearDestinations;
 	}
 
-	public void setPreviousYearDestinations(DestinationtTreeMap previousYearDestinations) {
+	public void setPreviousYearDestinations(DestinationTreeSet previousYearDestinations) {
 		this.previousYearDestinations = previousYearDestinations;
 	}
 }

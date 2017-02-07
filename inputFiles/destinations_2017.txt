@@ -28,5 +28,5 @@
 28,Heriot Watt University,6.6,Y
 29,Palace of Holyroodhouse,2.9,N
 30,Palace of Holyroodhouse,0.9,N
-31,Heriot Watt University,10.3.Y
+31,Heriot Watt University,10.3,Y
 32,Napier University,2.0,N
