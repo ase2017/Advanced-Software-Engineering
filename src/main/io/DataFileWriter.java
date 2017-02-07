@@ -7,12 +7,13 @@ import main.items.TaxiData;
 
 
 public class DataFileWriter {
-
+	
+	private static final String OUTPUT_DIRECTORY_NAME = "outputFiles/";
 	private static final String FILE_NAME_TOP_5 = "top-5.txt";
 	private static final String FILE_NAME_PLACES_PER_DRIVER = "driver-Journeys.txt";
 	private static final String FILE_NAME_PLACES = "visited-Places.txt";
-
-	public void writeFiles(TaxiData taxidata){
+ 
+	public void writeFiles(TaxiData taxidata) {
 
 		boolean file1_OK = false;
 		boolean file2_OK = false;
@@ -27,25 +28,25 @@ public class DataFileWriter {
 
 
 		if ( file1_OK )
-			System.out.println(FILE_NAME_TOP_5 + "successfully created!");
+			System.out.println("\t+ <" + FILE_NAME_TOP_5 + "> successfully created!");
 		else
-			System.out.println("Error occured in " + FILE_NAME_TOP_5 + "...");
+			System.out.println("\t->Error occured in " + FILE_NAME_TOP_5 + "...");
 
 		if ( file2_OK )
-			System.out.println(FILE_NAME_PLACES_PER_DRIVER + "successfully created!");
+			System.out.println("\t+ <" + FILE_NAME_PLACES_PER_DRIVER + "> successfully created!");
 		else
-			System.out.println("Error occured in " + FILE_NAME_PLACES_PER_DRIVER + "...");
+			System.out.println("\t->Error occured in " + FILE_NAME_PLACES_PER_DRIVER + "...");
 
 		if ( file3_OK )
-			System.out.println(FILE_NAME_PLACES + "successfully created!");
+			System.out.println("\t+ <" + FILE_NAME_PLACES + "> successfully created!");
 		else
-			System.out.println("Error occured in " + FILE_NAME_PLACES + "...");
+			System.out.println("\t->Error occured in " + FILE_NAME_PLACES + "...");
 
 
-		if ( file1_OK && file1_OK && file1_OK )
-			System.out.println("Process completed!!!");
+		if ( file1_OK && file2_OK && file3_OK )
+			System.out.println("\nProcess completed!!!");
 		else
-			System.out.println("Process ended with errors...");
+			System.out.println("\nProcess ended with errors...");
 
 
 		System.out.println("\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n");
@@ -53,7 +54,7 @@ public class DataFileWriter {
 	}
 
 
-	private boolean writeFile1(TaxiData taxidata){
+	private boolean writeFile1(TaxiData taxidata) {
 
 
 		BufferedWriter buffWriterFile1 = null;
@@ -63,7 +64,7 @@ public class DataFileWriter {
 
 			String fileContents = "";
 
-			fileWriterFile1 = new FileWriter(FILE_NAME_TOP_5);
+			fileWriterFile1 = new FileWriter( OUTPUT_DIRECTORY_NAME + FILE_NAME_TOP_5 );
 			buffWriterFile1 = new BufferedWriter(fileWriterFile1);
 
 
@@ -103,7 +104,7 @@ public class DataFileWriter {
 	}
 
 
-	private boolean writeFile2(TaxiData taxidata){
+	private boolean writeFile2(TaxiData taxidata) {
 
 
 		BufferedWriter buffWriterFile2 = null;
@@ -113,7 +114,7 @@ public class DataFileWriter {
 
 			String fileContents = "";
 
-			fileWriterFile2 = new FileWriter(FILE_NAME_PLACES_PER_DRIVER);
+			fileWriterFile2 = new FileWriter( OUTPUT_DIRECTORY_NAME + FILE_NAME_PLACES_PER_DRIVER );
 			buffWriterFile2 = new BufferedWriter(fileWriterFile2);
 
 			buffWriterFile2.write(fileContents);
@@ -153,7 +154,7 @@ public class DataFileWriter {
 
 
 
-	private boolean writeFile3(TaxiData taxidata){
+	private boolean writeFile3(TaxiData taxidata) {
 
 
 		BufferedWriter buffWriterFile3 = null;
@@ -163,7 +164,7 @@ public class DataFileWriter {
 
 			String fileContents = "";
 
-			fileWriterFile3 = new FileWriter(FILE_NAME_PLACES);
+			fileWriterFile3 = new FileWriter( OUTPUT_DIRECTORY_NAME + FILE_NAME_PLACES );
 			buffWriterFile3 = new BufferedWriter(fileWriterFile3);
 
 			buffWriterFile3.write(fileContents);
@@ -200,7 +201,6 @@ public class DataFileWriter {
 		return true;
 
 	}
-
 
 
 

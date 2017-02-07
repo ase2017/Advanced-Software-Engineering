@@ -22,7 +22,7 @@ import main.exceptions.InvalidIDException;
 import main.items.*;
 
 public class DataFileReader {
-
+ 
 	public static final String DATA_SEPERATOR = ",";
 	public static final String FILE_NAME_FOLDER = "inputFiles/";
 	public static final String FILE_NAME_JOURNEYS = "journeys.txt";
@@ -123,13 +123,13 @@ public class DataFileReader {
 
 
 				} catch ( InvalidInputArgumentsException | InvalidIDException | InvalidMaximumVelocityException |
-						InvalidRegistrationNumberException | InvalidTimeException | InvalidNumberOfPassengersException | NumberFormatException e ) {
+						  InvalidRegistrationNumberException | InvalidTimeException | InvalidNumberOfPassengersException | NumberFormatException e ) {
 
 					System.out.println(e.getMessage());
 
 				} catch (ArrayIndexOutOfBoundsException e){
 
-					System.out.println("*** Reading process failed ( Index out of bounds: " + e.getMessage() + " )." );
+					System.out.println("Reading process in file <journey.txt> failed... ( " + e.getMessage() + " )." );
 
 				}
 
@@ -157,7 +157,7 @@ public class DataFileReader {
 	}
 
 
-	public TaxiTreeMap loadTaxis(){
+	public TaxiTreeMap loadTaxis() {
 
 
 
@@ -221,7 +221,7 @@ public class DataFileReader {
 
 				} catch (ArrayIndexOutOfBoundsException e){
 
-					System.out.println("*** Reading process failed ( Index out of bounds: " + e.getMessage() + " )." );
+					System.out.println("Reading process in file <taxi.txt> failed... ( " + e.getMessage() + " )." );
 
 				}
 
@@ -298,7 +298,7 @@ public class DataFileReader {
 
 				} catch (ArrayIndexOutOfBoundsException e){
 
-					System.out.println("*** Reading process failed ( Index out of bounds: " + e.getMessage() + " )." );
+					System.out.println("Reading process in file <destinations_2016.txt> failed... ( " + e.getMessage() + " )" );
 
 				}
 
@@ -417,13 +417,13 @@ public class DataFileReader {
 
 
 				} catch ( InvalidIDException | InvalidInputArgumentsException | InvalidDestinationNameException |
-						InvalidDistanceException | InvalidUrbanException | NumberFormatException e ) {
+						  InvalidDistanceException | InvalidUrbanException | NumberFormatException e ) {
 
 					System.out.println(e.getMessage());
 
 				} catch ( ArrayIndexOutOfBoundsException e ){
 
-					System.out.println("*** Reading process failed ( Index out of bounds: " + e.getMessage() + " )." );
+					System.out.println("Reading process in file <destination2017.txt> failed... ( " + e.getMessage() + " )." );
 
 				}
 
