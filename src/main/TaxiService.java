@@ -23,23 +23,17 @@ public class TaxiService {
 
 		try{
 			taxidata.setTaxis(fr.loadTaxis());
-			//taxidata.setJourneys(fr.loadJourney());
-			//taxidata.setCurrentYearDestinations(fr.loadDestinations2017());
-			//taxidata.setPreviousYearDestinations(fr.loadDestinations2016());
+			taxidata.setJourneys(fr.loadJourney());
+			taxidata.setCurrentYearDestinations(fr.loadDestinations2017());
+			taxidata.setPreviousYearDestinations(fr.loadDestinations2016());
 		}
 		catch(Exception e){
-			//System.out.println(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
-		System.out.println(taxidata.getTaxis().getTaxis().size());
-		//System.out.println(taxidata.getJourneys().getJourneys().size());
-		//System.out.println(taxidata.getCurrentYearDestinations().getDestinations().size());
-		//System.out.println(taxidata.getPreviousYearDestinations().getDestinations().size());
-
-
-		//taxidata.setJourneys(fr.loadJourney());
-		//taxidata.setPreviousYearDestinations(fr.loadDestinations2016());
-		//taxidata.setCurrentYearDestinations(fr.loadDestinations2017());
+		taxidata.setJourneys(fr.loadJourney());
+		taxidata.setPreviousYearDestinations(fr.loadDestinations2016());
+		taxidata.setCurrentYearDestinations(fr.loadDestinations2017());
 
 
 			if (	taxidata != null && taxidata.getTaxis() != null && taxidata.getCurrentYearDestinations() != null

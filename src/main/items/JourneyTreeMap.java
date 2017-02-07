@@ -26,7 +26,7 @@ public class JourneyTreeMap {
 	public void addJourney(ArrayList<Journey> journey){
 	
 		for(int i = 0; i < journey.size(); i++){
-			journeys.put(journey.get(i).getTaxiRegistrationNumber(), journey);
+			addJourney(journey.get(i));
 		}
 		
 	}

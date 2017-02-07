@@ -2,6 +2,9 @@ package main.items;
 
 import java.util.TreeMap;
 
+import main.exceptions.DuplicateIDException;
+import main.io.DataFileReader;
+
 public class TaxiTreeMap {
 	
 	private TreeMap<String, Taxi> taxis;
@@ -14,7 +17,15 @@ public class TaxiTreeMap {
 
 	public void addTaxi(Taxi taxi){
 		
-		taxis.put(taxi.getRegistrationNumber(), taxi);
+		if(taxis.containsKey(taxi.getRegistrationNumber())){
+			try {
+				throw new DuplicateIDException(DataFileReader.FILE_NAME_TAXIS, DataFileReader.line_counter);
+			} catch (DuplicateIDException e) {
+				System.out.println(e.getMessage());
+			}
+		} else {
+			taxis.put(taxi.getRegistrationNumber(), taxi);
+		}
 		
 	}
 	
