@@ -12,7 +12,7 @@ public class DataFileWriter {
 	private static final String FILE_NAME_TOP_5 = "top-5.txt";
 	private static final String FILE_NAME_PLACES_PER_DRIVER = "driver-Journeys.txt";
 	private static final String FILE_NAME_PLACES = "visited-Places.txt";
-
+ 
 	public void writeFiles(TaxiData taxidata) {
 
 		boolean file1_OK = false;

@@ -22,7 +22,7 @@ import main.exceptions.InvalidIDException;
 import main.items.*;
 
 public class DataFileReader {
-
+ 
 	public static final String DATA_SEPERATOR = ",";
 	public static final String FILE_NAME_FOLDER = "inputFiles/";
 	public static final String FILE_NAME_JOURNEYS = "journeys.txt";
