@@ -1,6 +1,7 @@
 package main.io;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import main.items.TaxiData;
@@ -8,7 +9,7 @@ import main.items.TaxiData;
 
 public class DataFileWriter {
 	
-	private static final String OUTPUT_DIRECTORY_NAME = "outputFiles/";
+	private static final String OUTPUT_DIRECTORY_NAME = "outputFiles";
 	private static final String FILE_NAME_TOP_5 = "top-5.txt";
 	private static final String FILE_NAME_PLACES_PER_DRIVER = "driver-Journeys.txt";
 	private static final String FILE_NAME_PLACES = "visited-Places.txt";
@@ -21,6 +22,12 @@ public class DataFileWriter {
 
 		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		System.out.println("\nCreating output files...\n");
+
+
+		File f = new File(OUTPUT_DIRECTORY_NAME);
+		if (!f.isDirectory()) {
+			f.mkdir();
+		}
 
 		file1_OK = writeFile1(taxidata);
 		file2_OK = writeFile2(taxidata);
@@ -64,7 +71,7 @@ public class DataFileWriter {
 
 			String fileContents = "";
 
-			fileWriterFile1 = new FileWriter( OUTPUT_DIRECTORY_NAME + FILE_NAME_TOP_5 );
+			fileWriterFile1 = new FileWriter( OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_TOP_5 );
 			buffWriterFile1 = new BufferedWriter(fileWriterFile1);
 
 
@@ -114,7 +121,7 @@ public class DataFileWriter {
 
 			String fileContents = "";
 
-			fileWriterFile2 = new FileWriter( OUTPUT_DIRECTORY_NAME + FILE_NAME_PLACES_PER_DRIVER );
+			fileWriterFile2 = new FileWriter( OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_PLACES_PER_DRIVER );
 			buffWriterFile2 = new BufferedWriter(fileWriterFile2);
 
 			buffWriterFile2.write(fileContents);
@@ -164,7 +171,7 @@ public class DataFileWriter {
 
 			String fileContents = "";
 
-			fileWriterFile3 = new FileWriter( OUTPUT_DIRECTORY_NAME + FILE_NAME_PLACES );
+			fileWriterFile3 = new FileWriter( OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_PLACES );
 			buffWriterFile3 = new BufferedWriter(fileWriterFile3);
 
 			buffWriterFile3.write(fileContents);
