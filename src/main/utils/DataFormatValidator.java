@@ -9,13 +9,13 @@ import java.io.IOException;
 
 /**
  * 
- * @author Hector
+ * @author Chiotis
  * 
  * DataFormatValidator exclusively contains static instance variables and methods so to be accessible 
  * from all the other classes. It validates all the input data from the four data files <taxis.txt>, <journeys.txt>, 
  * <destinations_2016.txt> and <destinations_2017.txt> just before the creation of the objects.  
  *  
- * The instance variables are static and final, so that cannot be mutable from the methods. 
+ * The instance variables are static and final, so that cannot be mutable from any methods. 
  * 
  * Methods are static, so to be accessible from each of the three constructors, (Taxi, Journey and Destination).
  *
@@ -168,10 +168,11 @@ public class DataFormatValidator {
 	}
 
 	/**
-	 * Validates whether the destination is in urban area or not.
+	 * Validates whether the destination is in an urban area or not.
 	 * 
 	 * @param urban
-	 * @return
+	 * @return true if the input is "Y" or "N"
+	 *              else return false.
 	 */
 	public static boolean validateUrban(String urban) {
 
@@ -181,6 +182,13 @@ public class DataFormatValidator {
 			return false;
 	}
 	
+	/**
+	 * Validates the registration ID, as to its sign.
+	 * 
+	 * @param destinationID
+	 * @return true if it is positive
+	 *         else return false.
+	 */
 	public static boolean validateDestinationID(int destinationID){
 	
 		if(destinationID > 0) {
