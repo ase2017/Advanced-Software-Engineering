@@ -23,8 +23,8 @@ public class TaxiData {
 	 * @param taxi
 	 * @param destination
 	 * @param journey
-     * @return
-     */
+	 * @return
+	 */
 	public String formatInfoLine(Taxi taxi, Destination destination, Journey journey){
 
 		String res = "";
@@ -41,11 +41,21 @@ public class TaxiData {
 	}
 
 	/**
+	 * For the first file
+	 * @return
+	 */
+	public String formatJourneyFile(){
+
+		return (formatTopJourneys(5,true) + formatTopJourneys(5,false));
+
+	}
+
+	/**
 	 * Formats and returns the top most expensive given number of journeys
 	 * @param numberOfJourneys : the number of top journeys that we are interested in
 	 * @return a String, which is the content of the first part of the first output file
 	 */
-	public String formatMostExpensiveJourneys(int numberOfJourneys){
+	private String formatTopJourneys(int numberOfJourneys, boolean mostExpensive){
 
 		String result = "";
 
@@ -59,7 +69,8 @@ public class TaxiData {
 				/*
 				// Need to store them because we need to check that there are no duplicates
 				 */
-				TreeMap<Double,ArrayList<Journey>> sortedJourneysByPrice = getJourneysByPrice();
+				TreeMap<Double,ArrayList<Journey>> sortedJourneysByPrice = getJourneysByPrice(mostExpensive);
+
 				ArrayList<Journey> topNjourneys = new ArrayList<>();
 
 				Iterator it = sortedJourneysByPrice.values().iterator();
@@ -91,34 +102,42 @@ public class TaxiData {
 				}
 
 
-				for(Journey j : topNjourneys) {
-					Destination dest = findDestination(j);
-					Taxi tx = findTaxi(j);
-					result += formatInfoLine(tx,dest,j);
+
+
+				if(mostExpensive) {
+					for(int i = topNjourneys.size()-1; i >= 0; i--){
+						Destination dest = findDestination(topNjourneys.get(i));
+						Taxi tx = findTaxi(topNjourneys.get(i));
+						result += formatInfoLine(tx,dest,topNjourneys.get(i));
+					}
+				} else {
+					for(int i = topNjourneys.size()-1; i >= 0; i--){
+						Destination dest = findDestination(topNjourneys.get(i));
+						Taxi tx = findTaxi(topNjourneys.get(i));
+						result += formatInfoLine(tx,dest,topNjourneys.get(i));
+					}
 				}
+
 
 			}
 		}
 
-		return result;
+		return  result + "\n";
 	}
 
-	/**
-	 * Formats and returns the top least expensive given number of journeys
-	 * @param numberOfJourneys
-	 * @return a String, which is the second part of the first output file
-     */
-	public String formatLessExpensiveJourneys(int numberOfJourneys){
 
-		return "NOT YET IMPLEMENTED";
-	}
+
+
+
+
+
 
 	/**
 	 *
 	 * @param journey
 	 * @return the fee of a given journey
 	 * Requirement : it is expected that Journey and Destination information is correct
-     */
+	 */
 	private double calculateFee(Journey journey){
 
 
@@ -150,10 +169,14 @@ public class TaxiData {
 	/**
 	 * Returns a treemap of arraylist of journeys, with keys being the price
 	 * @return a treemap of arraylist of journeys, with keys being the price
-     */
-	private TreeMap<Double,ArrayList<Journey>> getJourneysByPrice() {
+	 */
+	private TreeMap<Double,ArrayList<Journey>> getJourneysByPrice(boolean mostExpensive) {
 
 		TreeMap<Double,ArrayList<Journey>> topNJourneysWithSamePrice = new TreeMap<>();
+
+		if(mostExpensive) {
+			topNJourneysWithSamePrice = new TreeMap<>((Collections.reverseOrder()));
+		}
 		for(Map.Entry<String,ArrayList<Journey>> entry : journeys.getJourneys().entrySet()) {
 			for(Journey j : entry.getValue()) {
 				double fee = calculateFee(j);
@@ -180,7 +203,7 @@ public class TaxiData {
 	 * Finds and returns the taxi associated to the given journey
 	 * @param journey the journey object, from which we try to find the Taxi
 	 * @return a Taxi object related to the given journey
-     */
+	 */
 	private Taxi findTaxi(Journey journey){
 
 		if(journey != null && taxis != null && taxis.getTaxis() != null && taxis.getTaxis().containsKey(journey.getTaxiRegistrationNumber())) {
@@ -194,7 +217,7 @@ public class TaxiData {
 	 * Returns the destination object related to the given journey
 	 * @param journey : the given journey
 	 * @return the destination object related to the given journey
-     */
+	 */
 	private Destination findDestination(Journey journey){
 
 		if(journey != null && currentYearDestinations != null && currentYearDestinations.getDestinations() != null
@@ -208,7 +231,7 @@ public class TaxiData {
 	/**
 	 * Formats the second file, which contains the list of places visited per driver, ordered alphabetically by driver name
 	 * @return a String containing the content of the file
-     */
+	 */
 	public String formatPlacesVisitedPerDriver(){
 
 		String res = "";
@@ -266,7 +289,7 @@ public class TaxiData {
 	/**
 	 * Sorts the taxis by name and returns an treemap of arralylists of them
 	 * @return
-     */
+	 */
 	public TreeMap<String,ArrayList<Taxi>> sortTaxisByName() {
 
 		TreeMap<String,ArrayList<Taxi>> sortedTaxiTreeMap = new TreeMap<String,ArrayList<Taxi>>();
@@ -277,7 +300,7 @@ public class TaxiData {
 				// handles if more at least one other driver has same name
 				if(sortedTaxiTreeMap.containsKey(mapItem.getKey())) {
 					sortedTaxiTreeMap.get(mapItem.getKey()).add(mapItem.getValue());
-				// if key does not exist, create new key-value pair
+					// if key does not exist, create new key-value pair
 				} else {
 					ArrayList<Taxi> temporary = new ArrayList<Taxi>();
 					temporary.add(mapItem.getValue());
@@ -307,7 +330,7 @@ public class TaxiData {
 	/**
 	 * Formats the content of file number 3, which contains the places visited per year and in both years
 	 * @return a String of the content to be put in the third file
-     */
+	 */
 	public String formatPlacesVisited(){
 		String res = "";
 
@@ -361,7 +384,7 @@ public class TaxiData {
 	 * Formats and returns the first part of the third file about destinations per year
 	 * @param currentYearVisitedPlacesSet
 	 * @return
-     */
+	 */
 	private String formatCurrentYearVisitedPlaces(TreeSet<String> currentYearVisitedPlacesSet){
 
 		String res = "";
