@@ -8,12 +8,12 @@ import main.items.TaxiData;
 
 
 public class DataFileWriter {
-	
+
 	private static final String OUTPUT_DIRECTORY_NAME = "outputFiles";
 	private static final String FILE_NAME_TOP_5 = "top-5.txt";
 	private static final String FILE_NAME_PLACES_PER_DRIVER = "driver-Journeys.txt";
 	private static final String FILE_NAME_PLACES = "visited-Places.txt";
- 
+
 	public void writeFiles(TaxiData taxidata) {
 
 		boolean file1_OK = false;
@@ -75,12 +75,9 @@ public class DataFileWriter {
 			buffWriterFile1 = new BufferedWriter(fileWriterFile1);
 
 
-			fileContents = taxidata.formatMostExpensiveJourneys(5);
+			fileContents = taxidata.formatJourneyFile();
 			buffWriterFile1.write(fileContents);
-			//System.out.println(fileContents);
 
-			fileContents = taxidata.formatLessExpensiveJourneys(5);
-			buffWriterFile1.write(fileContents);
 
 		} catch (IOException e) {
 
