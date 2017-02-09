@@ -6,6 +6,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+
+/**
+ * 
+ * @author Hector
+ * 
+ * DataFormatValidator exclusively contains static instance variables and methods so to be accessible 
+ * from other classes. It validates all the input data from the four data files <taxis.txt>, <journeys.txt>, 
+ * <destinations_2016.txt> and <destinations_2017.txt>.   
+ *
+ */
 public class DataFormatValidator {
 
 
@@ -24,6 +34,14 @@ public class DataFormatValidator {
 	private static final double MAX_DISTANCE = 200;
 	private static final double MIN_TIME = 0.0;
 
+	/**
+	 * Validates the taxi's registration number, as to its length.
+	 * 
+	 * @param registrationNumber
+	 * @return true if the registration number's length equals the length that indicates
+	 *         the corresponding instance variable. 
+	 *         Else return false. 
+	 */
 	public static boolean validateRegistrationNumber(String registrationNumber) {
 
 		if (registrationNumber.length() == Integer.parseInt(TAXI_REGISTRATION_NUMBER_LENGTH))
