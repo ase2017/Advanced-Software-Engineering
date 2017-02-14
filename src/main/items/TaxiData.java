@@ -4,18 +4,11 @@ import java.util.*;
 
 public class TaxiData {
 
-	/*
-	private TreeMap<String,Taxi> taxis;
-	private TreeMap<String, Destination> currentYearDestinations;
-	private TreeMap<String, Destination> previousYearDestinations;
-	private TreeMap<String, ArrayList<Journey>> journeys;
-	*/
-
 	private TaxiTreeMap taxis;
 	private DestinationtTreeMap currentYearDestinations;
-	//private DestinationtTreeMap previousYearDestinations;
-	private JourneyTreeMap journeys;
 	DestinationTreeSet previousYearDestinations;
+	private JourneyTreeMap journeys;
+
 
 
 	/**
@@ -29,11 +22,17 @@ public class TaxiData {
 
 		String res = "";
 		if(taxi != null && destination != null && journey != null) {
-			res += journey.getTaxiRegistrationNumber() + "   "
-					+ destination.getDestinationName() + "   "
-					+ destination.getDistance() + " miles   "
-					+ journey.getNumberOfPassengers() + "   "
-					+ "Cost £" + calculateFee(journey)
+			res += journey.getTaxiRegistrationNumber() + "\t\t"
+					+ String.format("%1$.1f miles",
+					destination.getDistance()) + "\t"
+					//+ destination.getDistance() + " miles   "
+					+ journey.getNumberOfPassengers()
+					+ ((journey.getNumberOfPassengers() > 1) ? " passengers" : " passenger ") + "\t"
+					+  String.format("Cost £%1$.1f",
+					calculateFee(journey)) + "\t"
+					+ (destination.isUrban() ? "urban" : "rural") + "\t"
+					+  String.format("%1$.1f mph",journey.getMaximumVelocity()) + "\t"
+					+ destination.getDestinationName() + "\t"
 					+ "\n";
 			return res;
 		}
@@ -237,48 +236,48 @@ public class TaxiData {
 		String res = "";
 
 		if(taxis != null && taxis.getTaxis() != null && taxis.getTaxis().size() > 0) {
-			TreeMap<String,ArrayList<Taxi>> sortedTaxi = sortTaxisByName();
+			ArrayList<Taxi> sortedTaxi = sortTaxisByName();
 			res = "PLACES VISITED PER DRIVER\n\n";
+
 
 			// Each value of the tree map is an arraylist
 			// TreeMap keySet is sorted alphabetically
-			for(ArrayList<Taxi> subList : sortedTaxi.values()) {
-
-				for(Taxi t : subList) {
+			for(Taxi t : sortedTaxi) {
 
 
-					res += t.getDriverName() + "\n";
+				res += t.getDriverName() + "\n";
 
-					ArrayList<Journey> journeysOfCurrentTaxi = findJourneys(t); //journeys of the driver
+				ArrayList<Journey> journeysOfCurrentTaxi = findJourneys(t); //journeys of the driver
 
-					if (journeysOfCurrentTaxi != null) {
-						TreeSet<String> destinationNamesSorted = new TreeSet<String>(); //sorted distance name of the journeys of the driver
+				if (journeysOfCurrentTaxi != null) {
+					TreeSet<String> destinationNamesSorted = new TreeSet<String>(); //sorted distance name of the journeys of the driver
 
-						// getting all distances done by driver
-						for (Journey j : journeysOfCurrentTaxi) {
-							Destination tmpDestination = findDestination(j);
+					// getting all distances done by driver
+					for (Journey j : journeysOfCurrentTaxi) {
+						Destination tmpDestination = findDestination(j);
 
-							if (tmpDestination != null) {
-								destinationNamesSorted.add(tmpDestination.getDestinationName());
-							} else {
-								System.out.println("No destinations were found in our records for given journey.\n");
-							}
-
+						if (tmpDestination != null) {
+							destinationNamesSorted.add(tmpDestination.getDestinationName());
+						} else {
+							System.out.println("No destinations were found in our records for given journey.\n");
 						}
 
-						// building up the result
-						for (String destinationName : destinationNamesSorted) {
-							res += "\t " + destinationName + "\n";
-						}
-					} else {
-						System.out.println("No journeys were found in our records for given taxi.\n" + t.toString() + "\n");
 					}
 
+					// building up the result
+					for (String destinationName : destinationNamesSorted) {
+						res += "\t " + destinationName + "\n";
+					}
+				} else {
+					System.out.println("No journeys were found in our records for given taxi.\n" + t.toString() + "\n");
 				}
+
 				res += "\n"; //separation between each taxi
 
 			}
-			res += "\n\n";
+
+
+
 		} else {
 			res = "No places were found in our records.\n";
 		}
@@ -290,27 +289,22 @@ public class TaxiData {
 	 * Sorts the taxis by name and returns an treemap of arralylists of them
 	 * @return
 	 */
-	public TreeMap<String,ArrayList<Taxi>> sortTaxisByName() {
+	public ArrayList<Taxi> sortTaxisByName() {
 
-		TreeMap<String,ArrayList<Taxi>> sortedTaxiTreeMap = new TreeMap<String,ArrayList<Taxi>>();
+		ArrayList<Taxi> sortedTaxiTreeSet = new ArrayList<>();
+
 
 		if(taxis != null && taxis.getTaxis() != null && taxis.getTaxis().size() > 0) {
 			for(Map.Entry<String,Taxi> mapItem : taxis.getTaxis().entrySet()) {
-
-				// handles if more at least one other driver has same name
-				if(sortedTaxiTreeMap.containsKey(mapItem.getKey())) {
-					sortedTaxiTreeMap.get(mapItem.getKey()).add(mapItem.getValue());
-					// if key does not exist, create new key-value pair
-				} else {
-					ArrayList<Taxi> temporary = new ArrayList<Taxi>();
-					temporary.add(mapItem.getValue());
-					sortedTaxiTreeMap.put(mapItem.getKey(),temporary);
-				}
-
+				sortedTaxiTreeSet.add(mapItem.getValue());
 			}
 		}
 
-		return sortedTaxiTreeMap;
+
+		Collections.sort(sortedTaxiTreeSet,
+						(o1, o2) -> ((Taxi) o1).getDriverName().compareTo(((Taxi) o2).getDriverName()));
+
+		return sortedTaxiTreeSet;
 	}
 
 	/**
@@ -390,12 +384,13 @@ public class TaxiData {
 		String res = "";
 
 		if(currentYearVisitedPlacesSet != null && currentYearVisitedPlacesSet.size() > 0) {
-			res = currentYearVisitedPlacesSet.size() + "NEW PLACES IN 2017\n";
+			res = currentYearVisitedPlacesSet.size()
+					+ ((currentYearVisitedPlacesSet.size() > 1) ? " NEW PLACES IN 2017\n" : " NEW PLACE IN 2017\n");
 
 			for(String str : currentYearVisitedPlacesSet) {
 				res += str + "\n";
 			}
-			res += "\n\n";
+			res += "\n";
 		} else {
 			res = "Sorry, no destinations were found in our record of current year\n\n";
 		}
@@ -414,7 +409,9 @@ public class TaxiData {
 		String res = "";
 
 		if(previousYearVisitedPlacesSet != null && previousYearVisitedPlacesSet.size() > 0) {
-			res = previousYearVisitedPlacesSet.size() + "PLACES VISITED IN 2017 ONLY\n";
+
+			res = previousYearVisitedPlacesSet.size()
+					+ ((previousYearVisitedPlacesSet.size() > 1) ? " PLACES VISITED IN 2017 ONLY\n" : " PLACE VISITED IN 2017 ONLY\n");
 
 			for(String str : previousYearVisitedPlacesSet) {
 				res += str + "\n";
@@ -439,7 +436,10 @@ public class TaxiData {
 		String res = "";
 
 		if(placesVisitedInBothYearsSet != null && placesVisitedInBothYearsSet.size() > 0) {
-			res = placesVisitedInBothYearsSet.size() + "PLACES VISITED IN BOTH 2017 AND 2016\n";
+
+			res = placesVisitedInBothYearsSet.size()
+					+ ((placesVisitedInBothYearsSet.size() > 1) ? " PLACES VISITED IN BOTH 2017 AND 2016\n" : " PLACE VISITED IN BOTH 2017 AND 2016\n");
+
 
 			for(String str : placesVisitedInBothYearsSet) {
 				res += str + "\n";
