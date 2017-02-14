@@ -1,5 +1,4 @@
 package main.items;
-
 import java.util.TreeSet;
 
 /**
@@ -21,6 +20,10 @@ public class DestinationTreeSet {
 
 
     public boolean containsDestinationName(Destination destination) {
+
+        if(destination == null) {
+            throw new IllegalArgumentException("Destination is null");
+        }
         //System.out.println("DESTINATION :" + destination.getDestinationName());
         for(Destination d : destinations) {
             //System.out.println("COMPARING IT TO : " + d.getDestinationName());
@@ -34,5 +37,9 @@ public class DestinationTreeSet {
         }
         //System.out.println("NOT FOUND");
         return false;
+    }
+
+    public void add(Destination destination) {
+        destinations.add(destination);
     }
 }
