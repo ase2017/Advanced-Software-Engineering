@@ -36,7 +36,7 @@ public class DestinationtTreeMap {
 	 * @param destination The destination object
 	 * @throws DuplicateIDException If a destination with same ID already exists show an error
 	 */
-	public void addDestination2017(Destination destination){
+	public void addDestination2017(Destination destination) throws DuplicateIDException{
 
 		if(destinations.containsKey(destination.getDestinationID())){
 			try {
