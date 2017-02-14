@@ -34,9 +34,8 @@ public class TaxiData {
 					+  String.format("%1$.1f mph",journey.getMaximumVelocity()) + "\t"
 					+ destination.getDestinationName() + "\t"
 					+ "\n";
-			return res;
 		}
-		return null;
+		return res;
 	}
 
 	/**
@@ -137,9 +136,7 @@ public class TaxiData {
 	 * @return the fee of a given journey
 	 * Requirement : it is expected that Journey and Destination information is correct
 	 */
-	private double calculateFee(Journey journey){
-
-
+	public double calculateFee(Journey journey){
 
 		double POUNDS_PER_MILE = 5.0;
 		double POUNDS_PER_MINUTE = 5.2;
@@ -203,7 +200,7 @@ public class TaxiData {
 	 * @param journey the journey object, from which we try to find the Taxi
 	 * @return a Taxi object related to the given journey
 	 */
-	private Taxi findTaxi(Journey journey){
+	public Taxi findTaxi(Journey journey){
 
 		if(journey != null && taxis != null && taxis.getTaxis() != null && taxis.getTaxis().containsKey(journey.getTaxiRegistrationNumber())) {
 			return (taxis.getTaxis().get(journey.getTaxiRegistrationNumber()));
@@ -217,7 +214,7 @@ public class TaxiData {
 	 * @param journey : the given journey
 	 * @return the destination object related to the given journey
 	 */
-	private Destination findDestination(Journey journey){
+	public Destination findDestination(Journey journey){
 
 		if(journey != null && currentYearDestinations != null && currentYearDestinations.getDestinations() != null
 				&& currentYearDestinations.getDestinations().containsKey(journey.getDestinationID())) {
@@ -312,7 +309,7 @@ public class TaxiData {
 	 * @param taxi : the given taxi
 	 * @return an arraylist of the journeys made by the given taxi
 	 */
-	private ArrayList<Journey> findJourneys(Taxi taxi){
+	public ArrayList<Journey> findJourneys(Taxi taxi){
 
 		if(taxi != null && journeys != null && journeys.getJourneys() != null && journeys.getJourneys().containsKey(taxi.getRegistrationNumber())) {
 			return (journeys.getJourneys().get(taxi.getRegistrationNumber()));

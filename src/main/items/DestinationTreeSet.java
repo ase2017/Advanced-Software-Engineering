@@ -35,16 +35,24 @@ public class DestinationTreeSet {
      * @return boolean true/false
      */
     public boolean containsDestinationName(Destination destination) {
-     
-        for(Destination d : destinations) {
-            if(d.getDestinationName().equals(destination.getDestinationName())) {
-                return true;
+        
+        if(destination == null) {
+            throw new IllegalArgumentException("Destination is null");
+        } else{
+            for(Destination d : destinations) {
+                if(d.getDestinationName().equals(destination.getDestinationName())) {
+                    return true;
+                }
             }
         }
-
+    
         return false;
     }
     
+    public void add(Destination destination) {
+        destinations.add(destination);
+    }
+  
     /* Getters and Setters */
     public TreeSet<Destination> getDestinations() {
         return destinations;
