@@ -1,3 +1,7 @@
+package main;
+
+import main.TaxiService;
+
 /**
  * Application Name: TaxiApplication v1.0
  * 
@@ -13,10 +17,6 @@
  * @author George Goniotakis
  * @since Feb 9, 2017
  */
-
-package main;
-
-import main.TaxiService;
 
 public class Main {
 

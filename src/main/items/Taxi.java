@@ -6,12 +6,33 @@ import main.exceptions.InvalidTaxiNameException;
 import main.io.DataFileReader;
 import main.utils.DataFormatValidator;
 
+/**
+ * Class Name: Taxi.java
+ * 
+ * Description: This class creates Taxi objects with the data taken
+ * 				from the file taxi.txt
+ * 
+ * @author George Goniotakis
+ * @since Feb 9, 2017
+ */
+
 public class Taxi {
 
-	private String registrationNumber;
-	private String driverName;
-	private String brand;
+	private String registrationNumber; //Taxi registration number
+	private String driverName; //Taxi driver`s name
+	private String brand; //Taxi`s brand
 	
+	/**
+	 * This constructor creates objects of type Taxi.
+	 * 
+	 * @exception InvalidRegistrationNumberException If the taxi`s registration number is invalid show an error message
+	 * @exception InvalidTaxiNameException If the taxi`s name is invalid show an error message
+	 * @exception InvalidBrandNameException If the taxi`s brand name is invalid show an error mesage
+	 * 
+	 * @param registrationNumber Taxi`s registration number
+	 * @param driverName Taxi`s driver name
+	 * @param brand Taxi`s brand
+	 */
 	public Taxi(String registrationNumber, String driverName, String brand){
 		
 		this.registrationNumber = registrationNumber;
@@ -34,13 +55,28 @@ public class Taxi {
 		} catch(InvalidRegistrationNumberException | InvalidTaxiNameException | 
 				InvalidBrandNameException e){
 			
-			System.out.println(e.getMessage());
+			System.out.println(e.getMessage()); //Show error message
 			
 		}	
 		
 		/* End of checks */
 	}
-
+	
+	/**
+	 * This method returns the information of a Taxi in one
+	 * line.
+	 * 
+	 * @return String
+	 */
+	@Override
+	public String toString() {
+		return "Taxi{" +
+				"registrationNumber='" + registrationNumber + '\'' +
+				", driverName='" + driverName + '\'' +
+				", brand='" + brand + '\'' +
+				'}';
+	}
+	
 	/* Getters and Setters */
 	
 	public String getRegistrationNumber() {
@@ -65,15 +101,6 @@ public class Taxi {
 
 	public void setBrand(String brand) {
 		this.brand = brand;
-	}
-
-	@Override
-	public String toString() {
-		return "Taxi{" +
-				"registrationNumber='" + registrationNumber + '\'' +
-				", driverName='" + driverName + '\'' +
-				", brand='" + brand + '\'' +
-				'}';
 	}
 }
 

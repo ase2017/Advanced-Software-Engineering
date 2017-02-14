@@ -4,14 +4,40 @@ import main.exceptions.*;
 import main.io.DataFileReader;
 import main.utils.DataFormatValidator;
 
+/**
+ * Class Name: Journey.java
+ * 
+ * Description: This class creates Journey objects with the data taken
+ * 				from the file journey.txt
+ * 
+ * @author George Goniotakis
+ * @since Feb 9, 2017
+ */
+
 public class Journey {
 
-	private String taxiRegistrationNumber;
-	private int destinationID;
-	private int numberOfPassengers;
-	private double time;
-	private double maximumVelocity;
+	private String taxiRegistrationNumber; //Taxi`s registration number
+	private int destinationID; //Destination`s ID
+	private int numberOfPassengers; //Number of passengers
+	private double time; //Journey`s total duration
+	private double maximumVelocity; //Journey`s maximum velocity
 	
+	/**
+	 * This constructor creates Journey objects using the parameters
+	 * that can found below.
+	 * 
+	 * @exception InvalidIDException If the journey`s ID invalid id show an error
+	 * @exception InvalidTaxiNameException If the taxi`s name is invalid show an error message 
+	 * @exception InvalidBrandNameException If the taxi`s brand name is invalid show an error message
+	 * @exception InvalidTimeException If the journey`s duration is invalid show an error message
+	 * @exception InvalidMaximumVelocityException If the journey`s maximum velocity is invalid show an error message
+	 * 
+	 * @param destinationID Destination`s ID
+	 * @param taxiRegistrationNumber Taxi`s registration number
+	 * @param numberOfPassengers Number of passengers
+	 * @param time Journey`s duration
+	 * @param maximumVelocity Journey`s maximum velocity
+	 */
 	public Journey(int destinationID, String taxiRegistrationNumber, 
 			int numberOfPassengers, double time, double maximumVelocity){
 			
@@ -43,12 +69,27 @@ public class Journey {
 				InvalidBrandNameException | InvalidTimeException 
 				| InvalidMaximumVelocityException e){
 			
-			System.out.println(e.getMessage());
+			System.out.println(e.getMessage()); //Show error message
 			
 		}
 	}
 	
-	
+	/**
+	 * This method returns the information about a journey in
+	 * one line.
+	 * 
+	 * return String
+	 */
+	@Override
+	public String toString() {
+		return "Journey{" +
+				"taxiRegistrationNumber='" + taxiRegistrationNumber + '\'' +
+				", destinationID=" + destinationID +
+				", numberOfPassengers=" + numberOfPassengers +
+				", time=" + time +
+				", maximumVelocity=" + maximumVelocity +
+				'}';
+	}
 	
 	/* Getters and Setters */
 	
@@ -90,18 +131,6 @@ public class Journey {
 
 	public void setMaximumVelocity(double maximumVelocity) {
 		this.maximumVelocity = maximumVelocity;
-	}
-
-
-	@Override
-	public String toString() {
-		return "Journey{" +
-				"taxiRegistrationNumber='" + taxiRegistrationNumber + '\'' +
-				", destinationID=" + destinationID +
-				", numberOfPassengers=" + numberOfPassengers +
-				", time=" + time +
-				", maximumVelocity=" + maximumVelocity +
-				'}';
 	}
 }
 
