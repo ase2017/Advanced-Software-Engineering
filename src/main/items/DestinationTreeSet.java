@@ -31,7 +31,9 @@ public class DestinationTreeSet {
      * This method checks if the TreeSet already contains 
      * a destination with the same name.
      * 
-     * @param destination
+     * @exception IllegalArgumentException Show an error message if destination is null
+     * 
+     * @param destination The Destination Object
      * @return boolean true/false
      */
     public boolean containsDestinationName(Destination destination) {
@@ -49,11 +51,17 @@ public class DestinationTreeSet {
         return false;
     }
     
+    /**
+     * This method adds a new destination to the TreeSet
+     * 
+     * @param destination
+     */
     public void add(Destination destination) {
         destinations.add(destination);
     }
   
     /* Getters and Setters */
+    
     public TreeSet<Destination> getDestinations() {
         return destinations;
     }
