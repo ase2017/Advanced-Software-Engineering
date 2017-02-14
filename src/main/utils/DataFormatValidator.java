@@ -23,19 +23,20 @@ import java.io.IOException;
 public class DataFormatValidator {
 
 
-	private static final String TAXI_REGISTRATION_NUMBER_LENGTH = "7";
-	private static final String MIN_DESTINATION_NAME_LENGTH = "3";
-	private static final String MAX_DESTINATION_NAME_LENGTH = "30";
-	private static final String MIN_DRIVER_NAME_LENGTH = "5";
-	private static final String MAX_DRIVER_NAME_LENGTH = "30";
-	private static final String MIN_BRAND_NAME = "3";
-	private static final String MAX_BRAND_NAME = "15";
+	
+	private static final int MIN_DESTINATION_NAME_LENGTH = 3;
+	private static final int MAX_DESTINATION_NAME_LENGTH = 30;
+	private static final int MIN_DRIVER_NAME_LENGTH = 5;
+	private static final int MAX_DRIVER_NAME_LENGTH = 30;
+	private static final int MIN_BRAND_NAME = 3;
+	private static final int MAX_BRAND_NAME = 15;
+	private static final int TAXI_REGISTRATION_NUMBER_LENGTH = 7;
 	private static final int MIN_NUMBER_OF_PASSENGERS = 1;
 	private static final int MAX_NUMBER_OF_PASSENGERS = 8;
 	private static final double MIN_VELOCITY = 0.0;
 	private static final double MAX_VELOCITY = 130.0;
-	private static final double MIN_DISTANCE = 0;
-	private static final double MAX_DISTANCE = 200;
+	private static final double MIN_DISTANCE = 0.0;
+	private static final double MAX_DISTANCE = 200.0;
 	private static final double MIN_TIME = 0.0;
 
 	/**
@@ -48,7 +49,9 @@ public class DataFormatValidator {
 	 */
 	public static boolean validateRegistrationNumber(String registrationNumber) {
 
-		if (registrationNumber.length() == Integer.parseInt(TAXI_REGISTRATION_NUMBER_LENGTH))
+		if ( registrationNumber == null ) 
+			return false;
+		if ( registrationNumber.length() == TAXI_REGISTRATION_NUMBER_LENGTH )
 			return true;
 		else
 			return false;
@@ -65,8 +68,9 @@ public class DataFormatValidator {
 	 */
 	public static boolean validateDriverName(String driverName) {
 
-		if (driverName.length() >= Integer.parseInt(MIN_DRIVER_NAME_LENGTH)
-				&& driverName.length() <= Integer.parseInt(MAX_DRIVER_NAME_LENGTH))
+		if (driverName == null)
+			return false;
+		else if (driverName.length() >= MIN_DRIVER_NAME_LENGTH && driverName.length() <= MAX_DRIVER_NAME_LENGTH)
 			return true;
 		else
 			return false;
@@ -82,8 +86,9 @@ public class DataFormatValidator {
 	 */
 	public static boolean validateBrand(String brandName) {
 
-		if (brandName.length() >= Integer.parseInt(MIN_BRAND_NAME)
-				&& brandName.length() <= Integer.parseInt(MAX_BRAND_NAME))
+		if (brandName == null)
+			return false;
+		else if ( brandName.length() >= MIN_BRAND_NAME && brandName.length() <= MAX_BRAND_NAME )
 			return true;
 		else
 			return false;
@@ -99,8 +104,9 @@ public class DataFormatValidator {
 	 */
 	public static boolean validateDestinationName(String destinationName) {
 
-		if (destinationName.length() >= Integer.parseInt(MIN_DESTINATION_NAME_LENGTH)
-				&& destinationName.length() <= Integer.parseInt(MAX_DESTINATION_NAME_LENGTH))
+		if ( destinationName == null )
+			return false;
+		else if ( destinationName.length() >= MIN_DESTINATION_NAME_LENGTH && destinationName.length() <= MAX_DESTINATION_NAME_LENGTH )
 			return true;
 		else
 			return false;
@@ -178,6 +184,8 @@ public class DataFormatValidator {
 
 		if (urban == "Y" || urban == "N")
 			return true;
+		else if ( urban == null )
+			return false;
 		else
 			return false;
 	}
