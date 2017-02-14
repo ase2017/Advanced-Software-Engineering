@@ -49,6 +49,8 @@ public class DataFormatValidator {
 	 */
 	public static boolean validateRegistrationNumber(String registrationNumber) {
 
+		if ( registrationNumber == null ) 
+			return false;
 		if ( registrationNumber.length() == TAXI_REGISTRATION_NUMBER_LENGTH )
 			return true;
 		else

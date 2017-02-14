@@ -7,6 +7,14 @@ import java.io.IOException;
 import main.items.TaxiData;
 
 
+/**
+ * DataFileWriter is a public class that writes the computation result 
+ * to three output files <top-5.txt>, <driver-Journeys.txt> 
+ * and <visited-Places.txt>
+ * 
+ * @author Chiotis
+ *
+ */
 public class DataFileWriter {
 
 	private static final String OUTPUT_DIRECTORY_NAME = "outputFiles";
@@ -14,26 +22,35 @@ public class DataFileWriter {
 	private static final String FILE_NAME_PLACES_PER_DRIVER = "driver-Journeys.txt";
 	private static final String FILE_NAME_PLACES = "visited-Places.txt";
 
+	/**
+	 * writeFiles is a public method that takes the appropriate Stings
+	 * from TaxiData, call the three methods that creates the output files
+	 * and finally checks if the process ended successfully. 
+	 * 
+	 * @param taxidata contains the Strings that we will write to the output files.
+	 */
 	public void writeFiles(TaxiData taxidata) {
 
 		boolean file1_OK = false;
 		boolean file2_OK = false;
 		boolean file3_OK = false;
 
-		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+		System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		System.out.println("\nCreating output files...\n");
 
-
+		// Creates the output Directory, if does not exists.
 		File f = new File(OUTPUT_DIRECTORY_NAME);
 		if (!f.isDirectory()) {
 			f.mkdir();
 		}
 
+		// Call the three methods in order to create the three output files.
 		file1_OK = writeFile1(taxidata);
 		file2_OK = writeFile2(taxidata);
 		file3_OK = writeFile3(taxidata);
 
 
+		// Inform user whether the process was successful or not. 
 		if ( file1_OK )
 			System.out.println("\t+ <" + FILE_NAME_TOP_5 + "> successfully created!");
 		else
@@ -56,11 +73,20 @@ public class DataFileWriter {
 			System.out.println("\nProcess ended with errors...");
 
 
-		System.out.println("\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n");
+		System.out.println("\n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n");
 
 	}
 
 
+	/**
+	 * writeFile1 creates the top-5 output file if does not already exists
+	 * and write the resulted string from TaxiData.
+	 * 
+	 * @param taxidata contains the String needed for the top-5 journey's output file.
+	 * 
+	 * @return true if process ended successfully
+	 * 	       else return false.
+	 */
 	private boolean writeFile1(TaxiData taxidata) {
 
 
@@ -71,12 +97,13 @@ public class DataFileWriter {
 
 			String fileContents = "";
 
+			// Open the FILE_NAME_TOP_5 (instance variable) file.
 			fileWriterFile1 = new FileWriter( OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_TOP_5 );
 			buffWriterFile1 = new BufferedWriter(fileWriterFile1);
 
-
-			fileContents = taxidata.formatJourneyFile();
-			buffWriterFile1.write(fileContents);
+			
+			fileContents = taxidata.formatJourneyFile();	// Takes the resulted data from the Taxi's Data object. 
+			buffWriterFile1.write(fileContents);			// Writes the data to the file
 
 
 		} catch (IOException e) {
@@ -87,6 +114,8 @@ public class DataFileWriter {
 		} finally {
 
 			try {
+				
+				// Close the file descriptors.
 
 				if (buffWriterFile1 != null)
 					buffWriterFile1.close();
@@ -108,6 +137,15 @@ public class DataFileWriter {
 	}
 
 
+	/**
+	 * writeFile2 creates the driver's Journey output file if does not already exists
+	 * and write the resulted string from TaxiData.
+	 * 
+	 * @param taxidata contains the String needed for the top-5 driver's Journey output file.
+	 * 
+	 * @return true if process ended successfully
+	 * 	       else return false.
+	 */
 	private boolean writeFile2(TaxiData taxidata) {
 
 
@@ -118,14 +156,15 @@ public class DataFileWriter {
 
 			String fileContents = "";
 
+			// Open the FILE_NAME_PLACES_PER_DRIVER (instance variable) file.
 			fileWriterFile2 = new FileWriter( OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_PLACES_PER_DRIVER );
 			buffWriterFile2 = new BufferedWriter(fileWriterFile2);
 
-			buffWriterFile2.write(fileContents);
+			//buffWriterFile2.write(fileContents);
 
-			fileContents = taxidata.formatPlacesVisitedPerDriver();
-			buffWriterFile2.write(fileContents);
-
+			fileContents = taxidata.formatPlacesVisitedPerDriver();		// Takes the resulted data from the Taxi's Data object. 
+			buffWriterFile2.write(fileContents);						// Writes the data to the file.
+				
 
 		} catch (IOException e) {
 
@@ -136,6 +175,7 @@ public class DataFileWriter {
 
 			try {
 
+				// Close the file descriptors. 
 				if (buffWriterFile2 != null)
 					buffWriterFile2.close();
 
@@ -157,7 +197,15 @@ public class DataFileWriter {
 	}
 
 
-
+	/**
+	 * writeFile3 creates the visited Places output file if does not already exists
+	 * and write the resulted string from TaxiData.
+	 * 
+	 * @param taxidata contains the String needed for the visited Places by taxis output file.
+	 * 
+	 * @return true if process ended successfully
+	 * 	       else return false.
+	 */
 	private boolean writeFile3(TaxiData taxidata) {
 
 
@@ -171,10 +219,10 @@ public class DataFileWriter {
 			fileWriterFile3 = new FileWriter( OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_PLACES );
 			buffWriterFile3 = new BufferedWriter(fileWriterFile3);
 
-			buffWriterFile3.write(fileContents);
+			// buffWriterFile3.write(fileContents);
 
-			fileContents = taxidata.formatPlacesVisited();
-			buffWriterFile3.write(fileContents);
+			fileContents = taxidata.formatPlacesVisited();		// Takes the resulted data from the Taxi's Data object. 
+			buffWriterFile3.write(fileContents);				// Writes the data to the file.
 
 
 		} catch (IOException e) {
@@ -186,6 +234,7 @@ public class DataFileWriter {
 
 			try {
 
+				// Close the file descriptors.
 				if (buffWriterFile3 != null)
 					buffWriterFile3.close();
 
