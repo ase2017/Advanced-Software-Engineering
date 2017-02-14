@@ -4,22 +4,38 @@ import java.util.TreeMap;
 import main.exceptions.DuplicateIDException;
 import main.io.DataFileReader;
 
+/**
+ * Class Name: DestinationtTreeMap.java
+ * 
+ * Description: This class creates two TreeMaps 
+ * 
+ * @author George Goniotakis
+ * @since Feb 9, 2017
+ */
+
 public class DestinationtTreeMap {
 	
-	private TreeMap<Integer, Destination> destinations;
+	private TreeMap<Integer, Destination> destinations; //The TreeMap that contains all the destinations
 	
+	/**
+	 * This constructor creates a new TreeMap that contains all the
+	 * destinations of 2017.
+	 * 
+	 * @param destinations TreeMap with destinations
+	 */
 	public DestinationtTreeMap(TreeMap<Integer, Destination> destinations){
 	
 		this.destinations = destinations;
 		
 	}
 	
-	public void addDestination2016(Destination destination){
-
-		destinations.put(destination.getDestinationID(), destination);
-
-	}
-
+	/**
+	 * This method puts a destination to a TreeMap if it does not
+	 * already exist.
+	 * 
+	 * @param destination The destination object
+	 * @throws DuplicateIDException If a destination with same ID already exists show an error
+	 */
 	public void addDestination2017(Destination destination) throws DuplicateIDException{
 
 		if(destinations.containsKey(destination.getDestinationID())){
@@ -32,13 +48,18 @@ public class DestinationtTreeMap {
 			destinations.put(destination.getDestinationID(), destination);
 		}
 	}
-
+	
+	/**
+	 * This method checks if the destination object already
+	 * exists.
+	 * 
+	 * @param destination The destination object
+	 * @return boolean true/false
+	 */
 	public boolean containsDestinationName(Destination destination) {
-		//System.out.println("DESTINATION :" + destination.getDestinationName());
+		
 		for(Destination d : destinations.values()) {
-			//System.out.println("COMPARING IT TO : " + d.getDestinationName());
 			if(d.getDestinationName().equals(destination.getDestinationName())){
-				//System.out.println("\n");
 				return true;
 			}
 		}
@@ -54,7 +75,4 @@ public class DestinationtTreeMap {
 	public void setDestinations(TreeMap<Integer, Destination> destinations) {
 		this.destinations = destinations;
 	}
-	
-	
-
 }
