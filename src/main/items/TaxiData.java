@@ -143,7 +143,7 @@ public class TaxiData {
 				if (POUNDS_PER_MILE * dest.getDistance() < POUNDS_PER_MINUTE * journey.getTime()) {
 					return CHARGE_COEFFICIENT * (3 + POUNDS_PER_MINUTE * journey.getTime() + 0.5 * journey.getNumberOfPassengers());
 				} else {
-					return CHARGE_COEFFICIENT * (3 + POUNDS_PER_MILE * journey.getTime() + 0.5 * journey.getNumberOfPassengers());
+					return CHARGE_COEFFICIENT * (3 + POUNDS_PER_MILE * dest.getDistance() + 0.5 * journey.getNumberOfPassengers());
 				}
 			}
 
