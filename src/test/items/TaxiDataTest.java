@@ -164,10 +164,26 @@ public class TaxiDataTest{
 
     @Test
     public void formatTopJourneys() {
+
+        // N > nummber of journeys stored
         assertNotEquals(null,taxiData.formatTopJourneys(5,true));
         assertNotEquals("",taxiData.formatTopJourneys(5,true));
+        assertNotEquals(null,taxiData.formatTopJourneys(5,false));
+        assertNotEquals("",taxiData.formatTopJourneys(5,false));
+
+        // N > number of journeys stored
         assertNotEquals(null,taxiData.formatTopJourneys(1000,true));
+        assertNotEquals("",taxiData.formatTopJourneys(1000,true));
+        assertNotEquals(null,taxiData.formatTopJourneys(1000,false));
         assertNotEquals("",taxiData.formatTopJourneys(1000,false));
+
+        // N = 0
+        assertEquals("Invalid input number of journeys.\n",taxiData.formatTopJourneys(0,true));
+        assertEquals("Invalid input number of journeys.\n",taxiData.formatTopJourneys(0,false));
+
+        // N invalid (negative)
+        assertEquals("Invalid input number of journeys.\n",taxiData.formatTopJourneys(-1,true));
+        assertEquals("Invalid input number of journeys.\n",taxiData.formatTopJourneys(-1,false));
     }
 
 
@@ -239,6 +255,7 @@ public class TaxiDataTest{
 
         // Testing : Taxi is not null and has at least one Journey
         assertNotEquals(null,taxiData.findJourneys(taxiWithJourneys));
+        assertNotEquals(0,taxiData.findJourneys(taxiWithJourneys).size());
 
         // Testing : Taxi is not null but does not have a Journey
         assertEquals(null,taxiData.findJourneys(taxiWithoutJourneys));
@@ -247,23 +264,20 @@ public class TaxiDataTest{
 
     @Test
     public void formatPlacesVisited() {
-
+        // No useful tests
     }
 
     @Test
     public void formatCurrentYearVisitedPlaces() {
-
+        // No useful tests
     }
 
     @Test
     public void formatPreviousYearVisitedPlaces() {
-
+        // No useful tests
     }
 
-    @Test
-    public void formatPlacesVisitedInBothYears() {
 
-    }
 
 
 
