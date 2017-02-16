@@ -45,7 +45,7 @@ public class TaxiData {
 	 */
 	public String formatJourneyFile(){
 
-		return (formatTopJourneys(1500,true) + formatTopJourneys(1500,false));
+		return (formatTopJourneys(5,true) + formatTopJourneys(5,false));
 
 	}
 
