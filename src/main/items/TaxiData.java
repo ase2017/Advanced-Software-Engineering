@@ -2,30 +2,31 @@ package main.items;
 
 import java.util.*;
 
+/**
+ * Class that contains all the data related to taxis, destinations and journeys
+ */
 public class TaxiData {
 
 	private TaxiTreeMap taxis;
 	private DestinationtTreeMap currentYearDestinations;
-	DestinationTreeSet previousYearDestinations;
+	private DestinationTreeSet previousYearDestinations;
 	private JourneyTreeMap journeys;
-
-
 
 	/**
 	 * Formats and returns a line of information for the first output file (top 5 journeys)
-	 * @param taxi
-	 * @param destination
-	 * @param journey
-	 * @return
+	 * @param taxi a Taxi object
+	 * @param destination a Destination
+	 * @param journey a Journey
+	 * @return a String containing a line of information for the first output file (top 5 journeys)
 	 */
 	public String formatInfoLine(Taxi taxi, Destination destination, Journey journey){
 
 		String res = "";
 		if(taxi != null && destination != null && journey != null) {
 			res += journey.getTaxiRegistrationNumber() + "\t\t"
-					+ String.format("%1$.1f miles",
-					destination.getDistance()) + "\t"
-					//+ destination.getDistance() + " miles   "
+					+ String.format("%1$.1f",
+					destination.getDistance())
+					+ ((destination.getDistance() >= 2) ? " miles" : " mile ")  +"\t"
 					+ journey.getNumberOfPassengers()
 					+ ((journey.getNumberOfPassengers() > 1) ? " passengers" : " passenger ") + "\t"
 					+  String.format("Cost £%1$.1f",
@@ -39,21 +40,23 @@ public class TaxiData {
 	}
 
 	/**
-	 * For the first file
-	 * @return
+	 * Function to be called to generate the content of the first output file
+	 * @return a String containing the content of the first output file
 	 */
 	public String formatJourneyFile(){
 
-		return (formatTopJourneys(5,true) + formatTopJourneys(5,false));
+		return (formatTopJourneys(1500,true) + formatTopJourneys(1500,false));
 
 	}
 
+
 	/**
-	 * Formats and returns the top most expensive given number of journeys
+	 * Formats and returns the top most or cheapest expensive given number of journeys
 	 * @param numberOfJourneys : the number of top journeys that we are interested in
-	 * @return a String, which is the content of the first part of the first output file
-	 */
-	private String formatTopJourneys(int numberOfJourneys, boolean mostExpensive){
+	 * @param mostExpensive if true, will get the top N most expensive. If false, the top N cheapest.
+     * @return a String, which is the content of the first or the last part of the first output file
+     */
+	public String formatTopJourneys(int numberOfJourneys, boolean mostExpensive){
 
 		String result = "";
 
@@ -64,46 +67,40 @@ public class TaxiData {
 				result = "There was no journey in our records.";
 			} else {
 
-				/*
-				// Need to store them because we need to check that there are no duplicates
-				 */
+				// Need to store them in treemap of arraylist (key = price) because some journeys could have the same price
+				// Also treemap orders keys which is useful
 				TreeMap<Double,ArrayList<Journey>> sortedJourneysByPrice = getJourneysByPrice(mostExpensive);
 
 				ArrayList<Journey> topNjourneys = new ArrayList<>();
 
 				Iterator it = sortedJourneysByPrice.values().iterator();
 
-				if(numberOfJourneys <= journeys.getJourneys().size()) {
-					result = "CHARGES FOR THE TOP " + numberOfJourneys + " JOURNEYS\n";
+				int maxSize = (numberOfJourneys <= journeys.getJourneys().size() ? numberOfJourneys : journeys.getJourneys().size());
 
-					while(it.hasNext() && topNjourneys.size() < numberOfJourneys) {
-						ArrayList<Journey> temporaryJourneyArrayList = (ArrayList<Journey>)it.next();
-						for (Journey j : temporaryJourneyArrayList) {
-							if(topNjourneys.size() < numberOfJourneys) {
-								topNjourneys.add(j);
-							}
-						}
-					}
 
-					// If the parameter is bigger than the number of stored journeys, we stop to the number of stored journeys
-				} else {
-					result = "CHARGES FOR THE TOP " + journeys.getJourneys().size() + " JOURNEYS\n";
 
-					while(it.hasNext() && topNjourneys.size() < journeys.getJourneys().size()) {
-						ArrayList<Journey> temporaryJourneyArrayList = (ArrayList<Journey>)it.next();
-						for (Journey j : temporaryJourneyArrayList) {
-							if(topNjourneys.size() < journeys.getJourneys().size()) {
-								topNjourneys.add(j);
-							}
-						}
+				ArrayList<Journey> temporaryJourneyArrayList; // for the loop
+
+				// getting top / cheapest N journeys (or less, if there are less journeys than N)
+				while(it.hasNext() && topNjourneys.size() < maxSize) {
+					temporaryJourneyArrayList = (ArrayList<Journey>)it.next();
+					for (Journey j : temporaryJourneyArrayList) {
+						// we only add the journey if we did not reach the max size (maxSize)
+						// and if there is Destination and a Taxi related to that Journey
+						if(topNjourneys.size() < maxSize && findDestination(j) != null && findTaxi(j) != null)
+							topNjourneys.add(j);
+
+						// if we reached maxSize we stop the for loop
+						if (topNjourneys.size() >= maxSize)
+							break;
 					}
 				}
 
+				result = "CHARGES FOR THE " + (mostExpensive ? "TOP " : "CHEAPEST ") + topNjourneys.size() + " JOURNEYS\n";
 
-
-
+				// formatting to String for each line
 				if(mostExpensive) {
-					for(int i = topNjourneys.size()-1; i >= 0; i--){
+					for(int i = 0; i < topNjourneys.size(); i++){
 						Destination dest = findDestination(topNjourneys.get(i));
 						Taxi tx = findTaxi(topNjourneys.get(i));
 						result += formatInfoLine(tx,dest,topNjourneys.get(i));
@@ -115,31 +112,23 @@ public class TaxiData {
 						result += formatInfoLine(tx,dest,topNjourneys.get(i));
 					}
 				}
-
-
 			}
 		}
-
 		return  result + "\n";
 	}
 
 
 
-
-
-
-
-
 	/**
-	 *
-	 * @param journey
+	 *	Calculates and returns the fee of a Journey
+	 * @param journey the Journey that we are interested in
 	 * @return the fee of a given journey
 	 * Requirement : it is expected that Journey and Destination information is correct
 	 */
 	public double calculateFee(Journey journey){
 
-		double POUNDS_PER_MILE = 5.0;
-		double POUNDS_PER_MINUTE = 5.2;
+		double POUNDS_PER_MILE = 1.0;
+		double POUNDS_PER_MINUTE = 0.5;
 		double CHARGE_COEFFICIENT = 1.0;
 
 		if(journey != null) {
@@ -147,9 +136,9 @@ public class TaxiData {
 
 			if(dest != null) {
 
-				if  (dest.isUrban()) {
+				if  (dest.isUrban())
 					CHARGE_COEFFICIENT = 1.1;
-				}
+
 				// The taxi company takes the highest fee of both possible fees
 				if (POUNDS_PER_MILE * dest.getDistance() < POUNDS_PER_MINUTE * journey.getTime()) {
 					return CHARGE_COEFFICIENT * (3 + POUNDS_PER_MINUTE * journey.getTime() + 0.5 * journey.getNumberOfPassengers());
@@ -166,16 +155,18 @@ public class TaxiData {
 	 * Returns a treemap of arraylist of journeys, with keys being the price
 	 * @return a treemap of arraylist of journeys, with keys being the price
 	 */
-	private TreeMap<Double,ArrayList<Journey>> getJourneysByPrice(boolean mostExpensive) {
+	public TreeMap<Double,ArrayList<Journey>> getJourneysByPrice(boolean mostExpensive) {
 
 		TreeMap<Double,ArrayList<Journey>> topNJourneysWithSamePrice = new TreeMap<>();
 
-		if(mostExpensive) {
+		if(mostExpensive)
 			topNJourneysWithSamePrice = new TreeMap<>((Collections.reverseOrder()));
-		}
+
 		for(Map.Entry<String,ArrayList<Journey>> entry : journeys.getJourneys().entrySet()) {
 			for(Journey j : entry.getValue()) {
 				double fee = calculateFee(j);
+
+				// if it was possible to calculate the fee, we add that journey
 				if(fee != -1) {
 					if(topNJourneysWithSamePrice.containsKey(calculateFee(j))) {
 						topNJourneysWithSamePrice.get(calculateFee(j)).add(j);
@@ -185,12 +176,8 @@ public class TaxiData {
 						topNJourneysWithSamePrice.get(calculateFee(j)).add(j);
 					}
 				}
-
-
 			}
-
 		}
-
 		return topNJourneysWithSamePrice;
 	}
 
@@ -230,23 +217,21 @@ public class TaxiData {
 	 */
 	public String formatPlacesVisitedPerDriver(){
 
-		String res = "";
+		String res = "PLACES VISITED PER DRIVER\n\n";
 
 		if(taxis != null && taxis.getTaxis() != null && taxis.getTaxis().size() > 0) {
 			ArrayList<Taxi> sortedTaxi = sortTaxisByName();
-			res = "PLACES VISITED PER DRIVER\n\n";
-
 
 			// Each value of the tree map is an arraylist
 			// TreeMap keySet is sorted alphabetically
 			for(Taxi t : sortedTaxi) {
 
-
+				// driver name
 				res += t.getDriverName() + "\n";
 
 				ArrayList<Journey> journeysOfCurrentTaxi = findJourneys(t); //journeys of the driver
 
-				if (journeysOfCurrentTaxi != null) {
+				if (journeysOfCurrentTaxi != null && journeysOfCurrentTaxi.size() > 0) {
 					TreeSet<String> destinationNamesSorted = new TreeSet<String>(); //sorted distance name of the journeys of the driver
 
 					// getting all distances done by driver
@@ -258,7 +243,6 @@ public class TaxiData {
 						} else {
 							System.out.println("No destinations were found in our records for given journey.\n");
 						}
-
 					}
 
 					// building up the result
@@ -266,17 +250,15 @@ public class TaxiData {
 						res += "\t " + destinationName + "\n";
 					}
 				} else {
-					System.out.println("No journeys were found in our records for given taxi.\n" + t.toString() + "\n");
+					res += "No journeys / destinations were found in our records for this taxi.\n";
 				}
 
 				res += "\n"; //separation between each taxi
 
 			}
 
-
-
 		} else {
-			res = "No places were found in our records.\n";
+			res += "No taxis were found in our records.\n";
 		}
 
 		return res;
@@ -284,24 +266,24 @@ public class TaxiData {
 
 	/**
 	 * Sorts the taxis by name and returns an treemap of arralylists of them
-	 * @return
+	 * @return an Arraylist of taxis, sorted by name
 	 */
 	public ArrayList<Taxi> sortTaxisByName() {
 
-		ArrayList<Taxi> sortedTaxiTreeSet = new ArrayList<>();
+		ArrayList<Taxi> sortedTaxi = new ArrayList<>();
 
 
 		if(taxis != null && taxis.getTaxis() != null && taxis.getTaxis().size() > 0) {
 			for(Map.Entry<String,Taxi> mapItem : taxis.getTaxis().entrySet()) {
-				sortedTaxiTreeSet.add(mapItem.getValue());
+				sortedTaxi.add(mapItem.getValue());
 			}
 		}
 
-
-		Collections.sort(sortedTaxiTreeSet,
+		//sorting
+		Collections.sort(sortedTaxi,
 						(o1, o2) -> ((Taxi) o1).getDriverName().compareTo(((Taxi) o2).getDriverName()));
 
-		return sortedTaxiTreeSet;
+		return sortedTaxi;
 	}
 
 	/**
@@ -332,33 +314,21 @@ public class TaxiData {
 			TreeSet<String> previousYearVisitedPlacesSet  = new TreeSet<>();
 			TreeSet<String> placesVisitedInBothYearsSet  = new TreeSet<>();
 
-
-
 			for(Destination l : currentYearDestinations.getDestinations().values()) {
-				//System.out.print(l.getDestinationName());
 				if(previousYearDestinations.containsDestinationName(l)) {
-					//System.out.println("BOTH YEARS");
 					placesVisitedInBothYearsSet.add(l.getDestinationName());
 				} else {
-					//System.out.println("ONLY THIS YEAR");
 					currentYearVisitedPlacesSet.add(l.getDestinationName());
 				}
 			}
 
-
-
 			for(Destination l : previousYearDestinations.getDestinations()) {
-
 				if(currentYearDestinations.containsDestinationName(l)) {
 					// do nothing, it's already added in previous loop
-
 				} else {
-
 					previousYearVisitedPlacesSet.add(l.getDestinationName());
 				}
 			}
-
-
 
 			res += formatCurrentYearVisitedPlaces(currentYearVisitedPlacesSet)
 					+ formatPreviousYearVisitedPlaces(previousYearVisitedPlacesSet)
@@ -373,10 +343,10 @@ public class TaxiData {
 
 	/**
 	 * Formats and returns the first part of the third file about destinations per year
-	 * @param currentYearVisitedPlacesSet
-	 * @return
+	 * @param currentYearVisitedPlacesSet the (unique) places visited this year
+	 * @return the first part of the third file about destinations per year
 	 */
-	private String formatCurrentYearVisitedPlaces(TreeSet<String> currentYearVisitedPlacesSet){
+	public String formatCurrentYearVisitedPlaces(TreeSet<String> currentYearVisitedPlacesSet){
 
 		String res = "";
 
@@ -389,7 +359,7 @@ public class TaxiData {
 			}
 			res += "\n";
 		} else {
-			res = "Sorry, no destinations were found in our record of current year\n\n";
+			res = "Sorry, no destinations were found in our record of current year.\n\n";
 		}
 
 		return res;
@@ -398,10 +368,10 @@ public class TaxiData {
 
 	/**
 	 * Formats and returns the second part of the third file about destinations per year
-	 * @param previousYearVisitedPlacesSet
-	 * @return
+	 * @param previousYearVisitedPlacesSet  the (unique) places visited least year
+	 * @return the second part of the third file about destinations per year
 	 */
-	private String formatPreviousYearVisitedPlaces(TreeSet<String> previousYearVisitedPlacesSet){
+	public String formatPreviousYearVisitedPlaces(TreeSet<String> previousYearVisitedPlacesSet){
 
 		String res = "";
 
@@ -416,7 +386,7 @@ public class TaxiData {
 			res += "\n";
 
 		} else {
-			res = "Sorry, no destinations were found in our record of previous year";
+			res = "Sorry, no destinations were found in our record of previous year.\n\n";
 		}
 
 		return res;
@@ -425,10 +395,10 @@ public class TaxiData {
 
 	/**
 	 * Formats and returns the third part of the third file about destinations per year
-	 * @param placesVisitedInBothYearsSet
-	 * @return
+	 * @param placesVisitedInBothYearsSet the (unique) places visited in both years
+	 * @return the third part of the third file about destinations per year
 	 */
-	private String formatPlacesVisitedInBothYears(TreeSet<String> placesVisitedInBothYearsSet){
+	public String formatPlacesVisitedInBothYears(TreeSet<String> placesVisitedInBothYearsSet){
 
 		String res = "";
 
@@ -437,14 +407,13 @@ public class TaxiData {
 			res = placesVisitedInBothYearsSet.size()
 					+ ((placesVisitedInBothYearsSet.size() > 1) ? " PLACES VISITED IN BOTH 2017 AND 2016\n" : " PLACE VISITED IN BOTH 2017 AND 2016\n");
 
-
 			for(String str : placesVisitedInBothYearsSet) {
 				res += str + "\n";
 			}
 			res += "\n";
 
 		} else {
-			res = "Sorry, no destinations were found in our record of both current and previous years";
+			res = "Sorry, no destinations were found in our record of both current and previous years.\n\n";
 		}
 
 		return res;
