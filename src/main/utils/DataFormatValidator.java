@@ -1,10 +1,7 @@
 
 package main.utils;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.regex.Pattern;
 
 
 /**
@@ -48,13 +45,13 @@ public class DataFormatValidator {
 	 *         Else return false. 
 	 */
 	public static boolean validateRegistrationNumber(String registrationNumber) {
-
-		if ( registrationNumber == null ) 
+		
+		if (!Pattern.matches("(^[A-Z]{2})([0-9]{3})([A-Z]{2})", registrationNumber))
 			return false;
-		if ( registrationNumber.length() == TAXI_REGISTRATION_NUMBER_LENGTH )
-			return true;
+		else if (registrationNumber.length() != TAXI_REGISTRATION_NUMBER_LENGTH)
+			return false;
 		else
-			return false;
+			return true;
 
 	}
 
