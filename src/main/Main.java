@@ -22,8 +22,8 @@ public class Main {
 
 	 public static void main(String[] args) {
  		
-		 TaxiService tx = new TaxiService();
-		 tx.start();
+		 TaxiService taxiService = new TaxiService();
+         taxiService.start();
 
  	}
 }
