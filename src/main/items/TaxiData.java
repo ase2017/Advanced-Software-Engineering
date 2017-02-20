@@ -220,7 +220,7 @@ public class TaxiData {
 		String res = "PLACES VISITED PER DRIVER\n\n";
 
 		if(taxis != null && taxis.getTaxis() != null && taxis.getTaxis().size() > 0) {
-			ArrayList<Taxi> sortedTaxi = sortTaxisByName();
+			ArrayList<Taxi> sortedTaxi = taxis.sortTaxisByName();
 
 			// Each value of the tree map is an arraylist
 			// TreeMap keySet is sorted alphabetically
@@ -264,27 +264,6 @@ public class TaxiData {
 		return res;
 	}
 
-	/**
-	 * Sorts the taxis by name and returns an treemap of arralylists of them
-	 * @return an Arraylist of taxis, sorted by name
-	 */
-	public ArrayList<Taxi> sortTaxisByName() {
-
-		ArrayList<Taxi> sortedTaxi = new ArrayList<>();
-
-
-		if(taxis != null && taxis.getTaxis() != null && taxis.getTaxis().size() > 0) {
-			for(Map.Entry<String,Taxi> mapItem : taxis.getTaxis().entrySet()) {
-				sortedTaxi.add(mapItem.getValue());
-			}
-		}
-
-		//sorting
-		Collections.sort(sortedTaxi,
-						(o1, o2) -> ((Taxi) o1).getDriverName().compareTo(((Taxi) o2).getDriverName()));
-
-		return sortedTaxi;
-	}
 
 	/**
 	 * Returns the list of journeys made by a given taxi for the current year
@@ -417,6 +396,26 @@ public class TaxiData {
 		}
 
 		return res;
+	}
+
+	/**
+	 * Checks that all 4 collections contain at least one element
+	 * @return
+     */
+	public boolean checkAllCollectionsAreInitialized() {
+		if (this != null && this.getTaxis() != null && this.getCurrentYearDestinations() != null
+				&& this.getPreviousYearDestinations() != null && this.getJourneys() != null
+				&& this.getTaxis().getTaxis() != null
+				&& this.getPreviousYearDestinations().getDestinations() != null
+				&& this.getJourneys().getJourneys() != null && this.getCurrentYearDestinations() != null
+				&& this.getCurrentYearDestinations().getDestinations().size() > 0
+				&& this.getJourneys().getJourneys().size() > 0
+				&& this.getPreviousYearDestinations().getDestinations().size() > 0
+				&& this.getTaxis().getTaxis().size() > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	

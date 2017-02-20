@@ -1,5 +1,8 @@
 package main.items;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map;
 import java.util.TreeMap;
 import main.exceptions.DuplicateIDException;
 import main.io.DataFileReader;
@@ -49,6 +52,29 @@ public class TaxiTreeMap {
 			taxis.put(taxi.getRegistrationNumber(), taxi);
 		}
 		
+	}
+
+	/**
+	 * @author Jules
+	 * Sorts the taxis by name and returns an treemap of arralylists of them
+	 * @return an Arraylist of taxis, sorted by name
+	 */
+	public ArrayList<Taxi> sortTaxisByName() {
+
+		ArrayList<Taxi> sortedTaxi = new ArrayList<>();
+
+
+		if(taxis != null && this.getTaxis() != null && this.getTaxis().size() > 0) {
+			for(Map.Entry<String,Taxi> mapItem : this.getTaxis().entrySet()) {
+				sortedTaxi.add(mapItem.getValue());
+			}
+		}
+
+		//sorting
+		Collections.sort(sortedTaxi,
+				(o1, o2) -> ((Taxi) o1).getDriverName().compareTo(((Taxi) o2).getDriverName()));
+
+		return sortedTaxi;
 	}
 	
 	/* Getters and Setters */
