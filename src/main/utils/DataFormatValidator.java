@@ -1,6 +1,8 @@
 
 package main.utils;
 
+import main.items.CarBrand;
+
 import java.util.regex.Pattern;
 
 
@@ -25,8 +27,6 @@ public class DataFormatValidator {
 	private static final int MAX_DESTINATION_NAME_LENGTH = 30;
 	private static final int MIN_DRIVER_NAME_LENGTH = 5;
 	private static final int MAX_DRIVER_NAME_LENGTH = 30;
-	private static final int MIN_BRAND_NAME = 3;
-	private static final int MAX_BRAND_NAME = 15;
 	private static final int TAXI_REGISTRATION_NUMBER_LENGTH = 7;
 	private static final int MIN_NUMBER_OF_PASSENGERS = 1;
 	private static final int MAX_NUMBER_OF_PASSENGERS = 8;
@@ -77,15 +77,12 @@ public class DataFormatValidator {
 	 * Validates the taxi's brand name, as to the range of its length. 
 	 * 
 	 * @param brandName
-	 * @return true if the brand name is in the indicated range by the
-	 *         corresponding instance variables.
+	 * @return true if the brand name is in the Enum CarBrand
 	 *         Else return false. 
 	 */
 	public static boolean validateBrand(String brandName) {
 
-		if (brandName == null)
-			return false;
-		else if ( brandName.length() >= MIN_BRAND_NAME && brandName.length() <= MAX_BRAND_NAME )
+		if(CarBrand.containsBrand(brandName))
 			return true;
 		else
 			return false;
