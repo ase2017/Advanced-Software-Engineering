@@ -51,20 +51,9 @@ public class TaxiService {
 		taxidata.setPreviousYearDestinations(fr.loadDestinations2016()); //Read the content of destinations_2016.txt
 	
 		// If all files have at least one record each 
-		if (taxidata != null && taxidata.getTaxis() != null && taxidata.getCurrentYearDestinations() != null
-				&& taxidata.getPreviousYearDestinations() != null && taxidata.getJourneys() != null
-				&& taxidata.getTaxis().getTaxis() != null
-				&& taxidata.getPreviousYearDestinations().getDestinations() != null
-				&& taxidata.getJourneys().getJourneys() != null && taxidata.getCurrentYearDestinations() != null
-				&& taxidata.getCurrentYearDestinations().getDestinations().size() > 0
-				&& taxidata.getJourneys().getJourneys().size() > 0
-				&& taxidata.getPreviousYearDestinations().getDestinations().size() > 0
-				&& taxidata.getTaxis().getTaxis().size() > 0) {
-
+		if (taxidata.checkAllCollectionsAreInitialized()) {
 			return true;
-			
 		} else {
-
 			exit("\t \n Not enough records."); //Exit application with this message
 		}
 
