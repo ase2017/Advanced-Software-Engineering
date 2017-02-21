@@ -1,16 +1,10 @@
 package test.io;
-
 import static org.junit.Assert.*;
-
 import java.io.IOException;
-import java.util.regex.Matcher;
-
 import org.junit.*;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import main.exceptions.InvalidBrandNameException;
 import main.exceptions.InvalidDestinationNameException;
 import main.exceptions.InvalidDistanceException;
@@ -227,7 +221,6 @@ public class DateFileReaderTest {
     public void integerConvertionDest2017() throws NumberFormatException {
 
         exceptionRule.expect(NumberFormatException.class);
-        //exceptionRule.expectMessage("input");
         fileReaderObject.destination2017Checker(directoryNameLegal, filenameCurrentYearDestTesting);
 
         throw new NumberFormatException();
@@ -319,7 +312,6 @@ public class DateFileReaderTest {
     public void numberExceptionJourney() throws NumberFormatException {
 
         exceptionRule.expect(NumberFormatException.class);
-        //exceptionRule.expectMessage("For input string");
 
         fileReaderObject.journeyChecker(directoryNameLegal, filenameJourneyTesting);
 
