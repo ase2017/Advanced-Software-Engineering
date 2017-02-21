@@ -69,6 +69,7 @@ public class DestinationTreeSet {
     }
 
     public void setDestinations(TreeSet<Destination> destinations) {
-        this.destinations = destinations;
+        if(destinations != null && destinations.size() > 0)
+            this.destinations = destinations;
     }
 }

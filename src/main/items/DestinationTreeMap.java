@@ -73,6 +73,7 @@ public class DestinationTreeMap {
 	}
 
 	public void setDestinations(TreeMap<Integer, Destination> destinations) {
-		this.destinations = destinations;
+		if(destinations != null && destinations.size() > 0 )
+			this.destinations = destinations;
 	}
 }
