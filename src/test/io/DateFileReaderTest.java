@@ -22,6 +22,7 @@ public class DateFileReaderTest {
 
 
     private String directoryNameLegal = "inputFiles/";
+    private String testNameLegal = "testFiles/";
     private String filenameLegal = "taxis.txt";
     private String directoryNameIllegal = "NoDir/";
     private String filenameIllegal = "noFile.txt";
@@ -67,9 +68,9 @@ public class DateFileReaderTest {
     @Test(expected=NullPointerException.class)
     public void ioFailure() throws IOException, NullPointerException {
 
-        fileReaderObject.taxiChecker(directoryNameLegal, filenameIllegal);
-        fileReaderObject.taxiChecker(directoryNameIllegal, filenameLegal);
-        fileReaderObject.taxiChecker(directoryNameIllegal, filenameIllegal);
+        fileReaderObject.taxiChecker(testNameLegal, filenameIllegal);
+        fileReaderObject.taxiChecker(testNameLegal, filenameLegal);
+        fileReaderObject.taxiChecker(testNameLegal, filenameIllegal);
 
     }
 
@@ -86,7 +87,7 @@ public class DateFileReaderTest {
     public void ioTestingTaxi() {
 
         assertNotNull( "File: " + filenameLastYearDestTesting + ". Error: Return null object!",
-                fileReaderObject.taxiChecker(directoryNameLegal, filenameTaxiUnitTesting) );
+                fileReaderObject.taxiChecker(testNameLegal, filenameTaxiUnitTesting) );
 
     }
 
@@ -98,7 +99,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidBrandNameException.class);
         exceptionRule.expectMessage("Error! Wrong car`s brand");
 
-        fileReaderObject.taxiChecker(directoryNameLegal, filenameTaxiUnitTesting);
+        fileReaderObject.taxiChecker(testNameLegal, filenameTaxiUnitTesting);
 
         throw new InvalidBrandNameException(filenameTaxiUnitTesting, 0);
     }
@@ -110,7 +111,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidTaxiNameException.class);
         exceptionRule.expectMessage("Error! Wrong driver`s name");
 
-        fileReaderObject.taxiChecker(directoryNameLegal, filenameTaxiUnitTesting);
+        fileReaderObject.taxiChecker(testNameLegal, filenameTaxiUnitTesting);
 
         throw new InvalidTaxiNameException(filenameTaxiUnitTesting, 0);
 
@@ -122,7 +123,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidRegistrationNumberException.class);
         exceptionRule.expectMessage("Error! Wrong registration number");
 
-        fileReaderObject.taxiChecker(directoryNameLegal, filenameTaxiUnitTesting);
+        fileReaderObject.taxiChecker(testNameLegal, filenameTaxiUnitTesting);
 
         throw new InvalidRegistrationNumberException(filenameTaxiUnitTesting, 0);
     }
@@ -133,7 +134,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidInputArgumentsException.class);
         exceptionRule.expectMessage("Error! The input arguements are invalid");
 
-        fileReaderObject.taxiChecker(directoryNameLegal, filenameTaxiUnitTesting);
+        fileReaderObject.taxiChecker(testNameLegal, filenameTaxiUnitTesting);
 
         throw new InvalidInputArgumentsException(filenameTaxiUnitTesting, 0);
     }
@@ -151,7 +152,7 @@ public class DateFileReaderTest {
 
 
         assertNotNull( "File: " + filenameLastYearDestTesting + ". Error: Return null object!",
-                fileReaderObject.destination2016Checker(directoryNameLegal, filenameLastYearDestTesting) );
+                fileReaderObject.destination2016Checker(testNameLegal, filenameLastYearDestTesting) );
 
     }
 
@@ -161,7 +162,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidDestinationNameException.class);
         exceptionRule.expectMessage("Error! The name of the destination is invalid");
 
-        fileReaderObject.destination2016Checker(directoryNameLegal, filenameLastYearDestTesting);
+        fileReaderObject.destination2016Checker(testNameLegal, filenameLastYearDestTesting);
 
         throw new InvalidDestinationNameException(filenameLastYearDestTesting, 0);
 
@@ -173,7 +174,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidInputArgumentsException.class);
         exceptionRule.expectMessage("Error! The input arguements are invalid");
 
-        fileReaderObject.destination2016Checker(directoryNameLegal, filenameLastYearDestTesting);
+        fileReaderObject.destination2016Checker(testNameLegal, filenameLastYearDestTesting);
 
         throw new InvalidInputArgumentsException(filenameLastYearDestTesting, 0);
     }
@@ -184,7 +185,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(ArrayIndexOutOfBoundsException.class);
         exceptionRule.expectMessage("Array index out of range");
 
-        fileReaderObject.destination2016Checker(directoryNameLegal, filenameLastYearDestTesting);
+        fileReaderObject.destination2016Checker(testNameLegal, filenameLastYearDestTesting);
 
         throw new ArrayIndexOutOfBoundsException(0);
 
@@ -202,7 +203,7 @@ public class DateFileReaderTest {
 
 
         assertNotNull( "File: " + filenameLastYearDestTesting + ". Error: Return null object!",
-                fileReaderObject.destination2017Checker(directoryNameLegal, filenameCurrentYearDestTesting) );
+                fileReaderObject.destination2017Checker(testNameLegal, filenameCurrentYearDestTesting) );
 
     }
 
@@ -212,7 +213,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidIDException.class);
         exceptionRule.expectMessage("Error! Invalid record`s ID");
 
-        fileReaderObject.destination2017Checker(directoryNameLegal, filenameCurrentYearDestTesting);
+        fileReaderObject.destination2017Checker(testNameLegal, filenameCurrentYearDestTesting);
 
         throw new InvalidIDException(filenameCurrentYearDestTesting, 0);
     }
@@ -221,7 +222,7 @@ public class DateFileReaderTest {
     public void integerConvertionDest2017() throws NumberFormatException {
 
         exceptionRule.expect(NumberFormatException.class);
-        fileReaderObject.destination2017Checker(directoryNameLegal, filenameCurrentYearDestTesting);
+        fileReaderObject.destination2017Checker(testNameLegal, filenameCurrentYearDestTesting);
 
         throw new NumberFormatException();
     }
@@ -232,7 +233,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidInputArgumentsException.class);
         exceptionRule.expectMessage("Error! The input arguements are invalid");
 
-        fileReaderObject.destination2017Checker(directoryNameLegal, filenameCurrentYearDestTesting);
+        fileReaderObject.destination2017Checker(testNameLegal, filenameCurrentYearDestTesting);
 
         throw new InvalidInputArgumentsException(filenameCurrentYearDestTesting, 0);
     }
@@ -243,7 +244,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidDestinationNameException.class);
         exceptionRule.expectMessage("Error! The name of the destination is invalid");
 
-        fileReaderObject.destination2017Checker(directoryNameLegal, filenameCurrentYearDestTesting);
+        fileReaderObject.destination2017Checker(testNameLegal, filenameCurrentYearDestTesting);
 
         throw new InvalidDestinationNameException(filenameCurrentYearDestTesting, 0);
     }
@@ -254,7 +255,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidDistanceException.class);
         exceptionRule.expectMessage("Error! The distance is not in the correct range");
 
-        fileReaderObject.destination2017Checker(directoryNameLegal, filenameCurrentYearDestTesting);
+        fileReaderObject.destination2017Checker(testNameLegal, filenameCurrentYearDestTesting);
 
         throw new InvalidDistanceException(filenameCurrentYearDestTesting, 0);
     }
@@ -265,7 +266,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidUrbanException.class);
         exceptionRule.expectMessage("Error! Wrong urban area");
 
-        fileReaderObject.destination2017Checker(directoryNameLegal, filenameCurrentYearDestTesting);
+        fileReaderObject.destination2017Checker(testNameLegal, filenameCurrentYearDestTesting);
 
         throw new InvalidUrbanException(filenameCurrentYearDestTesting, 0);
     }
@@ -282,7 +283,7 @@ public class DateFileReaderTest {
 
 
         assertNotNull( "File: " + filenameLastYearDestTesting + ". Error: Return null object!",
-                fileReaderObject.journeyChecker(directoryNameLegal, filenameJourneyTesting) );
+                fileReaderObject.journeyChecker(testNameLegal, filenameJourneyTesting) );
 
     }
 
@@ -292,7 +293,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidInputArgumentsException.class);
         exceptionRule.expectMessage("Error! The input arguements are invalid");
 
-        fileReaderObject.journeyChecker(directoryNameLegal, filenameJourneyTesting);
+        fileReaderObject.journeyChecker(testNameLegal, filenameJourneyTesting);
 
         throw new InvalidInputArgumentsException(filenameJourneyTesting, 0);
     }
@@ -303,7 +304,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidIDException.class);
         exceptionRule.expectMessage("Error! Invalid record`s ID");
 
-        fileReaderObject.journeyChecker(directoryNameLegal, filenameJourneyTesting);
+        fileReaderObject.journeyChecker(testNameLegal, filenameJourneyTesting);
 
         throw new InvalidIDException(filenameJourneyTesting, 0);
     }
@@ -313,7 +314,7 @@ public class DateFileReaderTest {
 
         exceptionRule.expect(NumberFormatException.class);
 
-        fileReaderObject.journeyChecker(directoryNameLegal, filenameJourneyTesting);
+        fileReaderObject.journeyChecker(testNameLegal, filenameJourneyTesting);
 
         throw new NumberFormatException();
     }
@@ -324,7 +325,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidRegistrationNumberException.class);
         exceptionRule.expectMessage("Error! Wrong registration number");
 
-        fileReaderObject.journeyChecker(directoryNameLegal, filenameJourneyTesting);
+        fileReaderObject.journeyChecker(testNameLegal, filenameJourneyTesting);
 
         throw new InvalidRegistrationNumberException(filenameJourneyTesting, 0);
 
@@ -336,7 +337,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidNumberOfPassengersException.class);
         exceptionRule.expectMessage("Error! The number of passengers is not correct");
 
-        fileReaderObject.journeyChecker(directoryNameLegal, filenameJourneyTesting);
+        fileReaderObject.journeyChecker(testNameLegal, filenameJourneyTesting);
 
         throw new InvalidNumberOfPassengersException(filenameJourneyTesting, 0);
 
@@ -348,7 +349,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidTimeException.class);
         exceptionRule.expectMessage("Error! The time of the journey is not in the correct format");
 
-        fileReaderObject.journeyChecker(directoryNameLegal, filenameJourneyTesting);
+        fileReaderObject.journeyChecker(testNameLegal, filenameJourneyTesting);
 
         throw new InvalidTimeException(filenameJourneyTesting, 0);
 
@@ -361,7 +362,7 @@ public class DateFileReaderTest {
         exceptionRule.expect(InvalidMaximumVelocityException.class);
         exceptionRule.expectMessage("Error! The maximum velocity is not in the correct range");
 
-        fileReaderObject.journeyChecker(directoryNameLegal, filenameJourneyTesting);
+        fileReaderObject.journeyChecker(testNameLegal, filenameJourneyTesting);
 
         throw new InvalidMaximumVelocityException(filenameJourneyTesting, 0);
 

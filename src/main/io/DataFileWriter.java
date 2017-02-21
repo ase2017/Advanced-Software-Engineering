@@ -93,41 +93,46 @@ public class DataFileWriter {
 		BufferedWriter buffWriterFile1 = null;
 		FileWriter fileWriterFile1 = null;
 
-		try {
-
-			String fileContents = "";
-
-			// Open the FILE_NAME_TOP_5 (instance variable) file.
-			fileWriterFile1 = new FileWriter( OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_TOP_5 );
-			buffWriterFile1 = new BufferedWriter(fileWriterFile1);
-
-
-			fileContents = taxidata.formatJourneyFile();	// Takes the resulted data from the Taxi's Data object.
-			buffWriterFile1.write(fileContents);			// Writes the data to the file
-
-
-		} catch (IOException | NullPointerException e) {
-
-			System.out.println( "\t +In file: " + FILE_NAME_TOP_5 + " failed to write content. [" + e.getMessage() + "]." );
-			return false;
-
-		} finally {
-
+		if(taxidata == null) {
+			throw new NullPointerException("TaxiData is null!");
+		} else {
 			try {
 
-				// Close the file descriptors.
+				String fileContents = "";
 
-				if (buffWriterFile1 != null)
-					buffWriterFile1.close();
+				// Open the FILE_NAME_TOP_5 (instance variable) file.
+				fileWriterFile1 = new FileWriter( OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_TOP_5 );
+				buffWriterFile1 = new BufferedWriter(fileWriterFile1);
 
-			} catch (IOException e) {
 
-				System.out.println( "\t +File: " + FILE_NAME_TOP_5 + " failed to close. [" + e.getMessage() + "]." );
+				fileContents = taxidata.formatJourneyFile();	// Takes the resulted data from the Taxi's Data object.
+				buffWriterFile1.write(fileContents);			// Writes the data to the file
+
+
+			} catch (IOException | NullPointerException e) {
+
+				System.out.println( "\t +In file: " + FILE_NAME_TOP_5 + " failed to write content. [" + e.getMessage() + "]." );
 				return false;
 
-			}
+			} finally {
 
+				try {
+
+					// Close the file descriptors.
+
+					if (buffWriterFile1 != null)
+						buffWriterFile1.close();
+
+				} catch (IOException e) {
+
+					System.out.println( "\t +File: " + FILE_NAME_TOP_5 + " failed to close. [" + e.getMessage() + "]." );
+					return false;
+
+				}
+
+			}
 		}
+
 
 
 		return true;
@@ -146,41 +151,45 @@ public class DataFileWriter {
 	public boolean writeFile2(TaxiData taxidata) {
 
 
-		BufferedWriter buffWriterFile2 = null;
-		FileWriter fileWriterFile2 = null;
-
-		try {
-
-			String fileContents = "";
-
-			// Open the FILE_NAME_PLACES_PER_DRIVER (instance variable) file.
-			fileWriterFile2 = new FileWriter( OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_PLACES_PER_DRIVER );
-			buffWriterFile2 = new BufferedWriter(fileWriterFile2);
-
-			fileContents = taxidata.formatPlacesVisitedPerDriver();		// Takes the resulted data from the Taxi's Data object.
-			buffWriterFile2.write(fileContents);						// Writes the data to the file.
-
-
-		} catch ( IOException | NullPointerException e ) {
-
-			System.out.println( "\t +In file: " + FILE_NAME_PLACES_PER_DRIVER + " failed to write content. [" + e.getMessage() + "]." );
-			return false;
-
-		} finally {
+		if(taxidata == null) {
+			throw new NullPointerException("TaxiData is null!");
+		} else {
+			BufferedWriter buffWriterFile2 = null;
+			FileWriter fileWriterFile2 = null;
 
 			try {
 
-				// Close the file descriptors.
-				if (buffWriterFile2 != null)
-					buffWriterFile2.close();
+				String fileContents = "";
 
-			} catch (IOException e) {
+				// Open the FILE_NAME_PLACES_PER_DRIVER (instance variable) file.
+				fileWriterFile2 = new FileWriter(OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_PLACES_PER_DRIVER);
+				buffWriterFile2 = new BufferedWriter(fileWriterFile2);
 
-				System.out.println( "\t +File: " + FILE_NAME_PLACES_PER_DRIVER + " failed to close. [" + e.getMessage() + "]." );
+				fileContents = taxidata.formatPlacesVisitedPerDriver();        // Takes the resulted data from the Taxi's Data object.
+				buffWriterFile2.write(fileContents);                        // Writes the data to the file.
+
+
+			} catch (IOException | NullPointerException e) {
+
+				System.out.println("\t +In file: " + FILE_NAME_PLACES_PER_DRIVER + " failed to write content. [" + e.getMessage() + "].");
 				return false;
 
-			}
+			} finally {
 
+				try {
+
+					// Close the file descriptors.
+					if (buffWriterFile2 != null)
+						buffWriterFile2.close();
+
+				} catch (IOException e) {
+
+					System.out.println("\t +File: " + FILE_NAME_PLACES_PER_DRIVER + " failed to close. [" + e.getMessage() + "].");
+					return false;
+
+				}
+
+			}
 		}
 
 
@@ -201,40 +210,44 @@ public class DataFileWriter {
 	public boolean writeFile3(TaxiData taxidata) {
 
 
-		BufferedWriter buffWriterFile3 = null;
-		FileWriter fileWriterFile3 = null;
-
-		try {
-
-			String fileContents = "";
-
-			fileWriterFile3 = new FileWriter( OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_PLACES );
-			buffWriterFile3 = new BufferedWriter(fileWriterFile3);
-
-			fileContents = taxidata.formatPlacesVisited();		// Takes the resulted data from the Taxi's Data object.
-			buffWriterFile3.write(fileContents);				// Writes the data to the file.
-
-
-		} catch ( IOException | NullPointerException e ) {
-
-			System.out.println( "\t +In file: " + FILE_NAME_PLACES + " failed to write content. [" + e.getMessage() + "]." );
-			return false;
-
-		} finally {
+		if(taxidata == null) {
+			throw new NullPointerException("TaxiData is null!");
+		} else {
+			BufferedWriter buffWriterFile3 = null;
+			FileWriter fileWriterFile3 = null;
 
 			try {
 
-				// Close the file descriptors.
-				if (buffWriterFile3 != null)
-					buffWriterFile3.close();
+				String fileContents = "";
 
-			} catch (IOException e) {
+				fileWriterFile3 = new FileWriter(OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_PLACES);
+				buffWriterFile3 = new BufferedWriter(fileWriterFile3);
 
-				System.out.println( "\t +File: " + FILE_NAME_PLACES + " failed to open. [" + e.getMessage() + "]." );
+				fileContents = taxidata.formatPlacesVisited();        // Takes the resulted data from the Taxi's Data object.
+				buffWriterFile3.write(fileContents);                // Writes the data to the file.
+
+
+			} catch (IOException | NullPointerException e) {
+
+				System.out.println("\t +In file: " + FILE_NAME_PLACES + " failed to write content. [" + e.getMessage() + "].");
 				return false;
 
-			}
+			} finally {
 
+				try {
+
+					// Close the file descriptors.
+					if (buffWriterFile3 != null)
+						buffWriterFile3.close();
+
+				} catch (IOException e) {
+
+					System.out.println("\t +File: " + FILE_NAME_PLACES + " failed to open. [" + e.getMessage() + "].");
+					return false;
+
+				}
+
+			}
 		}
 
 
