@@ -54,7 +54,7 @@ public class TaxiService {
 		if (taxidata.checkAllCollectionsAreInitialized()) {
 			return true;
 		} else {
-			exit("\t \n Not enough records."); //Exit application with this message
+			exit("\t \n Not enough records found in one of the input files."); //Exit application with this message
 		}
 
 		return false;

@@ -79,10 +79,6 @@ public class DataFileWriter {
 		} else {
 			throw new NullPointerException("TaxiData is null!");
 		}
-
-
-
-
 	}
 
 
@@ -144,8 +140,6 @@ public class DataFileWriter {
 
 			}
 		}
-
-
 
 		return true;
 	}
@@ -210,9 +204,7 @@ public class DataFileWriter {
 			}
 		}
 
-
 		return true;
-
 	}
 
 
@@ -274,12 +266,6 @@ public class DataFileWriter {
 			}
 		}
 
-
 		return true;
-
 	}
-
-
-
-
 }

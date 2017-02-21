@@ -51,6 +51,7 @@ public class Destination implements Comparable<Destination>{
 		try{
 			if ( !DataFormatValidator.validateDestinationID(destinationID) )
 				throw new InvalidIDException(DataFileReader.FILE_NAME_DESTINATIONS_2017, DataFileReader.line_counter);
+
 			if ( !DataFormatValidator.validateDestinationName(destinationName) )
 				throw new InvalidDestinationNameException(DataFileReader.FILE_NAME_DESTINATIONS_2017, DataFileReader.line_counter);
 						
@@ -78,8 +79,8 @@ public class Destination implements Comparable<Destination>{
 		this.destinationName = destinationName;
 		
 		try{
-			if ( !DataFormatValidator.validateDriverName(destinationName) ) 
-				throw new InvalidDestinationNameException(DataFileReader.FILE_NAME_DESTINATIONS_2016, 0);
+			if ( !DataFormatValidator.validateDestinationName(destinationName) )
+				throw new InvalidDestinationNameException(DataFileReader.FILE_NAME_DESTINATIONS_2016, DataFileReader.line_counter);
 		}
 		catch(InvalidDestinationNameException e){
 			System.out.println(e.getMessage()); //Show error message

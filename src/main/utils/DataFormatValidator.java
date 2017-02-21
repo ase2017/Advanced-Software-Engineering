@@ -63,7 +63,8 @@ public class DataFormatValidator {
 	}
 
 	/**
-	 * Validates the driver's name, as to the range of its length.
+	 * Validates the driver's name, as to the range of its length and also checks
+	 * the number of components that driver's name consist.
 	 *
 	 * @param driverName
 	 * @return true if the taxi's driver name is in the indicated range
@@ -74,8 +75,15 @@ public class DataFormatValidator {
 
 		if (driverName == null)
 			return false;
-		else if (driverName.length() >= MIN_DRIVER_NAME_LENGTH && driverName.length() <= MAX_DRIVER_NAME_LENGTH)
-			return true;
+		else if (driverName.length() >= MIN_DRIVER_NAME_LENGTH && driverName.length() <= MAX_DRIVER_NAME_LENGTH) {
+
+			String [] nameComponents = driverName.split(" ", -1);		// slit the driver's name (first name, last name).
+
+			if ( nameComponents.length > 1 )
+				return true;
+			else
+				return false;
+		}
 		else
 			return false;
 	}
