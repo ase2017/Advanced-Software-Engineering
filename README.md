@@ -1,6 +1,6 @@
 # F21AS - Advanced Software Engineering
 
-Repository which contains the files of the assignment of the course F21AS - Advanced Software Engineering in Heriot-Watt University
+Repository which contains assignment’s files of the course F21AS - Advanced Software Engineering in Heriot-Watt University
 
 Students:
 
