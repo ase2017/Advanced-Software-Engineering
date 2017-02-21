@@ -27,7 +27,7 @@ public class TaxiTreeMap {
 	 * @param taxis TreeMap that contains all the taxis
 	 */
 	public TaxiTreeMap(TreeMap<String, Taxi> taxis){
-		
+
 		this.taxis = taxis;
 		
 	}
@@ -48,7 +48,9 @@ public class TaxiTreeMap {
 			} catch (DuplicateIDException e) {
 				System.out.println(e.getMessage()); //Show error message
 			}
-		} else {
+		} else if(taxis == null){
+				throw new NullPointerException();
+		}else {
 			taxis.put(taxi.getRegistrationNumber(), taxi);
 		}
 		
