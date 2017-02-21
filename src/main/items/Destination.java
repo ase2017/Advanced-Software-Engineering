@@ -47,7 +47,7 @@ public class Destination implements Comparable<Destination>{
 		/* Checks */
 		
 		try{
-			if ( !DataFormatValidator.validateDriverName(destinationName) ) 
+			if ( !DataFormatValidator.validateDestinationName(destinationName) )
 				throw new InvalidDestinationNameException(DataFileReader.FILE_NAME_DESTINATIONS_2017, DataFileReader.line_counter);
 						
 			if ( !DataFormatValidator.validateDistance(distance) ) 

@@ -3,7 +3,7 @@ package main.items;
 import java.util.TreeSet;
 
 /**
- * Class Name: DestinationTreeSet.java
+ * Class Name: DestinationTreeSetTest.java
  * 
  * Description: This class creates a TreeSet that contains
  * 				all the destinations of 2016. 
@@ -57,7 +57,9 @@ public class DestinationTreeSet {
      * @param destination
      */
     public void add(Destination destination) {
-        destinations.add(destination);
+
+        if(containsDestinationName(destination))
+            destinations.add(destination);
     }
   
     /* Getters and Setters */

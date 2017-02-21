@@ -8,7 +8,7 @@ import java.util.*;
 public class TaxiData {
 
 	private TaxiTreeMap taxis;
-	private DestinationtTreeMap currentYearDestinations;
+	private DestinationTreeMap currentYearDestinations;
 	private DestinationTreeSet previousYearDestinations;
 	private JourneyTreeMap journeys;
 
@@ -438,11 +438,11 @@ public class TaxiData {
 		this.taxis = taxis;
 	}
 
-	public DestinationtTreeMap getCurrentYearDestinations() {
+	public DestinationTreeMap getCurrentYearDestinations() {
 		return currentYearDestinations;
 	}
 
-	public void setCurrentYearDestinations(DestinationtTreeMap currentYearDestinations) {
+	public void setCurrentYearDestinations(DestinationTreeMap currentYearDestinations) {
 		this.currentYearDestinations = currentYearDestinations;
 	}
 

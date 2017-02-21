@@ -28,8 +28,8 @@ public class TaxiTest {
 	public void testWrongPatternRegistrationNumber(){
 		
 		final ByteArrayOutputStream serialContent = new ByteArrayOutputStream();
-		String wrongRegistrationNumber = "A1A";
-		
+		String wrongRegistrationNumber = "AA1A";
+
 		System.setOut(new PrintStream(serialContent));
 		new Taxi(wrongRegistrationNumber, trueDriverName, trueBrand);
 		
@@ -41,7 +41,7 @@ public class TaxiTest {
 	public void testWrongLengthDriverName(){
 		
 		final ByteArrayOutputStream serialContent = new ByteArrayOutputStream();
-		String wrongDriverName = "Ja"; //Just checks if driver`s name is between 3 and 30 characters, other check will be implemented in DataFileReaderTest
+		String wrongDriverName = "Ja"; //Just checks if driver`s name is between 5 and 30 characters, other check will be implemented in DataFileReaderTest
 		
 		System.setOut(new PrintStream(serialContent));
 		new Taxi(trueRegistrationNumber, wrongDriverName, trueBrand);

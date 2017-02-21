@@ -296,9 +296,9 @@ public class DataFileReader {
 	/**
 	 * loadDestinations2016 read the <destinations_2016.txt> file, checks its structure as to the number of words 
 	 * separated by DATA_SEPERATOR (instance variable), then checks if those words are not empty,
-	 * and for each valid line add this Destination object to a DestinationTreeSet.
+	 * and for each valid line add this Destination object to a DestinationTreeSetTest.
 	 *  
-	 * @return an object of DestinationTreeSet, which is a TreeSet of all the destinations visited by the taxis in 2016.  
+	 * @return an object of DestinationTreeSetTest, which is a TreeSet of all the destinations visited by the taxis in 2016.
 	 */
 	public DestinationTreeSet loadDestinations2016() {
 
@@ -344,7 +344,7 @@ public class DataFileReader {
 					
 					if ( dest2016 != null ) { 	// if the object has been created normally
 
-						temporaryTreeSet.add(dest2016);		// add this Destination to the DestinationTreeSet
+						temporaryTreeSet.add(dest2016);		// add this Destination to the DestinationTreeSetTest
 															// -- which is a TreeSet of Destination's objects --
 															// using the add method of the TreeSet data structure.
 															
@@ -396,10 +396,10 @@ public class DataFileReader {
 	 *  
 	 * @return an object of DestinationTreeMap, which is a TreeMap of all the destinations visited by the taxis in 2017.  
 	 */
-	public DestinationtTreeMap loadDestinations2017() {
+	public DestinationTreeMap loadDestinations2017() {
 		
 		TreeMap<Integer,Destination> temporaryTreeMap = new TreeMap<>();
-		DestinationtTreeMap destination2017_TreeMap = new DestinationtTreeMap(temporaryTreeMap);
+		DestinationTreeMap destination2017_TreeMap = new DestinationTreeMap(temporaryTreeMap);
 
 
 		FileReader fd_destination_2017 = null;

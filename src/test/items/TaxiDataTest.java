@@ -2,13 +2,17 @@ package test.items;
 import main.exceptions.DuplicateIDException;
 import main.items.*;
 import org.junit.*;
-
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 import static org.junit.Assert.*;
 
+/**
+ * Class that tests some TaxiData methods
+ *
+ * @author Jules
+ */
 public class TaxiDataTest{
 
     private TaxiData taxiData;
@@ -32,8 +36,9 @@ public class TaxiDataTest{
     private Taxi taxiWithoutJourneys;
 
 
-
-
+    /**
+     * Preparation of the tests. Fills the attributes with objects re-used during tests.
+     */
     @Before
     public void setUp() {
 
@@ -56,7 +61,7 @@ public class TaxiDataTest{
 
         /* DESTINATIONS 2017 */
         TreeMap<Integer,Destination> destinations = new TreeMap<>();
-        DestinationtTreeMap currentYearDestinations = new DestinationtTreeMap(destinations);
+        DestinationTreeMap currentYearDestinations = new DestinationTreeMap(destinations);
         try {
             currentYearDestinations.addDestination2017(new Destination(1, "Palace of Holyroodhouse", 2.9, false));
             currentYearDestinations.addDestination2017(new Destination(2, "Heriot Watt University", 10.3, true));
@@ -165,7 +170,7 @@ public class TaxiDataTest{
     @Test
     public void formatTopJourneys() {
 
-        // N > nummber of journeys stored
+        // N > number of journeys stored
         assertNotEquals(null,taxiData.formatTopJourneys(5,true));
         assertNotEquals("",taxiData.formatTopJourneys(5,true));
         assertNotEquals(null,taxiData.formatTopJourneys(5,false));
@@ -207,7 +212,7 @@ public class TaxiDataTest{
 
     @Test
     public void getJourneysByPrice() {
-
+        // No useful tests
     }
 
     @Test
@@ -239,13 +244,9 @@ public class TaxiDataTest{
 
     @Test
     public void formatPlacesVisitedPerDriver() {
-
+        // No useful tests
     }
 
-    @Test
-    public void sortTaxisByName() {
-
-    }
 
     @Test
     public void findJourneys() {
