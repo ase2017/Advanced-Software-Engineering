@@ -50,7 +50,7 @@ public class TaxiService {
 		taxidata.setCurrentYearDestinations(fr.loadDestinations2017()); //Read the content of destinations_2017.txt
 		taxidata.setPreviousYearDestinations(fr.loadDestinations2016()); //Read the content of destinations_2016.txt
 	
-		// If all files have at least one record each 
+		// If all data structures have at least one record each
 		if (taxidata.checkAllCollectionsAreInitialized()) {
 			return true;
 		} else {
