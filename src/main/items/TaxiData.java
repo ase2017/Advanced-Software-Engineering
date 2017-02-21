@@ -357,7 +357,7 @@ public class TaxiData {
 		if(previousYearVisitedPlacesSet != null && previousYearVisitedPlacesSet.size() > 0) {
 
 			res = previousYearVisitedPlacesSet.size()
-					+ ((previousYearVisitedPlacesSet.size() > 1) ? " PLACES VISITED IN 2017 ONLY\n" : " PLACE VISITED IN 2017 ONLY\n");
+					+ ((previousYearVisitedPlacesSet.size() > 1) ? " PLACES VISITED IN 2016 ONLY\n" : " PLACE VISITED IN 2016 ONLY\n");
 
 			for(String str : previousYearVisitedPlacesSet) {
 				res += str + "\n";
