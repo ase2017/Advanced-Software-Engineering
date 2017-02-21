@@ -61,7 +61,7 @@ public class TaxiDataTest{
 
         /* DESTINATIONS 2017 */
         TreeMap<Integer,Destination> destinations = new TreeMap<>();
-        DestinationtTreeMap currentYearDestinations = new DestinationtTreeMap(destinations);
+        DestinationTreeMap currentYearDestinations = new DestinationTreeMap(destinations);
         try {
             currentYearDestinations.addDestination2017(new Destination(1, "Palace of Holyroodhouse", 2.9, false));
             currentYearDestinations.addDestination2017(new Destination(2, "Heriot Watt University", 10.3, true));

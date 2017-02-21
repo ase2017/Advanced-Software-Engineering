@@ -56,7 +56,7 @@ public class Journey {
 				throw new InvalidTaxiNameException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
 				
 			if ( !DataFormatValidator.validatePassengerNumber(numberOfPassengers))		
-				throw new InvalidBrandNameException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);	
+				throw new InvalidNumberOfPassengersException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
 			
 			if ( !DataFormatValidator.validateTime(time))		
 				throw new InvalidTimeException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
@@ -66,7 +66,7 @@ public class Journey {
 			
 			
 		} catch(InvalidIDException | InvalidTaxiNameException |
-				InvalidBrandNameException | InvalidTimeException 
+				InvalidNumberOfPassengersException | InvalidTimeException
 				| InvalidMaximumVelocityException e){
 			
 			System.out.println(e.getMessage()); //Show error message
