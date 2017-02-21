@@ -1,5 +1,6 @@
 package test.items;
 
+import main.io.DataFileReader;
 import main.items.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -22,8 +23,8 @@ public class DestinationTest {
         System.setOut(new PrintStream(serialContent));
         new Destination(wrongDestinationID, trueDestinationName, trueDistance, trueUrban);
 
-        assertEquals("Error! Invalid record`s ID (in file destinations_2017.txt in line: 0 ).\r\n",
-                serialContent.toString());
+        assertEquals("Error! Invalid record`s ID (in file destinations_2017.txt in line: "
+                + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 
     }
 
@@ -36,8 +37,8 @@ public class DestinationTest {
         System.setOut(new PrintStream(serialContent));
         new Destination(trueDestinationID, wrongDestinationName, trueDistance, trueUrban);
 
-        assertEquals("Error! The name of the destination is invalid (in file destinations_2017.txt in line: 0 ).\r\n",
-                serialContent.toString());
+        assertEquals("Error! The name of the destination is invalid (in file destinations_2017.txt in line: "
+                + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
 
@@ -50,8 +51,8 @@ public class DestinationTest {
         System.setOut(new PrintStream(serialContent));
         new Destination(trueDestinationID, wrongDestinationName, trueDistance, trueUrban);
 
-        assertEquals("Error! The name of the destination is invalid (in file destinations_2017.txt in line: 0 ).\r\n",
-                serialContent.toString());
+        assertEquals("Error! The name of the destination is invalid (in file destinations_2017.txt in line: "
+                        + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
     @Test
@@ -63,8 +64,8 @@ public class DestinationTest {
         System.setOut(new PrintStream(serialContent));
         new Destination(trueDestinationID, trueDestinationName, wrongDistance, trueUrban);
 
-        assertEquals("Error! The distance is not in the correct range (in file destinations_2017.txt in line: 0 ).\r\n",
-                serialContent.toString());
+        assertEquals("Error! The distance is not in the correct range (in file destinations_2017.txt in line: "
+                + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 
     }
 

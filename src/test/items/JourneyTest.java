@@ -1,5 +1,6 @@
 package test.items;
 
+import main.io.DataFileReader;
 import main.items.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,7 +30,8 @@ public class JourneyTest {
         new Journey(wrongDestinationID, trueTaxiRegistrationNumber, trueNumberOfPassengers,
                 trueTime, trueMaximumVelocity);
 
-        assertEquals("Error! Invalid record`s ID (in file journeys.txt in line: 0 ).\r\n", serialContent.toString());
+        assertEquals("Error! Invalid record`s ID (in file journeys.txt in line: "
+                + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
     @Test
@@ -42,7 +44,8 @@ public class JourneyTest {
         new Journey(trueDestinationID, wrongRegistrationNumber, trueNumberOfPassengers,
                 trueTime, trueMaximumVelocity);
 
-        assertEquals("Error! Wrong driver`s name (in file journeys.txt in line: 0 ).\r\n", serialContent.toString());
+        assertEquals("Error! Wrong driver`s name (in file journeys.txt in line: "
+                + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
     @Test
@@ -55,7 +58,8 @@ public class JourneyTest {
         new Journey(trueDestinationID, wrongRegistrationNumber, trueNumberOfPassengers,
                 trueTime, trueMaximumVelocity);
 
-        assertEquals("Error! Wrong driver`s name (in file journeys.txt in line: 0 ).\r\n", serialContent.toString());
+        assertEquals("Error! Wrong driver`s name (in file journeys.txt in line: "
+                + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 
     }
 
@@ -69,8 +73,8 @@ public class JourneyTest {
         new Journey(trueDestinationID, trueTaxiRegistrationNumber, wrongNumberOfPassengers,
                 trueTime, trueMaximumVelocity);
 
-        assertEquals("Error! The number of passengers is not correct (in file journeys.txt in line: 0 ).\r\n",
-                serialContent.toString());
+        assertEquals("Error! The number of passengers is not correct (in file journeys.txt in line: "
+                + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
     @Test
@@ -84,7 +88,7 @@ public class JourneyTest {
                 wrongTime, trueMaximumVelocity);
 
         assertEquals("Error! The time of the journey is not in the correct format " +
-                        "(in file journeys.txt in line: 0 ).\r\n", serialContent.toString());
+                        "(in file journeys.txt in line: " + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
     @Test
@@ -98,6 +102,6 @@ public class JourneyTest {
                 trueTime, wrongMaximumVelocity);
 
         assertEquals("Error! The maximum velocity is not in the correct range " +
-                "(in file journeys.txt in line: 0 ).\r\n", serialContent.toString());
+                "(in file journeys.txt in line: " + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 }

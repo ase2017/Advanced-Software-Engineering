@@ -1,5 +1,6 @@
 package test.items;
 
+import main.io.DataFileReader;
 import main.items.*;
 import main.exceptions.DuplicateIDException;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class DestinationTreeMapTest {
         dtmp.addDestination2017(d1);
         dtmp.addDestination2017(d2);
 
-        assertEquals("Error! Duplicate item ID (in file destinations_2017.txt in line: 0 ).\r\n",
-                serialContent.toString());
+        assertEquals("Error! Duplicate item ID (in file destinations_2017.txt in line: "
+                + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 }
