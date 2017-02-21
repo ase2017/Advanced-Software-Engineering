@@ -14,6 +14,20 @@ public class DestinationTest {
     private boolean trueUrban = true;
 
     @Test
+    public void testWrongDestinationID(){
+
+        final ByteArrayOutputStream serialContent = new ByteArrayOutputStream();
+        int wrongDestinationID = 0;
+
+        System.setOut(new PrintStream(serialContent));
+        new Destination(wrongDestinationID, trueDestinationName, trueDistance, trueUrban);
+
+        assertEquals("Error! Invalid record`s ID (in file destinations_2017.txt in line: 0 ).\r\n",
+                serialContent.toString());
+
+    }
+
+    @Test
     public void testWrongLengthDestinationName2017(){
 
         final ByteArrayOutputStream serialContent = new ByteArrayOutputStream();
