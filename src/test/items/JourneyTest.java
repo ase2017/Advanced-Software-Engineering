@@ -44,7 +44,7 @@ public class JourneyTest {
         new Journey(trueDestinationID, wrongRegistrationNumber, trueNumberOfPassengers,
                 trueTime, trueMaximumVelocity);
 
-        assertEquals("Error! Wrong driver`s name (in file journeys.txt in line: "
+        assertEquals("Error! Wrong registration number (in file journeys.txt in line: "
                 + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
@@ -58,7 +58,7 @@ public class JourneyTest {
         new Journey(trueDestinationID, wrongRegistrationNumber, trueNumberOfPassengers,
                 trueTime, trueMaximumVelocity);
 
-        assertEquals("Error! Wrong driver`s name (in file journeys.txt in line: "
+        assertEquals("Error! Wrong registration number (in file journeys.txt in line: "
                 + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 
     }
