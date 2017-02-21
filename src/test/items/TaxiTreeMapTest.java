@@ -1,6 +1,7 @@
 package test.items;
 
 import main.exceptions.DuplicateIDException;
+import main.io.DataFileReader;
 import main.items.Taxi;
 import main.items.TaxiTreeMap;
 import org.junit.Test;
@@ -41,7 +42,7 @@ public class TaxiTreeMapTest {
         txtmp.addTaxi(tx1);
         txtmp.addTaxi(tx2);
 
-        assertEquals("Error! Duplicate item ID (in file taxis.txt in line: 0 ).\r\n",
-                serialContent.toString());
+        assertEquals("Error! Duplicate item ID (in file taxis.txt in line: "
+                + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 }

@@ -1,5 +1,6 @@
 package test.items;
 
+import main.io.DataFileReader;
 import main.items.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -21,7 +22,8 @@ public class TaxiTest {
 		System.setOut(new PrintStream(serialContent));
 		new Taxi(wrongRegistrationNumber, trueDriverName, trueBrand);
 		
-		assertEquals("Error! Wrong registration number (in file taxis.txt in line: 0 ).\r\n", serialContent.toString());
+		assertEquals("Error! Wrong registration number (in file taxis.txt in line: "
+				+ DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 	}
 	
 	@Test
@@ -33,7 +35,8 @@ public class TaxiTest {
 		System.setOut(new PrintStream(serialContent));
 		new Taxi(wrongRegistrationNumber, trueDriverName, trueBrand);
 		
-		assertEquals("Error! Wrong registration number (in file taxis.txt in line: 0 ).\r\n", serialContent.toString());
+		assertEquals("Error! Wrong registration number (in file taxis.txt in line: "
+				+ DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 		
 	}
 	
@@ -46,7 +49,8 @@ public class TaxiTest {
 		System.setOut(new PrintStream(serialContent));
 		new Taxi(trueRegistrationNumber, wrongDriverName, trueBrand);
 		
-		assertEquals("Error! Wrong driver`s name (in file taxis.txt in line: 0 ).\r\n", serialContent.toString());
+		assertEquals("Error! Wrong driver`s name (in file taxis.txt in line: "
+				+ DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 	}
 
 	
@@ -59,7 +63,8 @@ public class TaxiTest {
 		System.setOut(new PrintStream(serialContent));
 		new Taxi(trueRegistrationNumber, wrongDriverName, trueBrand);
 		
-		assertEquals("Error! Wrong driver`s name (in file taxis.txt in line: 0 ).\r\n", serialContent.toString());
+		assertEquals("Error! Wrong driver`s name (in file taxis.txt in line: "
+				+ DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 	}
 
 	@Test
@@ -71,7 +76,8 @@ public class TaxiTest {
 		System.setOut((new PrintStream(serialContent)));
 		new Taxi(trueRegistrationNumber, trueDriverName, wrongBrandName);
 		
-		assertEquals("Error! Wrong car`s brand (in file taxis.txt in line: 0 ).\r\n", serialContent.toString());
+		assertEquals("Error! Wrong car`s brand (in file taxis.txt in line: "
+				+ DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 	}
 	
 	@Test
@@ -83,7 +89,8 @@ public class TaxiTest {
 		System.setOut(new PrintStream(serialContent));
 		new Taxi(trueRegistrationNumber, trueDriverName, wrongBrandName);
 		
-		assertEquals("Error! Wrong car`s brand (in file taxis.txt in line: 0 ).\r\n", serialContent.toString());
+		assertEquals("Error! Wrong car`s brand (in file taxis.txt in line: "
+				+ DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 	}
 	
 	@Test
