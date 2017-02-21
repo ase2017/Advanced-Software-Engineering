@@ -2,6 +2,7 @@ package main.items;
 
 import main.exceptions.InvalidDestinationNameException;
 import main.exceptions.InvalidDistanceException;
+import main.exceptions.InvalidIDException;
 import main.io.DataFileReader;
 import main.utils.DataFormatValidator;
 
@@ -28,7 +29,8 @@ public class Destination implements Comparable<Destination>{
 	/**
 	 * This constructor creates a destination by using the parameters that
 	 * are shown below. This constructor is used for destinations of 2017.
-	 * 
+	 *
+	 * @exception InvalidIDException If destination`s ID is invalid
 	 * @exception InvalidDestinationNameException If destination`s name is invalid show error
 	 * @exception InvalidDistanceException If destination`s distance is invalid show error
 	 * 
@@ -47,13 +49,15 @@ public class Destination implements Comparable<Destination>{
 		/* Checks */
 		
 		try{
+			if ( !DataFormatValidator.validateDestinationID(destinationID) )
+				throw new InvalidIDException(DataFileReader.FILE_NAME_DESTINATIONS_2017, DataFileReader.line_counter);
 			if ( !DataFormatValidator.validateDestinationName(destinationName) )
 				throw new InvalidDestinationNameException(DataFileReader.FILE_NAME_DESTINATIONS_2017, DataFileReader.line_counter);
 						
 			if ( !DataFormatValidator.validateDistance(distance) ) 
 				throw new InvalidDistanceException(DataFileReader.FILE_NAME_DESTINATIONS_2017, DataFileReader.line_counter);
 							
-		} catch(InvalidDestinationNameException | InvalidDistanceException e){
+		} catch(InvalidIDException | InvalidDestinationNameException | InvalidDistanceException e){
 			
 			System.out.println(e.getMessage()); //Show the error message
 			
