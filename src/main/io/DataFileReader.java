@@ -23,14 +23,12 @@ import main.items.*;
 
 
 /**
- *
- * @author Chiotis
- *
  * DataFileReader is a public class that reads the data from four files
  * <taxis.txt>, <journeys.txt>, <destinations_2016.txt> and <destinations_2017.txt>,
  * then checks if the file is in the wright format, checks if those values exist (not empty),
  * make some converts and finally store them to the appropriate data structure.
  *
+ * @author Chiotis
  */
 public class DataFileReader {
 
@@ -59,7 +57,6 @@ public class DataFileReader {
 	 * @return a TreeMap of Taxis.
 	 */
 	public TaxiTreeMap loadTaxis() {
-
 
 		return taxiChecker( FILE_NAME_FOLDER, FILE_NAME_TAXIS );
 	}
@@ -102,7 +99,7 @@ public class DataFileReader {
 
 	public JourneyTreeMap journeyChecker( String directory, String filename ) {
 
-		TreeMap<String,ArrayList<Journey>> temporaryTreeMap = new TreeMap<>();
+		TreeMap<String, ArrayList<Journey>> temporaryTreeMap = new TreeMap<>();
 		JourneyTreeMap journeyTreeMap = new JourneyTreeMap(temporaryTreeMap);
 
 
@@ -119,8 +116,8 @@ public class DataFileReader {
 			fd_journeys = new FileReader( directory + filename );
 			BufferedReader journey_reader = new BufferedReader(fd_journeys);
 
-			String line;
-			String[] journey_info;
+			String line = null;
+			String[] journey_info = null;
 			line_counter = 0;		// Initializes the line counter.
 
 			// Read it line-by-line
@@ -131,7 +128,7 @@ public class DataFileReader {
 
 				try {
 
-					if( journey_info.length != 5 ){		// check if this line has exactly five words
+					if (journey_info.length != 5) {        // check if this line has exactly five words
 						// if not throw an exception
 
 						throw new InvalidInputArgumentsException(filename, line_counter);
@@ -140,85 +137,61 @@ public class DataFileReader {
 					// Then check if any of those five words are an empty string
 					// and if this happens  for any of those strings, throw the appropriate exception
 
-					if ( journey_info[0].isEmpty() || journey_info[0].length() == 0 || journey_info[0] == null ) {
+					if (journey_info[0].isEmpty() || journey_info[0].length() == 0 || journey_info[0] == null) {
 
-						throw new InvalidIDException( filename, line_counter );
+						throw new InvalidIDException(filename, line_counter);
 					}
 
-					id = Integer.parseInt( journey_info[0] );		// Converts Journey's id to integer.
+					id = Integer.parseInt(journey_info[0]);        // Converts Journey's id to integer.
 
 
-					if ( journey_info[1].trim().isEmpty() || journey_info[1].trim().length() == 0 || journey_info[1] == null ) {
+					if (journey_info[1].trim().isEmpty() || journey_info[1].trim().length() == 0 || journey_info[1] == null) {
 
 						throw new InvalidRegistrationNumberException(filename, line_counter);
 					}
 
 
-					if ( journey_info[2].isEmpty() || journey_info[2].length() == 0 || journey_info[2] == null ) {
+					if (journey_info[2].isEmpty() || journey_info[2].length() == 0 || journey_info[2] == null) {
 
-						throw new InvalidNumberOfPassengersException( filename, line_counter );
+						throw new InvalidNumberOfPassengersException(filename, line_counter);
 					}
 
-					numOfPassengers = Integer.parseInt( journey_info[2] );		// Converts Number of Passenger of this journey to integer.
+					numOfPassengers = Integer.parseInt(journey_info[2]);        // Converts Number of Passenger of this journey to integer.
 
 
+					if (journey_info[3].trim().isEmpty() || journey_info[3].trim().length() == 0 || journey_info[3].trim() == null) {
 
-					if ( journey_info[3].trim().isEmpty() || journey_info[3].trim().length() == 0 || journey_info[3].trim() == null ) {
-
-						throw new InvalidTimeException( filename, line_counter );
+						throw new InvalidTimeException(filename, line_counter);
 					}
 
-					time = Double.parseDouble(journey_info[3]);		// Converts the time needed for this journey to double.
+					time = Double.parseDouble(journey_info[3]);        // Converts the time needed for this journey to double.
 
 
+					if (journey_info[4].trim().isEmpty() || journey_info[4].trim().length() == 0 || journey_info[4].trim() == null) {
 
-					if ( journey_info[4].trim().isEmpty() || journey_info[4].trim().length() == 0 || journey_info[4].trim() == null ) {
-
-						throw new InvalidMaximumVelocityException( filename, line_counter );
+						throw new InvalidMaximumVelocityException(filename, line_counter);
 					}
 
-					maxVelocity = Double.parseDouble(journey_info[4]);		// Converts maximum velocity of this journey to double.
-
+					maxVelocity = Double.parseDouble(journey_info[4]);        // Converts maximum velocity of this journey to double.
 
 
 					// Creates a Journey Object
-					Journey jrn = new Journey( id, journey_info[1], numOfPassengers, time, maxVelocity );
+					Journey jrn = new Journey(id, journey_info[1], numOfPassengers, time, maxVelocity);
 
 
+					if (jrn != null) {    // if the object has been created normally
 
-					if ( jrn != null ) {	// if the object has been created normally
 
-
-						journeyTreeMap.addJourney(jrn);		// add this Journey to the JourneyTreeMap
+						journeyTreeMap.addJourney(jrn);        // add this Journey to the JourneyTreeMap
 						// -- which is a TreeMap of ArrayLists of Journey's objects --
 						// using the addJourney public method of the
 						// JourneyTreeMap class.
 					}
 
+				} catch (InvalidInputArgumentsException | InvalidIDException | InvalidMaximumVelocityException
+						| InvalidRegistrationNumberException | InvalidTimeException | InvalidNumberOfPassengersException e){
 
-				} catch ( InvalidInputArgumentsException e ) {
-
-					System.out.println("\t --Invalid numer of Arguments in file: " + filename + " [ " + e.getMessage() + " ]." );
-
-				} catch ( InvalidIDException e ) {
-
-					System.out.println("\t --Invalid ID in file: " + filename + " [ " + e.getMessage() + " ]." );
-
-				} catch ( InvalidMaximumVelocityException e ) {
-
-					System.out.println("\t --Invalid maximum velocity in file: " + filename + " [ " + e.getMessage() + " ]." );
-
-				} catch ( InvalidRegistrationNumberException e ) {
-
-					System.out.println("\t --Invalid registration number in file: " + filename + " [ " + e.getMessage() + " ]." );
-
-				} catch ( InvalidTimeException e ) {
-
-					System.out.println("\t --Invalid time in file: " + filename + " [ " + e.getMessage() + " ]." );
-
-				} catch ( InvalidNumberOfPassengersException e ) {
-
-					System.out.println("\t --Invalid number of Passengers in file: " + filename + " [ " + e.getMessage() + " ]." );
+					System.out.println(e.getMessage());
 
 				} catch ( NumberFormatException e ) {
 
@@ -239,8 +212,8 @@ public class DataFileReader {
 		finally {
 
 			try {
-
-				fd_journeys.close();	// Close the file reader.
+				if(fd_journeys != null)
+					fd_journeys.close();	// Close the file reader.
 
 			} catch (IOException e) {
 
@@ -281,9 +254,9 @@ public class DataFileReader {
 			fd_taxis = new FileReader(directory + filename);
 			BufferedReader taxis_reader = new BufferedReader(fd_taxis);
 
-			String line;
-			String[] taxi_info;
-			String [] nameComponents;
+			String line = null;
+			String[] taxi_info = null;
+			String [] nameComponents = null;
 			line_counter = 0;		// Initializes the line counter.
 
 			// Read it line-by-line
@@ -291,9 +264,10 @@ public class DataFileReader {
 
 				line_counter++;		// specify the line of the file
 				taxi_info = line.split(DATA_SEPERATOR, -1);		// split the line using the given separator.
-				nameComponents = taxi_info[1].split(" ");		// slit the driver's name (first name, last name).
 
 				try {
+
+					nameComponents = taxi_info[1].split(" ");		// slit the driver's name (first name, last name).
 
 					if(taxi_info.length != 3){		// check if this line has exactly three words
 						// if not throw an exception
@@ -309,7 +283,8 @@ public class DataFileReader {
 						throw new InvalidRegistrationNumberException(filename, line_counter);
 					}
 
-					if (taxi_info[1].isEmpty() || taxi_info[1].length() == 0 || taxi_info[1] == null || nameComponents[0].length() == 0 || nameComponents[1].length() == 0 ) {
+					if (taxi_info[1].isEmpty() || taxi_info[1].length() == 0 || taxi_info[1] == null
+							|| nameComponents[0].length() == 0 || nameComponents[1].length() == 0 ) {
 
 						throw new InvalidTaxiNameException(filename, line_counter);
 					}
@@ -334,28 +309,16 @@ public class DataFileReader {
 					}
 
 
-				} catch ( InvalidRegistrationNumberException e ) {
+				} catch ( InvalidRegistrationNumberException | InvalidTaxiNameException | InvalidBrandNameException
+						| InvalidInputArgumentsException e) {
 
-					System.out.println("\t --In file: " + filename + " [ " + e.getMessage() + " ].");
-
-				} catch ( InvalidTaxiNameException e ) {
-
-					System.out.println("\t --In file: " + filename + " [ " + e.getMessage() + " ].");
-
-				} catch (InvalidBrandNameException e ) {
-
-					System.out.println("\t --In file: " + filename + " [ " + e.getMessage() + " ].");
-
-				} catch ( InvalidInputArgumentsException e ) {
-
-					System.out.println("\t --In file: " + filename + " [ " + e.getMessage() + " ].");
+					System.out.println(e.getMessage());
 
 				} catch (ArrayIndexOutOfBoundsException e){
 
-					System.out.println("\t --Reading process in file " + filename + " failed... [ " + e.getMessage() + " ]." );
+					System.out.println("\t --Reading process in file " + filename + " failed... [ " + line_counter + " ]." );
 
 				}
-
 			}
 
 		} catch ( IOException |  NullPointerException e ) {
@@ -367,7 +330,8 @@ public class DataFileReader {
 
 			try {
 
-				fd_taxis.close();		// Close the file descriptor.
+				if(fd_taxis != null)
+					fd_taxis.close();		// Close the file descriptor.
 
 			} catch ( IOException e ) {
 
@@ -406,8 +370,8 @@ public class DataFileReader {
 			fd_destination_2016 = new FileReader( directory + filename );
 			BufferedReader destination_2016_reader = new BufferedReader(fd_destination_2016);
 
-			String line;
-			String[] destination_2016_info;
+			String line = null;
+			String[] destination_2016_info = null;
 			line_counter = 0;		// Initializes the line counter
 
 			// Read it line-by-line
@@ -425,7 +389,8 @@ public class DataFileReader {
 						throw new InvalidInputArgumentsException(filename, line_counter);
 					}
 
-					if ( destination_2016_info[0].isEmpty() || destination_2016_info[0].length() == 0 || destination_2016_info[0] == null ) {
+					if ( destination_2016_info[0].isEmpty() || destination_2016_info[0].length() == 0
+							|| destination_2016_info[0] == null ) {
 
 						throw new InvalidDestinationNameException(filename, line_counter);
 					}
@@ -442,14 +407,9 @@ public class DataFileReader {
 
 					}
 
+				} catch ( InvalidDestinationNameException | InvalidInputArgumentsException e ) {
 
-				} catch ( InvalidDestinationNameException e ) {
-
-					System.out.println("\t --Last's Year Destination Name: " + destination_2016_info[0] + "in file: " + filename + " [" + e.getMessage() + " ].");
-
-				} catch ( InvalidInputArgumentsException e ) {
-
-					System.out.println("\t --In file: " + filename + " [ " + e.getMessage() + " ].");
+					System.out.println(e.getMessage());
 				}
 				catch (ArrayIndexOutOfBoundsException e){
 
@@ -466,8 +426,8 @@ public class DataFileReader {
 		finally {
 
 			try {
-
-				fd_destination_2016.close();	// Close the file descriptor.
+				if(fd_destination_2016 != null)
+					fd_destination_2016.close();	// Close the file descriptor.
 
 			} catch (IOException e) {
 
@@ -479,7 +439,6 @@ public class DataFileReader {
 
 		return destinations2016;
 	}
-
 
 
 
@@ -514,8 +473,8 @@ public class DataFileReader {
 			fd_destination_2017 = new FileReader( directory + filename );
 			BufferedReader destination_2017_reader = new BufferedReader(fd_destination_2017);
 
-			String line;
-			String[] destination_2017_info;
+			String line = null;
+			String[] destination_2017_info = null;
 			line_counter = 0;		// Initializes the line counter.
 
 			// Read it line-by-line
@@ -586,32 +545,16 @@ public class DataFileReader {
 
 						} catch (DuplicateIDException e) {
 
-							System.out.println("\t ==> Dublicate destination found in " + filename + " " + e.getMessage());
+							System.out.println(e.getMessage());
 
 						}
 
 					}
 
+				} catch (InvalidIDException | InvalidInputArgumentsException | InvalidDestinationNameException |
+						InvalidDistanceException | InvalidUrbanException e ) {
 
-				} catch ( InvalidIDException e ) {
-
-					System.out.println("\t --Invalid ID in file: " + filename +  " [ " + e.getMessage() + " ]." );
-
-				} catch ( InvalidInputArgumentsException e ) {
-
-					System.out.println("\t --Invalid number of Args in file: " + filename +  " [ " + e.getMessage() + " ]." );
-
-				} catch ( InvalidDestinationNameException e ) {
-
-					System.out.println("\t --Invalid Current's Year Destination in file: " + filename +  " [ " + e.getMessage() + " ]." );
-
-				} catch ( InvalidDistanceException e ) {
-
-					System.out.println("\t --Invalid journey's distance in file: " + filename +  " [ " + e.getMessage() + " ]." );
-
-				} catch ( InvalidUrbanException e ) {
-
-					System.out.println("\t --Invalid Urban mark in file: " + filename +  " [ " + e.getMessage() + " ]." );
+					System.out.println(e.getMessage());
 
 				} catch ( NumberFormatException e ) {
 
@@ -632,8 +575,8 @@ public class DataFileReader {
 		finally {
 
 			try {
-
-				fd_destination_2017.close();	// Close the file descriptor.
+				if(fd_destination_2017 != null)
+					fd_destination_2017.close();	// Close the file descriptor.
 
 			} catch (IOException e) {
 
@@ -642,9 +585,6 @@ public class DataFileReader {
 			}
 		}
 
-
 		return destination2017_TreeMap;
 	}
-
-
 }

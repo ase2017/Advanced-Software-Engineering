@@ -27,8 +27,8 @@ public class Journey {
 	 * that can found below.
 	 * 
 	 * @exception InvalidIDException If the journey`s ID invalid id show an error
-	 * @exception InvalidTaxiNameException If the taxi`s name is invalid show an error message 
-	 * @exception InvalidBrandNameException If the taxi`s brand name is invalid show an error message
+	 * @exception InvalidRegistrationNumberException If the taxi`s registration number is invalid show an error message
+	 * @exception InvalidNumberOfPassengersException If the journey's number of passengers is invalid show an error message
 	 * @exception InvalidTimeException If the journey`s duration is invalid show an error message
 	 * @exception InvalidMaximumVelocityException If the journey`s maximum velocity is invalid show an error message
 	 * 
@@ -53,7 +53,7 @@ public class Journey {
 				throw new InvalidIDException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
 				
 			if ( !DataFormatValidator.validateRegistrationNumber(taxiRegistrationNumber)) 
-				throw new InvalidTaxiNameException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
+				throw new InvalidRegistrationNumberException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
 				
 			if ( !DataFormatValidator.validatePassengerNumber(numberOfPassengers))		
 				throw new InvalidNumberOfPassengersException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
@@ -65,7 +65,7 @@ public class Journey {
 				throw new InvalidMaximumVelocityException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
 			
 			
-		} catch(InvalidIDException | InvalidTaxiNameException |
+		} catch(InvalidIDException | InvalidRegistrationNumberException |
 				InvalidNumberOfPassengersException | InvalidTimeException
 				| InvalidMaximumVelocityException e){
 			
