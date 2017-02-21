@@ -84,6 +84,8 @@ public class TaxiTreeMap {
 	}
 
 	public void setTaxis(TreeMap<String, Taxi> taxis) {
-		this.taxis = taxis;
+
+		if(taxis != null && taxis.size() > 0 )
+			this.taxis = taxis;
 	}
 }

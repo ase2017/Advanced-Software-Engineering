@@ -34,8 +34,10 @@ public class JourneyTreeMap {
 	 * @param journey The journey object that we want to push
 	 */
 	public void addJourney(Journey journey) {
-		
-		if(journeys.containsKey(journey.getTaxiRegistrationNumber())) {
+
+		if(journey == null){
+			throw new NullPointerException();
+		} else if(journeys.containsKey(journey.getTaxiRegistrationNumber())) {
 			journeys.get(journey.getTaxiRegistrationNumber()).add(journey);
 		} else {
 			ArrayList<Journey> temporary = new ArrayList<>();
@@ -51,11 +53,14 @@ public class JourneyTreeMap {
 	 * @param journey The ArrayList that contains the data of the journeys
 	 */
 	public void addJourney(ArrayList<Journey> journey){
-	
-		for(int i = 0; i < journey.size(); i++){
-			addJourney(journey.get(i));
+
+		if(journey == null || journey.size() == 0) {
+			throw new NullPointerException();
+		}else{
+			for (int i = 0; i < journey.size(); i++) {
+				addJourney(journey.get(i));
+			}
 		}
-		
 	}
 
 	/* Getters and Setters */
@@ -65,6 +70,8 @@ public class JourneyTreeMap {
 	}
 
 	public void setJourneys(TreeMap<String, ArrayList<Journey>> journeys) {
-		this.journeys = journeys;
+
+		if(journeys != null && journeys.size() > 0)
+			this.journeys = journeys;
 	}
 }
