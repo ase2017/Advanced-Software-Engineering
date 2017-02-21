@@ -53,7 +53,20 @@ public class TaxiTest {
 				+ DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 	}
 
-	
+	@Test
+	public void testWrongNumberOfWordsDriverName(){
+
+		final ByteArrayOutputStream serialContent = new ByteArrayOutputStream();
+		String wrongDriverName = "Kadasdsadasdsda"; //If driver`s name less than two words, this should show an error
+
+		System.setOut(new PrintStream(serialContent));
+		new Taxi(trueRegistrationNumber, wrongDriverName, trueBrand);
+
+		assertEquals("Error! Wrong driver`s name (in file taxis.txt in line: "
+				+ DataFileReader.line_counter + " ).\r\n", serialContent.toString());
+
+	}
+
 	@Test
 	public void testNullDriverName(){
 		

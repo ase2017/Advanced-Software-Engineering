@@ -78,8 +78,8 @@ public class DestinationTest {
         System.setOut(new PrintStream(serialContent));
         new Destination(wrongDestinationName);
 
-        assertEquals("Error! The name of the destination is invalid (in file destinations_2016.txt in line: 0 ).\r\n",
-                serialContent.toString());
+        assertEquals("Error! The name of the destination is invalid (in file destinations_2016.txt in line: "
+                + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
 
@@ -92,8 +92,8 @@ public class DestinationTest {
         System.setOut(new PrintStream(serialContent));
         new Destination(wrongDestinationName);
 
-        assertEquals("Error! The name of the destination is invalid (in file destinations_2016.txt in line: 0 ).\r\n",
-                serialContent.toString());
+        assertEquals("Error! The name of the destination is invalid (in file destinations_2016.txt in line: "
+                + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
 }
