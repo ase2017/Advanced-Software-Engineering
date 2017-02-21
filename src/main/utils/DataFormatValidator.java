@@ -1,32 +1,37 @@
-
 package main.utils;
 
 import main.items.CarBrand;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 
 /**
- * 
+ *
  * @author Chiotis
- * 
- * DataFormatValidator exclusively contains static instance variables and methods so to be accessible 
- * from all the other classes. It validates all the input data from the four data files <taxis.txt>, <journeys.txt>, 
- * <destinations_2016.txt> and <destinations_2017.txt> just before the creation of the objects.  
- *  
- * The instance variables are static and final, so that cannot be mutable from any methods. 
- * 
+ *
+ * DataFormatValidator exclusively contains static instance variables and methods so to be accessible
+ * from all the other classes. It validates all the input data from the four data files <taxis.txt>, <journeys.txt>,
+ * <destinations_2016.txt> and <destinations_2017.txt> just before the creation of the objects.
+ *
+ * The instance variables are static and final, so that cannot be mutable from any methods.
+ *
  * Methods are static, so to be accessible from each of the three constructors, (Taxi, Journey and Destination).
  *
  */
 public class DataFormatValidator {
 
 
-	
+
 	private static final int MIN_DESTINATION_NAME_LENGTH = 3;
 	private static final int MAX_DESTINATION_NAME_LENGTH = 30;
 	private static final int MIN_DRIVER_NAME_LENGTH = 5;
 	private static final int MAX_DRIVER_NAME_LENGTH = 30;
+	private static final int MIN_BRAND_NAME = 3;
+	private static final int MAX_BRAND_NAME = 15;
 	private static final int TAXI_REGISTRATION_NUMBER_LENGTH = 7;
 	private static final int MIN_NUMBER_OF_PASSENGERS = 1;
 	private static final int MAX_NUMBER_OF_PASSENGERS = 8;
@@ -38,30 +43,32 @@ public class DataFormatValidator {
 
 	/**
 	 * Validates the taxi's registration number, as to its length.
-	 * 
+	 *
 	 * @param registrationNumber
-	 * @return true if the registration number's length equals the indicated length 
-	 *         by the corresponding instance variable. 
-	 *         Else return false. 
+	 * @return true if the registration number's length equals the indicated length
+	 *         by the corresponding instance variable.
+	 *         Else return false.
 	 */
 	public static boolean validateRegistrationNumber(String registrationNumber) {
-		
-		if (!Pattern.matches("(^[A-Z]{2})([0-9]{3})([A-Z]{2})", registrationNumber))
+
+		if ( registrationNumber == null )
 			return false;
-		else if (registrationNumber.length() != TAXI_REGISTRATION_NUMBER_LENGTH)
+		else if (!Pattern.matches("(^[A-Z]{2})([0-9]{3})([A-Z]{2})", registrationNumber))
 			return false;
-		else
+		else if ( registrationNumber.length() == TAXI_REGISTRATION_NUMBER_LENGTH )
 			return true;
+		else
+			return false;
 
 	}
 
 	/**
-	 * Validates the driver's name, as to the range of its length. 
-	 * 
+	 * Validates the driver's name, as to the range of its length.
+	 *
 	 * @param driverName
-	 * @return true if the taxi's driver name is in the indicated range 
+	 * @return true if the taxi's driver name is in the indicated range
 	 *         by the corresponding instance variables.
-	 *         Else return false. 
+	 *         Else return false.
 	 */
 	public static boolean validateDriverName(String driverName) {
 
@@ -89,12 +96,12 @@ public class DataFormatValidator {
 	}
 
 	/**
-	 * Validates the journey's destination name, as to the range of its length. 
-	 * 
+	 * Validates the journey's destination name, as to the range of its length.
+	 *
 	 * @param destinationName
-	 * @return true if the destination's name is in the indicated range 
+	 * @return true if the destination's name is in the indicated range
 	 *              by the corresponding instance variables.
-	 *              Else return false. 
+	 *              Else return false.
 	 */
 	public static boolean validateDestinationName(String destinationName) {
 
@@ -107,12 +114,12 @@ public class DataFormatValidator {
 	}
 
 	/**
-	 * Validates the distance covered by the taxi in a journey, as to a specified range. 
-	 * 
+	 * Validates the distance covered by the taxi in a journey, as to a specified range.
+	 *
 	 * @param distance
 	 * @return true if the distance covered by the taxi is in the indicated range
-	 *              by the corresponding instance variables. 
-	 *              Else return false. 
+	 *              by the corresponding instance variables.
+	 *              Else return false.
 	 */
 	public static boolean validateDistance(double distance) {
 
@@ -123,11 +130,11 @@ public class DataFormatValidator {
 	}
 
 	/**
-	 * Validates the number of the passenger, as to a specified range. 
-	 * 
+	 * Validates the number of the passenger, as to a specified range.
+	 *
 	 * @param passengerNumber
 	 * @return true if the number of the passengers are in the indicated range by the
-	 *         corresponding instance variables. 
+	 *         corresponding instance variables.
 	 */
 	public static boolean validatePassengerNumber(int passengerNumber) {
 
@@ -139,10 +146,10 @@ public class DataFormatValidator {
 
 	/**
 	 * Validates the time needed a journey, as to its sign.
-	 * 
+	 *
 	 * @param time
 	 * @return true if time is positive.
-	 *         Else return false. 
+	 *         Else return false.
 	 */
 	public static boolean validateTime(double time) {
 
@@ -153,8 +160,8 @@ public class DataFormatValidator {
 	}
 
 	/**
-	 * Validates the taxi's maximum velocity of a journey. 
-	 * 
+	 * Validates the taxi's maximum velocity of a journey.
+	 *
 	 * @param maxVelocity
 	 * @return true if the maximum velocity is in the indicated range
 	 *         by the corresponding instance variables.
@@ -169,7 +176,7 @@ public class DataFormatValidator {
 
 	/**
 	 * Validates whether the destination is in an urban area or not.
-	 * 
+	 *
 	 * @param urban
 	 * @return true if the input is "Y" or "N"
 	 *              else return false.
@@ -183,16 +190,16 @@ public class DataFormatValidator {
 		else
 			return false;
 	}
-	
+
 	/**
 	 * Validates the registration ID, as to its sign.
-	 * 
+	 *
 	 * @param destinationID
 	 * @return true if it is positive
 	 *         else return false.
 	 */
 	public static boolean validateDestinationID(int destinationID){
-	
+
 		if(destinationID > 0) {
 			return true;
 		}

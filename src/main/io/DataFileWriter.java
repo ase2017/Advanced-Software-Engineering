@@ -8,10 +8,10 @@ import main.items.TaxiData;
 
 
 /**
- * DataFileWriter is a public class that writes the computation result 
- * to three output files <top-5.txt>, <driver-Journeys.txt> 
+ * DataFileWriter is a public class that writes the computation result
+ * to three output files <top-5.txt>, <driver-Journeys.txt>
  * and <visited-Places.txt>
- * 
+ *
  * @author Chiotis
  *
  */
@@ -25,8 +25,8 @@ public class DataFileWriter {
 	/**
 	 * writeFiles is a public method that takes the appropriate Stings
 	 * from TaxiData, call the three methods that creates the output files
-	 * and finally checks if the process ended successfully. 
-	 * 
+	 * and finally checks if the process ended successfully.
+	 *
 	 * @param taxidata contains the Strings that we will write to the output files.
 	 */
 	public void writeFiles(TaxiData taxidata) {
@@ -50,7 +50,7 @@ public class DataFileWriter {
 		file3_OK = writeFile3(taxidata);
 
 
-		// Inform user whether the process was successful or not. 
+		// Inform user whether the process was successful or not.
 		if ( file1_OK )
 			System.out.println("\t+ <" + FILE_NAME_TOP_5 + "> successfully created!");
 		else
@@ -81,13 +81,13 @@ public class DataFileWriter {
 	/**
 	 * writeFile1 creates the top-5 output file if does not already exists
 	 * and write the resulted string from TaxiData.
-	 * 
+	 *
 	 * @param taxidata contains the String needed for the top-5 journey's output file.
-	 * 
+	 *
 	 * @return true if process ended successfully
 	 * 	       else return false.
 	 */
-	private boolean writeFile1(TaxiData taxidata) {
+	public boolean writeFile1(TaxiData taxidata) {
 
 
 		BufferedWriter buffWriterFile1 = null;
@@ -101,31 +101,28 @@ public class DataFileWriter {
 			fileWriterFile1 = new FileWriter( OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_TOP_5 );
 			buffWriterFile1 = new BufferedWriter(fileWriterFile1);
 
-			
-			fileContents = taxidata.formatJourneyFile();	// Takes the resulted data from the Taxi's Data object. 
+
+			fileContents = taxidata.formatJourneyFile();	// Takes the resulted data from the Taxi's Data object.
 			buffWriterFile1.write(fileContents);			// Writes the data to the file
 
 
-		} catch (IOException e) {
+		} catch (IOException | NullPointerException e) {
 
-			System.out.println(e.getMessage());
+			System.out.println( "\t +In file: " + FILE_NAME_TOP_5 + " failed to write content. [" + e.getMessage() + "]." );
 			return false;
 
 		} finally {
 
 			try {
-				
+
 				// Close the file descriptors.
 
 				if (buffWriterFile1 != null)
 					buffWriterFile1.close();
 
-				if (fileWriterFile1 != null)
-					fileWriterFile1.close();
-
 			} catch (IOException e) {
 
-				System.out.println(e.getMessage());
+				System.out.println( "\t +File: " + FILE_NAME_TOP_5 + " failed to close. [" + e.getMessage() + "]." );
 				return false;
 
 			}
@@ -140,13 +137,13 @@ public class DataFileWriter {
 	/**
 	 * writeFile2 creates the driver's Journey output file if does not already exists
 	 * and write the resulted string from TaxiData.
-	 * 
+	 *
 	 * @param taxidata contains the String needed for the top-5 driver's Journey output file.
-	 * 
+	 *
 	 * @return true if process ended successfully
 	 * 	       else return false.
 	 */
-	private boolean writeFile2(TaxiData taxidata) {
+	public boolean writeFile2(TaxiData taxidata) {
 
 
 		BufferedWriter buffWriterFile2 = null;
@@ -160,31 +157,26 @@ public class DataFileWriter {
 			fileWriterFile2 = new FileWriter( OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_PLACES_PER_DRIVER );
 			buffWriterFile2 = new BufferedWriter(fileWriterFile2);
 
-			//buffWriterFile2.write(fileContents);
-
-			fileContents = taxidata.formatPlacesVisitedPerDriver();		// Takes the resulted data from the Taxi's Data object. 
+			fileContents = taxidata.formatPlacesVisitedPerDriver();		// Takes the resulted data from the Taxi's Data object.
 			buffWriterFile2.write(fileContents);						// Writes the data to the file.
-				
 
-		} catch (IOException e) {
 
-			System.out.println(e.getMessage());
+		} catch ( IOException | NullPointerException e ) {
+
+			System.out.println( "\t +In file: " + FILE_NAME_PLACES_PER_DRIVER + " failed to write content. [" + e.getMessage() + "]." );
 			return false;
 
 		} finally {
 
 			try {
 
-				// Close the file descriptors. 
+				// Close the file descriptors.
 				if (buffWriterFile2 != null)
 					buffWriterFile2.close();
 
-				if (fileWriterFile2 != null)
-					fileWriterFile2.close();
-
 			} catch (IOException e) {
 
-				System.out.println(e.getMessage());
+				System.out.println( "\t +File: " + FILE_NAME_PLACES_PER_DRIVER + " failed to close. [" + e.getMessage() + "]." );
 				return false;
 
 			}
@@ -200,13 +192,13 @@ public class DataFileWriter {
 	/**
 	 * writeFile3 creates the visited Places output file if does not already exists
 	 * and write the resulted string from TaxiData.
-	 * 
+	 *
 	 * @param taxidata contains the String needed for the visited Places by taxis output file.
-	 * 
+	 *
 	 * @return true if process ended successfully
 	 * 	       else return false.
 	 */
-	private boolean writeFile3(TaxiData taxidata) {
+	public boolean writeFile3(TaxiData taxidata) {
 
 
 		BufferedWriter buffWriterFile3 = null;
@@ -219,15 +211,13 @@ public class DataFileWriter {
 			fileWriterFile3 = new FileWriter( OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_PLACES );
 			buffWriterFile3 = new BufferedWriter(fileWriterFile3);
 
-			// buffWriterFile3.write(fileContents);
-
-			fileContents = taxidata.formatPlacesVisited();		// Takes the resulted data from the Taxi's Data object. 
+			fileContents = taxidata.formatPlacesVisited();		// Takes the resulted data from the Taxi's Data object.
 			buffWriterFile3.write(fileContents);				// Writes the data to the file.
 
 
-		} catch (IOException e) {
+		} catch ( IOException | NullPointerException e ) {
 
-			System.out.println(e.getMessage());
+			System.out.println( "\t +In file: " + FILE_NAME_PLACES + " failed to write content. [" + e.getMessage() + "]." );
 			return false;
 
 		} finally {
@@ -238,12 +228,9 @@ public class DataFileWriter {
 				if (buffWriterFile3 != null)
 					buffWriterFile3.close();
 
-				if (fileWriterFile3 != null)
-					fileWriterFile3.close();
-
 			} catch (IOException e) {
 
-				System.out.println(e.getMessage());
+				System.out.println( "\t +File: " + FILE_NAME_PLACES + " failed to open. [" + e.getMessage() + "]." );
 				return false;
 
 			}
