@@ -94,6 +94,17 @@ public class DataFileReader {
 	 * @param directory: locate the directory's path for the input file.
 	 * @param filename: the filename of journey's data.
 	 *
+	 * @exception InvalidInputArgumentsException
+	 * @exception InvalidIDException
+	 * @exception InvalidMaximumVelocityException
+	 * @exception InvalidRegistrationNumberException
+	 * @exception InvalidTimeException
+	 * @exception InvalidNumberOfPassengersException
+	 * @exception NumberFormatException
+	 * @exception ArrayIndexOutOfBoundsException
+	 * @exception IOException
+	 * @exception NullPointerException
+	 *
 	 * @return an object of JourneyTreeMap, which is a TreeMap of all journeys.
 	 */
 
@@ -239,6 +250,14 @@ public class DataFileReader {
 	 * @param directory: locate the directory's path for the input file.
 	 * @param filename: the filename of journey's data.
 	 *
+	 * @exception InvalidRegistrationNumberException
+	 * @exception InvalidTaxiNameException
+	 * @exception InvalidBrandNameException
+	 * @exception InvalidInputArgumentsException
+	 * @exception ArrayIndexOutOfBoundsException
+	 * @exception IOException
+	 * @exception NullPointerException
+	 *
 	 * @return an object of taxiTreeMap, which is a TreeMap of all taxis.
 	 */
 	public TaxiTreeMap taxiChecker( String directory, String filename) {
@@ -354,6 +373,12 @@ public class DataFileReader {
 	 * @param directory: locate the directory's path for the input file.
 	 * @param filename: the filename of journey's data.
 	 *
+	 * @exception InvalidDestinationNameException
+	 * @exception InvalidInputArgumentsException
+	 * @exception ArrayIndexOutOfBoundsException
+	 * @exception IOException
+	 * @exception NullPointerException
+	 *
 	 * @return an object of DestinationTreeSet, which is a TreeSet of all the destinations visited by the taxis in 2016.
 	 */
 	public DestinationTreeSet destination2016Checker( String directory, String filename ) {
@@ -452,6 +477,17 @@ public class DataFileReader {
 	 *
 	 * @param directory: locate the directory's path for the input file.
 	 * @param filename: the filename of journey's data.
+	 *
+	 * @exception DuplicateIDException If a destination with the same ID already exists
+	 * @exception InvalidIDException If a destination with null, empty or zero ID exists
+	 * @exception InvalidInputArgumentsException If the arguments of a record are null, empty or zero
+	 * @exception InvalidDestinationNameException If the destination's name is null, empty or zero
+	 * @exception InvalidDistanceException If the destination's distance
+	 * @exception InvalidUrbanException
+	 * @exception NumberFormatException
+	 * @exception ArrayIndexOutOfBoundsException
+	 * @exception IOException
+	 * @exception NullPointerException
 	 *
 	 * @return an object of DestinationTreeMap, which is a TreeMap of all the destinations visited by the taxis in 2017.
 	 */
