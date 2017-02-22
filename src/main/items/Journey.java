@@ -68,7 +68,8 @@ public class Journey {
 		} catch(InvalidIDException | InvalidRegistrationNumberException |
 				InvalidNumberOfPassengersException | InvalidTimeException
 				| InvalidMaximumVelocityException e){
-			
+
+			DataFileReader.objectChecker = false;
 			System.out.println(e.getMessage()); //Show error message
 			
 		}

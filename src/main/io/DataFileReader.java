@@ -40,6 +40,8 @@ public class DataFileReader {
 	public static final String FILE_NAME_DESTINATIONS_2017 = "destinations_2017.txt";
 	public static int line_counter = 0;
 
+	public static boolean objectChecker = true;
+
 
 
 	/**
@@ -115,6 +117,7 @@ public class DataFileReader {
 
 
 		FileReader fd_journeys = null;
+		objectChecker = true;
 
 		int id = 0;
 		int numOfPassengers = 0;
@@ -134,6 +137,7 @@ public class DataFileReader {
 			// Read it line-by-line
 			while ((line = journey_reader.readLine()) != null) {
 
+				objectChecker = true;
 				line_counter++;		// specify the line of the file
 				journey_info = line.split(DATA_SEPARATOR, -1);		// split the line using the given separator
 
@@ -190,8 +194,7 @@ public class DataFileReader {
 					Journey jrn = new Journey(id, journey_info[1], numOfPassengers, time, maxVelocity);
 
 
-					if (jrn != null) {    // if the object has been created normally
-
+					if (objectChecker) {    // if the object has been created normally
 
 						journeyTreeMap.addJourney(jrn);        // add this Journey to the JourneyTreeMap
 						// -- which is a TreeMap of ArrayLists of Journey's objects --
@@ -266,6 +269,7 @@ public class DataFileReader {
 		TaxiTreeMap taxiTreeMap = new TaxiTreeMap(temporaryTreeMap);
 
 		FileReader fd_taxis = null;
+		objectChecker = true;
 
 		try {
 
@@ -281,6 +285,7 @@ public class DataFileReader {
 			// Read it line-by-line
 			while ((line = taxis_reader.readLine()) != null) {
 
+				objectChecker = true;
 				line_counter++;		// specify the line of the file
 				taxi_info = line.split(DATA_SEPARATOR, -1);		// split the line using the given separator.
 
@@ -318,7 +323,7 @@ public class DataFileReader {
 					Taxi tx = new Taxi(taxi_info[0].trim(), taxi_info[1], taxi_info[2].trim());
 
 
-					if ( tx != null ) {		// if the object has been created normally
+					if ( objectChecker ) {		// if the object has been created normally
 
 						taxiTreeMap.addTaxi(tx);	// add this Taxi to the TaxiTreeMap
 						// -- which is a TreeMap of Taxi's objects --
@@ -388,6 +393,7 @@ public class DataFileReader {
 
 
 		FileReader fd_destination_2016 = null;
+		objectChecker = true;
 
 		try {
 
@@ -402,6 +408,7 @@ public class DataFileReader {
 			while ((line = destination_2016_reader.readLine()) != null) {
 
 				line_counter++;		// Specifies the number of the current line.
+				objectChecker = true;
 
 				try {
 
@@ -414,7 +421,7 @@ public class DataFileReader {
 					Destination dest2016 = new Destination( line );
 
 
-					if ( dest2016 != null ) { 	// if the object has been created normally
+					if ( objectChecker ) { 	// if the object has been created normally
 
 						temporaryTreeSet.add(dest2016);		// add this Destination to the DestinationTreeSet
 						// -- which is a TreeSet of Destination's objects --
@@ -484,6 +491,7 @@ public class DataFileReader {
 
 
 		FileReader fd_destination_2017 = null;
+		objectChecker = true;
 
 		int id = 0;
 		double distance = 0.0;
@@ -503,6 +511,7 @@ public class DataFileReader {
 			while ((line = destination_2017_reader.readLine()) != null) {
 
 				line_counter++;		// Specify the current number of the line.
+				objectChecker = true;
 				destination_2017_info = line.split(DATA_SEPARATOR, -1);		// Split its words as to the given separator.
 
 				try {
@@ -555,7 +564,7 @@ public class DataFileReader {
 					Destination dest2017 = new Destination( id, destination_2017_info[1], distance, urban );
 
 
-					if ( dest2017 != null ) {	// if the object has been created normally
+					if ( objectChecker ) {	// if the object has been created normally
 
 						try {
 

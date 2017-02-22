@@ -61,6 +61,7 @@ public class Destination implements Comparable<Destination>{
 		} catch(InvalidIDException | InvalidDestinationNameException | InvalidDistanceException e){
 			
 			System.out.println(e.getMessage()); //Show the error message
+			DataFileReader.objectChecker = false;
 			
 		}	
 		
@@ -84,6 +85,7 @@ public class Destination implements Comparable<Destination>{
 		}
 		catch(InvalidDestinationNameException e){
 			System.out.println(e.getMessage()); //Show error message
+			DataFileReader.objectChecker = false;
 		}
 	}
 	
