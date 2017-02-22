@@ -18,7 +18,7 @@ import main.items.TaxiData;
 public class DataFileWriter {
 
 	public static final String OUTPUT_DIRECTORY_NAME = "outputFiles";
-	public static final String FILE_NAME_TOP_5 = "top-5.txt";
+	public static final String FILE_NAME_TOP_5 = "top-" + TaxiData.topNJourneys + ".txt";
 	public static final String FILE_NAME_PLACES_PER_DRIVER = "driver-Journeys.txt";
 	public static final String FILE_NAME_PLACES = "visited-Places.txt";
 
@@ -28,6 +28,8 @@ public class DataFileWriter {
 	 * and finally checks if the process ended successfully.
 	 *
 	 * @param taxidata contains the Strings that we will write to the output files.
+	 *
+	 * @exception NullPointerException In case that some file pointer is null
 	 */
 	public void writeFiles(TaxiData taxidata) {
 
@@ -88,8 +90,11 @@ public class DataFileWriter {
 	 *
 	 * @param taxidata contains the String needed for the top-5 journey's output file.
 	 *
-	 * @return true if process ended successfully
-	 * 	       else return false.
+	 * @exception IOException If the file cannot be created/written
+	 * @exception NullPointerException In case that the file pointer is null
+	 *
+	 * @return true if process ended successfully else return false.
+	 *
 	 */
 	public boolean writeFile1(TaxiData taxidata){
 
@@ -150,6 +155,9 @@ public class DataFileWriter {
 	 * and write the resulted string from TaxiData.
 	 *
 	 * @param taxidata contains the String needed for the top-5 driver's Journey output file.
+	 *
+	 * @exception IOException If the file cannot be created/written
+	 * @exception NullPointerException In case that the file pointer is null
 	 *
 	 * @return true if process ended successfully
 	 * 	       else return false.
@@ -213,6 +221,9 @@ public class DataFileWriter {
 	 * and write the resulted string from TaxiData.
 	 *
 	 * @param taxidata contains the String needed for the visited Places by taxis output file.
+	 *
+	 * @exception IOException If the file cannot be created/written
+	 * @exception NullPointerException In case that the file pointer is null
 	 *
 	 * @return true if process ended successfully
 	 * 	       else return false.

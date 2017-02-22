@@ -11,6 +11,7 @@ public class TaxiData {
 	private DestinationTreeMap currentYearDestinations;
 	private DestinationTreeSet previousYearDestinations;
 	private JourneyTreeMap journeys;
+	public static int topNJourneys = 2;
 
 	/**
 	 * Formats and returns a line of information for the first output file (top 5 journeys)
@@ -45,7 +46,8 @@ public class TaxiData {
 	 */
 	public String formatJourneyFile(){
 
-		return (formatTopJourneys(5,true) + formatTopJourneys(5,false));
+		return (formatTopJourneys(topNJourneys,true)
+				+ formatTopJourneys(topNJourneys,false));
 
 	}
 
