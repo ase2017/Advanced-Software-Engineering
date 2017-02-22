@@ -7,13 +7,25 @@ import static org.junit.Assert.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+/**
+ * Class Name: DestinationTest.java
+ *
+ * Description: This class includes JUnit tests for the class Destination.
+ *
+ * @author George Goniotakis
+ * @since Feb 9, 2017
+ */
+
 public class DestinationTest {
 
-    private int trueDestinationID = 1;
-    private String trueDestinationName = "George Street";
-    private double trueDistance = 22.1;
-    private boolean trueUrban = true;
+    private int trueDestinationID = 1; //Example of correct destination id
+    private String trueDestinationName = "George Street"; //Example of correct destination name
+    private double trueDistance = 22.1; //Example of correct distance
+    private boolean trueUrban = true; //Example of correct urban identifier
 
+    /**
+     * This method tries to create a new Destination Object with wrong destination id.
+     */
     @Test
     public void testWrongDestinationID(){
 
@@ -28,6 +40,9 @@ public class DestinationTest {
 
     }
 
+    /**
+     * This method tries to create a new Destination Object with a wrong destination name.
+     */
     @Test
     public void testWrongLengthDestinationName2017(){
 
@@ -41,7 +56,9 @@ public class DestinationTest {
                 + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
-
+    /**
+     * This method tries to create a new Destination Object with a null destination name
+     */
     @Test
     public void testNullDestinationName2017(){
 
@@ -55,6 +72,9 @@ public class DestinationTest {
                         + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
+    /**
+     * This method tries to create a new Destination Object with a wrong distance
+     */
     @Test
     public void testWrongRangeDistance(){
 
@@ -69,6 +89,9 @@ public class DestinationTest {
 
     }
 
+    /**
+     * This method tries to create a new Destination Object with a destination name of wrong length.
+     */
     @Test
     public void testWrongLengthDestinationName2016(){
 
@@ -82,7 +105,9 @@ public class DestinationTest {
                 + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
-
+    /**
+     * This method tries to create a new Destination 2016 Object with a null destination name.
+     */
     @Test
     public void testNullDestinationName2016(){
 
@@ -94,6 +119,25 @@ public class DestinationTest {
 
         assertEquals("Error! The name of the destination is invalid (in file destinations_2016.txt in line: "
                 + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
+    }
+
+    /**
+     * This method tests the creation of a Destination 2017 Object.
+     */
+    @Test
+    public void testTrueCase2017(){
+
+        assertNotEquals(null, new Destination( trueDestinationID, trueDestinationName,
+                trueDistance, trueUrban));
+    }
+
+    /**
+     * This method test the creation of a Destination 2016 Object.
+     */
+    @Test
+    public void testTrueCase2016(){
+
+        assertNotEquals(null, new Destination( trueDestinationName));
     }
 
 }

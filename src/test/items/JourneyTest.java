@@ -55,11 +55,10 @@ public class JourneyTest {
         String wrongRegistrationNumber = "AA1A";
 
         System.setOut(new PrintStream(serialContent));
-        new Journey(trueDestinationID, wrongRegistrationNumber, trueNumberOfPassengers,
-                trueTime, trueMaximumVelocity);
+        Journey jn = null;
 
-        assertEquals("Error! Wrong registration number (in file journeys.txt in line: "
-                + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
+        assertEquals(jn, new Journey(trueDestinationID, wrongRegistrationNumber, trueNumberOfPassengers,
+                trueTime, trueMaximumVelocity));
 
     }
 

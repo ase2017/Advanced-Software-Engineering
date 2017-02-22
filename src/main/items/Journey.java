@@ -46,15 +46,15 @@ public class Journey {
 		this.numberOfPassengers = numberOfPassengers;
 		this.time = time;
 		this.maximumVelocity = maximumVelocity;
-		
+
 		try{
 			
 			if ( !DataFormatValidator.validateDestinationID(destinationID)) 
 				throw new InvalidIDException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
 				
-			if ( !DataFormatValidator.validateRegistrationNumber(taxiRegistrationNumber)) 
+			if ( !DataFormatValidator.validateRegistrationNumber(taxiRegistrationNumber))
 				throw new InvalidRegistrationNumberException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
-				
+
 			if ( !DataFormatValidator.validatePassengerNumber(numberOfPassengers))		
 				throw new InvalidNumberOfPassengersException(DataFileReader.FILE_NAME_JOURNEYS, DataFileReader.line_counter);
 			
