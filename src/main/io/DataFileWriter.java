@@ -56,17 +56,17 @@ public class DataFileWriter {
 			if ( file1_OK )
 				System.out.println("\t+ <" + FILE_NAME_TOP_5 + "> successfully created!");
 			else
-				System.out.println("\t->Error occured in " + FILE_NAME_TOP_5 + "...");
+				System.out.println("\t->Error occurred in " + FILE_NAME_TOP_5 + "...");
 
 			if ( file2_OK )
 				System.out.println("\t+ <" + FILE_NAME_PLACES_PER_DRIVER + "> successfully created!");
 			else
-				System.out.println("\t->Error occured in " + FILE_NAME_PLACES_PER_DRIVER + "...");
+				System.out.println("\t->Error occurred in " + FILE_NAME_PLACES_PER_DRIVER + "...");
 
 			if ( file3_OK )
 				System.out.println("\t+ <" + FILE_NAME_PLACES + "> successfully created!");
 			else
-				System.out.println("\t->Error occured in " + FILE_NAME_PLACES + "...");
+				System.out.println("\t->Error occurred in " + FILE_NAME_PLACES + "...");
 
 
 			if ( file1_OK && file2_OK && file3_OK )

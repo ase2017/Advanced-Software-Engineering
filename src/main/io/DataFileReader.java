@@ -32,7 +32,7 @@ import main.items.*;
  */
 public class DataFileReader {
 
-	public static final String DATA_SEPERATOR = ",";
+	public static final String DATA_SEPARATOR = ",";
 	public static final String FILE_NAME_FOLDER = "inputFiles/";
 	public static final String FILE_NAME_JOURNEYS = "journeys.txt";
 	public static final String FILE_NAME_TAXIS = "taxis.txt";
@@ -87,7 +87,7 @@ public class DataFileReader {
 	/**
 	 * journeyChecker reads the file that is specified by the two arguments (default case:
 	 * <journey.txt> in inputFiles directory).
-	 * Checks its structure as to the number of words separated by DATA_SEPERATOR (instance variable),
+	 * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
 	 * also checks if those words are not empty, converts strings to double or integers when needed,
 	 * and finally uses Journey's constructor for each valid line and add this journey object to a TreeMap.
 	 *
@@ -124,7 +124,7 @@ public class DataFileReader {
 			while ((line = journey_reader.readLine()) != null) {
 
 				line_counter++;		// specify the line of the file
-				journey_info = line.split(DATA_SEPERATOR, -1);		// split the line using the given separator
+				journey_info = line.split(DATA_SEPARATOR, -1);		// split the line using the given separator
 
 				try {
 
@@ -137,7 +137,7 @@ public class DataFileReader {
 					// Then check if any of those five words are an empty string
 					// and if this happens  for any of those strings, throw the appropriate exception
 
-					if (journey_info[0].isEmpty() || journey_info[0].length() == 0 || journey_info[0] == null) {
+					if (journey_info[0] == null || journey_info[0].isEmpty() || journey_info[0].length() == 0) {
 
 						throw new InvalidIDException(filename, line_counter);
 					}
@@ -145,13 +145,13 @@ public class DataFileReader {
 					id = Integer.parseInt(journey_info[0]);        // Converts Journey's id to integer.
 
 
-					if (journey_info[1].trim().isEmpty() || journey_info[1].trim().length() == 0 || journey_info[1] == null) {
+					if (journey_info[1] == null || journey_info[1].trim().isEmpty() || journey_info[1].trim().length() == 0) {
 
 						throw new InvalidRegistrationNumberException(filename, line_counter);
 					}
 
 
-					if (journey_info[2].isEmpty() || journey_info[2].length() == 0 || journey_info[2] == null) {
+					if (journey_info[2] == null || journey_info[2].isEmpty() || journey_info[2].length() == 0 ) {
 
 						throw new InvalidNumberOfPassengersException(filename, line_counter);
 					}
@@ -159,7 +159,7 @@ public class DataFileReader {
 					numOfPassengers = Integer.parseInt(journey_info[2]);        // Converts Number of Passenger of this journey to integer.
 
 
-					if (journey_info[3].trim().isEmpty() || journey_info[3].trim().length() == 0 || journey_info[3].trim() == null) {
+					if (journey_info[3].trim() == null || journey_info[3].trim().isEmpty() || journey_info[3].trim().length() == 0) {
 
 						throw new InvalidTimeException(filename, line_counter);
 					}
@@ -167,7 +167,7 @@ public class DataFileReader {
 					time = Double.parseDouble(journey_info[3]);        // Converts the time needed for this journey to double.
 
 
-					if (journey_info[4].trim().isEmpty() || journey_info[4].trim().length() == 0 || journey_info[4].trim() == null) {
+					if (journey_info[4].trim() == null || journey_info[4].trim().isEmpty() || journey_info[4].trim().length() == 0 ) {
 
 						throw new InvalidMaximumVelocityException(filename, line_counter);
 					}
@@ -232,7 +232,7 @@ public class DataFileReader {
 	/**
 	 * taxiChecker reads the file that is specified by the two arguments (default case:
 	 * <taxi.txt> in inputFiles directory).
-	 * Checks its structure as to the number of words separated by DATA_SEPERATOR (instance variable),
+	 * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
 	 * also checks if those words are not empty, converts strings to double or integers when needed,
 	 * and finally uses Taxi's constructor for each valid line and add this Taxi object to a TreeMap.
 	 *
@@ -263,7 +263,7 @@ public class DataFileReader {
 			while ((line = taxis_reader.readLine()) != null) {
 
 				line_counter++;		// specify the line of the file
-				taxi_info = line.split(DATA_SEPERATOR, -1);		// split the line using the given separator.
+				taxi_info = line.split(DATA_SEPARATOR, -1);		// split the line using the given separator.
 
 				try {
 
@@ -278,18 +278,18 @@ public class DataFileReader {
 					// Then check if any of those three words are an empty string
 					// and if this happens for any of those strings, throw the appropriate exception
 
-					if (taxi_info[0].trim().isEmpty() || taxi_info[0].trim().length() == 0 || taxi_info[0] == null) {
+					if (taxi_info[0] == null || taxi_info[0].trim().isEmpty() || taxi_info[0].trim().length() == 0) {
 
 						throw new InvalidRegistrationNumberException(filename, line_counter);
 					}
 
-					if (taxi_info[1].isEmpty() || taxi_info[1].length() == 0 || taxi_info[1] == null
+					if (taxi_info[1] == null || taxi_info[1].isEmpty() || taxi_info[1].length() == 0
 							|| nameComponents[0].length() == 0 || nameComponents[1].length() == 0 ) {
 
 						throw new InvalidTaxiNameException(filename, line_counter);
 					}
 
-					if (taxi_info[2].trim().isEmpty() || taxi_info[2].trim().length() == 0 || taxi_info[2] == null) {
+					if (taxi_info[2] == null || taxi_info[2].trim().isEmpty() || taxi_info[2].trim().length() == 0) {
 
 						throw new InvalidBrandNameException(filename, line_counter);
 					}
@@ -348,7 +348,7 @@ public class DataFileReader {
 	 * destination2016Checker reads the file that is specified by the two arguments (default case:
 	 * <destinations_2016.txt> in inputFiles directory).
 	 *
-	 * Checks its structure as to the number of words separated by DATA_SEPERATOR (instance variable),
+	 * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
 	 * then checks if those words are not empty,  and for each valid line add this Destination object to a DestinationTreeSet.
 	 *
 	 * @param directory: locate the directory's path for the input file.
@@ -378,7 +378,7 @@ public class DataFileReader {
 			while ((line = destination_2016_reader.readLine()) != null) {
 
 				line_counter++;		// Specifies the number of the current line.
-				destination_2016_info = line.split(DATA_SEPERATOR, -1);		// Split the data
+				destination_2016_info = line.split(DATA_SEPARATOR, -1);		// Split the data
 				// (in the case that a SEPARATOR exists at the end of each line).
 
 				try {
@@ -389,8 +389,8 @@ public class DataFileReader {
 						throw new InvalidInputArgumentsException(filename, line_counter);
 					}
 
-					if ( destination_2016_info[0].isEmpty() || destination_2016_info[0].length() == 0
-							|| destination_2016_info[0] == null ) {
+					if ( destination_2016_info[0] == null ||destination_2016_info[0].isEmpty()
+							|| destination_2016_info[0].length() == 0 ) {
 
 						throw new InvalidDestinationNameException(filename, line_counter);
 					}
@@ -446,7 +446,7 @@ public class DataFileReader {
 	 * destination2017Checker reads the file that is specified by the two arguments (default case:
 	 * <destinations_2017.txt> in inputFiles directory).
 	 *
-	 * Checks its structure as to the number of words separated by DATA_SEPERATOR (instance variable),
+	 * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
 	 * then checks if those words are not empty, converts strings to double or integers when needed,
 	 * and for each valid line add this Destination object to a DestinationTreeMap.
 	 *
@@ -481,7 +481,7 @@ public class DataFileReader {
 			while ((line = destination_2017_reader.readLine()) != null) {
 
 				line_counter++;		// Specify the current number of the line.
-				destination_2017_info = line.split(DATA_SEPERATOR, -1);		// Split its words as to the given separator.
+				destination_2017_info = line.split(DATA_SEPARATOR, -1);		// Split its words as to the given separator.
 
 				try {
 
@@ -491,7 +491,8 @@ public class DataFileReader {
 						throw new InvalidInputArgumentsException( filename, line_counter );
 					}
 
-					if ( destination_2017_info[0].trim().isEmpty() || destination_2017_info[0].trim().length() == 0 || destination_2017_info[0].trim() == null ) {
+					if ( destination_2017_info[0].trim() == null  || destination_2017_info[0].trim().isEmpty()
+							|| destination_2017_info[0].trim().length() == 0) {
 
 						throw new InvalidIDException( filename, line_counter );
 					}
@@ -500,13 +501,15 @@ public class DataFileReader {
 					id = Integer.parseInt( destination_2017_info[0] );		// Converts the destination's ID to integer.
 
 
-					if ( destination_2017_info[1].isEmpty() || destination_2017_info[1].length() == 0 || destination_2017_info[1] == null ) {
+					if (destination_2017_info[1] == null || destination_2017_info[1].isEmpty()
+							|| destination_2017_info[1].length() == 0) {
 
 						throw new InvalidDestinationNameException( filename, line_counter );
 					}
 
 
-					if ( destination_2017_info[2].trim().isEmpty() || destination_2017_info[2].trim().length() == 0 || destination_2017_info[2].trim() == null ) {
+					if (destination_2017_info[2].trim() == null || destination_2017_info[2].trim().isEmpty()
+							|| destination_2017_info[2].trim().length() == 0 ) {
 
 						throw new InvalidDistanceException( filename, line_counter );
 					}
@@ -515,7 +518,8 @@ public class DataFileReader {
 					distance = Double.parseDouble(destination_2017_info[2]);	// Converts the distance of its journey to double.
 
 
-					if ( destination_2017_info[3].trim().isEmpty() || destination_2017_info[3].trim().length() == 0 || destination_2017_info[3].trim() == null ) {
+					if (destination_2017_info[3].trim() == null || destination_2017_info[3].trim().isEmpty()
+							|| destination_2017_info[3].trim().length() == 0) {
 
 						throw new InvalidUrbanException( filename, line_counter );
 					}
