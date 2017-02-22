@@ -1,3 +1,6 @@
+===========================================================================
+			Valid Entries in destinations_2017.txt file. 
+
 1,Palace of Holyroodhouse,2.9,N
 2,Heriot Watt University,10.3,Y
 3,National Museum of Scotland,6.3,N
@@ -31,3 +34,41 @@
 31,Heriot Watt University,10.3,Y
 32,Napier University,2.0,N
 33,George Street,2.5,N
+			
+
+
+===========================================================================
+		Invalid destination ID in destinations_2017.txt file. 
+
+0,George Street,2.5,N
+-10,Napier University,2.0,N
+ABC,Heriot Watt University,10.3,Y
+//Next line will throw a dublicate id exception.
+1,Palace of Holyroodhouse,2.9,N
+
+===========================================================================
+		Invalid destination name in destinations_2017.txt file. 
+
+50,,6.6,Y
+51,XX,0.4,N
+52,ThisISAdestinationNameWithMoreThan30Characters,0.4,N
+
+===========================================================================
+		Invalid distance in destinations_2017.txt file. 
+
+61,Heriot Watt University,-1,Y
+62,Napier University,0.0,N
+63,George Street,1000000003,N
+			
+===========================================================================
+		Invalid urban in destinations_2017.txt file. 
+
+71,Heriot Watt University,7.2,
+72,Napier University,5.0,X
+73,George Street,10,23
+			
+			
+===========================================================================
+						An Extreme Case 
+,,,			
+,,,,,,,,,,,,,,,,,

@@ -11,7 +11,7 @@ public class TaxiData {
 	private DestinationTreeMap currentYearDestinations;
 	private DestinationTreeSet previousYearDestinations;
 	private JourneyTreeMap journeys;
-	public static int topNJourneys = 2;
+	public static int topNJourneys = 5;
 
 	/**
 	 * Formats and returns a line of information for the first output file (top 5 journeys)
