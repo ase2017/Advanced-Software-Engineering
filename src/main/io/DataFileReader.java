@@ -94,16 +94,16 @@ public class DataFileReader {
 	 * @param directory: locate the directory's path for the input file.
 	 * @param filename: the filename of journey's data.
 	 *
-	 * @exception InvalidInputArgumentsException If the number of arguments in record is not correct
-	 * @exception InvalidIDException If the journey's ID is null, empty or zero
-	 * @exception InvalidMaximumVelocityException If the maximum velocity is null, empty or zero
-	 * @exception InvalidRegistrationNumberException If the registration number is null, empty or zero
-	 * @exception InvalidTimeException If the journey's time is null, empty or zero
-	 * @exception InvalidNumberOfPassengersException If the number of passengers is null, empty or zero
-	 * @exception NumberFormatException If instead of an integer we get a string
-	 * @exception ArrayIndexOutOfBoundsException If the reading process fails
-	 * @exception IOException If there is not input file
-	 * @exception NullPointerException If cannot read the file
+	 * @exception InvalidInputArgumentsException
+	 * @exception InvalidIDException
+	 * @exception InvalidMaximumVelocityException
+	 * @exception InvalidRegistrationNumberException
+	 * @exception InvalidTimeException
+	 * @exception InvalidNumberOfPassengersException
+	 * @exception NumberFormatException
+	 * @exception ArrayIndexOutOfBoundsException
+	 * @exception IOException
+	 * @exception NullPointerException
 	 *
 	 * @return an object of JourneyTreeMap, which is a TreeMap of all journeys.
 	 */
@@ -148,7 +148,7 @@ public class DataFileReader {
 					// Then check if any of those five words are an empty string
 					// and if this happens  for any of those strings, throw the appropriate exception
 
-					if (journey_info[0] == null || journey_info[0].isEmpty() || journey_info[0].length() == 0) {
+					if (journey_info[0] == null || journey_info[0].trim().isEmpty()) {
 
 						throw new InvalidIDException(filename, line_counter);
 					}
@@ -156,13 +156,13 @@ public class DataFileReader {
 					id = Integer.parseInt(journey_info[0]);        // Converts Journey's id to integer.
 
 
-					if (journey_info[1] == null || journey_info[1].trim().isEmpty() || journey_info[1].trim().length() == 0) {
+					if (journey_info[1] == null || journey_info[1].trim().isEmpty()) {
 
 						throw new InvalidRegistrationNumberException(filename, line_counter);
 					}
 
 
-					if (journey_info[2] == null || journey_info[2].isEmpty() || journey_info[2].length() == 0 ) {
+					if (journey_info[2] == null || journey_info[2].trim().isEmpty()) {
 
 						throw new InvalidNumberOfPassengersException(filename, line_counter);
 					}
@@ -170,7 +170,7 @@ public class DataFileReader {
 					numOfPassengers = Integer.parseInt(journey_info[2]);        // Converts Number of Passenger of this journey to integer.
 
 
-					if (journey_info[3].trim() == null || journey_info[3].trim().isEmpty() || journey_info[3].trim().length() == 0) {
+					if (journey_info[3] == null || journey_info[3].trim().isEmpty()) {
 
 						throw new InvalidTimeException(filename, line_counter);
 					}
@@ -178,7 +178,7 @@ public class DataFileReader {
 					time = Double.parseDouble(journey_info[3]);        // Converts the time needed for this journey to double.
 
 
-					if (journey_info[4].trim() == null || journey_info[4].trim().isEmpty() || journey_info[4].trim().length() == 0 ) {
+					if (journey_info[4] == null || journey_info[4].trim().isEmpty()) {
 
 						throw new InvalidMaximumVelocityException(filename, line_counter);
 					}
@@ -250,13 +250,13 @@ public class DataFileReader {
 	 * @param directory: locate the directory's path for the input file.
 	 * @param filename: the filename of journey's data.
 	 *
-	 * @exception InvalidRegistrationNumberException If the registration number is null, empty or zero
-	 * @exception InvalidTaxiNameException If the driver's name is null, empty or zero
-	 * @exception InvalidBrandNameException If the brand name is null, empty or zero
-	 * @exception InvalidInputArgumentsException If the number of arguments is not correct
-	 * @exception ArrayIndexOutOfBoundsException If the reading process fails
-	 * @exception IOException If the file does not exist
-	 * @exception NullPointerException If cannot read file
+	 * @exception InvalidRegistrationNumberException
+	 * @exception InvalidTaxiNameException
+	 * @exception InvalidBrandNameException
+	 * @exception InvalidInputArgumentsException
+	 * @exception ArrayIndexOutOfBoundsException
+	 * @exception IOException
+	 * @exception NullPointerException
 	 *
 	 * @return an object of taxiTreeMap, which is a TreeMap of all taxis.
 	 */
@@ -297,18 +297,18 @@ public class DataFileReader {
 					// Then check if any of those three words are an empty string
 					// and if this happens for any of those strings, throw the appropriate exception
 
-					if (taxi_info[0] == null || taxi_info[0].trim().isEmpty() || taxi_info[0].trim().length() == 0) {
+					if (taxi_info[0] == null || taxi_info[0].trim().isEmpty()) {
 
 						throw new InvalidRegistrationNumberException(filename, line_counter);
 					}
 
-					if (taxi_info[1] == null || taxi_info[1].isEmpty() || taxi_info[1].length() == 0
+					if (taxi_info[1] == null || taxi_info[1].trim().isEmpty()
 							|| nameComponents[0].length() == 0 || nameComponents[1].length() == 0 ) {
 
 						throw new InvalidTaxiNameException(filename, line_counter);
 					}
 
-					if (taxi_info[2] == null || taxi_info[2].trim().isEmpty() || taxi_info[2].trim().length() == 0) {
+					if (taxi_info[2] == null || taxi_info[2].trim().isEmpty()) {
 
 						throw new InvalidBrandNameException(filename, line_counter);
 					}
@@ -373,11 +373,11 @@ public class DataFileReader {
 	 * @param directory: locate the directory's path for the input file.
 	 * @param filename: the filename of journey's data.
 	 *
-	 * @exception InvalidDestinationNameException If the destination's name is null, empty or zero
-	 * @exception InvalidInputArgumentsException If the number of arguments in record is not correct
-	 * @exception ArrayIndexOutOfBoundsException If the reading process fails
-	 * @exception IOException If the file does not exist
-	 * @exception NullPointerException If cannot read file
+	 * @exception InvalidDestinationNameException
+	 * @exception InvalidInputArgumentsException
+	 * @exception ArrayIndexOutOfBoundsException
+	 * @exception IOException
+	 * @exception NullPointerException
 	 *
 	 * @return an object of DestinationTreeSet, which is a TreeSet of all the destinations visited by the taxis in 2016.
 	 */
@@ -396,32 +396,22 @@ public class DataFileReader {
 			BufferedReader destination_2016_reader = new BufferedReader(fd_destination_2016);
 
 			String line = null;
-			String[] destination_2016_info = null;
 			line_counter = 0;		// Initializes the line counter
 
 			// Read it line-by-line
 			while ((line = destination_2016_reader.readLine()) != null) {
 
 				line_counter++;		// Specifies the number of the current line.
-				destination_2016_info = line.split(DATA_SEPARATOR, -1);		// Split the data
-				// (in the case that a SEPARATOR exists at the end of each line).
 
 				try {
 
-					if( destination_2016_info.length != 1 ) { 	// check if this line has exactly one word
-						// if not throw an exception.
-
-						throw new InvalidInputArgumentsException(filename, line_counter);
-					}
-
-					if ( destination_2016_info[0] == null ||destination_2016_info[0].isEmpty()
-							|| destination_2016_info[0].length() == 0 ) {
+					if( line == null || line.trim().isEmpty() ) {
 
 						throw new InvalidDestinationNameException(filename, line_counter);
 					}
 
 					// Create the Destination Object using the appropriate constructor.
-					Destination dest2016 = new Destination( destination_2016_info[0] );
+					Destination dest2016 = new Destination( line );
 
 
 					if ( dest2016 != null ) { 	// if the object has been created normally
@@ -432,15 +422,11 @@ public class DataFileReader {
 
 					}
 
-				} catch ( InvalidDestinationNameException | InvalidInputArgumentsException e ) {
+				} catch ( InvalidDestinationNameException e ) {
 
 					System.out.println(e.getMessage());
 				}
-				catch (ArrayIndexOutOfBoundsException e){
 
-					System.out.println("\t --Reading process in file " + filename + " failed... [ " + e.getMessage() + " ]." );
-
-				}
 
 			}
 
@@ -482,12 +468,12 @@ public class DataFileReader {
 	 * @exception InvalidIDException If a destination with null, empty or zero ID exists
 	 * @exception InvalidInputArgumentsException If the arguments of a record are null, empty or zero
 	 * @exception InvalidDestinationNameException If the destination's name is null, empty or zero
-	 * @exception InvalidDistanceException If the destination's distance is null, empty or zero
-	 * @exception InvalidUrbanException If the urban identifier is null, empty or zero
-	 * @exception NumberFormatException If instead of a number we get a string
-	 * @exception ArrayIndexOutOfBoundsException If the reading process fails
-	 * @exception IOException If the input file does not exist
-	 * @exception NullPointerException If cannot open the file
+	 * @exception InvalidDistanceException If the destination's distance
+	 * @exception InvalidUrbanException
+	 * @exception NumberFormatException
+	 * @exception ArrayIndexOutOfBoundsException
+	 * @exception IOException
+	 * @exception NullPointerException
 	 *
 	 * @return an object of DestinationTreeMap, which is a TreeMap of all the destinations visited by the taxis in 2017.
 	 */
@@ -527,8 +513,7 @@ public class DataFileReader {
 						throw new InvalidInputArgumentsException( filename, line_counter );
 					}
 
-					if ( destination_2017_info[0].trim() == null  || destination_2017_info[0].trim().isEmpty()
-							|| destination_2017_info[0].trim().length() == 0) {
+					if ( destination_2017_info[0] == null  || destination_2017_info[0].trim().isEmpty()) {
 
 						throw new InvalidIDException( filename, line_counter );
 					}
@@ -537,15 +522,13 @@ public class DataFileReader {
 					id = Integer.parseInt( destination_2017_info[0] );		// Converts the destination's ID to integer.
 
 
-					if (destination_2017_info[1] == null || destination_2017_info[1].isEmpty()
-							|| destination_2017_info[1].length() == 0) {
+					if (destination_2017_info[1] == null || destination_2017_info[1].trim().isEmpty()) {
 
 						throw new InvalidDestinationNameException( filename, line_counter );
 					}
 
 
-					if (destination_2017_info[2].trim() == null || destination_2017_info[2].trim().isEmpty()
-							|| destination_2017_info[2].trim().length() == 0 ) {
+					if (destination_2017_info[2] == null || destination_2017_info[2].trim().isEmpty()) {
 
 						throw new InvalidDistanceException( filename, line_counter );
 					}
@@ -554,16 +537,15 @@ public class DataFileReader {
 					distance = Double.parseDouble(destination_2017_info[2]);	// Converts the distance of its journey to double.
 
 
-					if (destination_2017_info[3].trim() == null || destination_2017_info[3].trim().isEmpty()
-							|| destination_2017_info[3].trim().length() == 0) {
+					if (destination_2017_info[3] == null || destination_2017_info[3].trim().isEmpty()) {
 
 						throw new InvalidUrbanException( filename, line_counter );
 					}
 
 
-					if ( destination_2017_info[3].trim().equals("Y") )			// If the Urban Variable is Y(es) return true.
+					if ( destination_2017_info[3].equals("Y") )			// If the Urban Variable is Y(es) return true.
 						urban = true;
-					else if ( destination_2017_info[3].trim().equals("N")  )	// If the Urban Variable is N(o) return false.
+					else if ( destination_2017_info[3].equals("N")  )	// If the Urban Variable is N(o) return false.
 						urban = false;
 					else
 						throw new InvalidUrbanException( filename, line_counter );	// Else throw an exception.
