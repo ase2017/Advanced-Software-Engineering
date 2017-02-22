@@ -205,7 +205,7 @@ public class DataFileReader {
 
 			}
 
-		} catch (IOException e) {
+		} catch ( IOException |  NullPointerException e ) {
 
 			System.out.println("\t --File: " + filename + " failed to open. [ " + e.getMessage() + " ].");
 		}
@@ -419,7 +419,7 @@ public class DataFileReader {
 
 			}
 
-		} catch (IOException e) {
+		} catch ( IOException |  NullPointerException e ) {
 
 			System.out.println("\t --File: " + filename + " failed to open. [ " + e.getMessage() + " ].");
 		}
@@ -572,7 +572,7 @@ public class DataFileReader {
 
 			}
 
-		} catch (IOException e) {
+		} catch ( IOException |  NullPointerException e ) {
 
 			System.out.println("\t --File: " + filename + " failed to open. [ " + e.getMessage() + " ].");
 		}

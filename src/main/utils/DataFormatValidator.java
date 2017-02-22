@@ -1,11 +1,6 @@
 package main.utils;
 
 import main.items.CarBrand;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.regex.Pattern;
 
 
@@ -30,8 +25,6 @@ public class DataFormatValidator {
 	private static final int MAX_DESTINATION_NAME_LENGTH = 30;
 	private static final int MIN_DRIVER_NAME_LENGTH = 5;
 	private static final int MAX_DRIVER_NAME_LENGTH = 30;
-	private static final int MIN_BRAND_NAME = 3;
-	private static final int MAX_BRAND_NAME = 15;
 	private static final int TAXI_REGISTRATION_NUMBER_LENGTH = 7;
 	private static final int MIN_NUMBER_OF_PASSENGERS = 1;
 	private static final int MAX_NUMBER_OF_PASSENGERS = 8;
