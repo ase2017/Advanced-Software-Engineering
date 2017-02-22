@@ -22,7 +22,7 @@ import main.exceptions.InvalidTimeException;
 import main.exceptions.InvalidUrbanException;
 import main.io.DataFileReader;
 
-public class DateFileReaderTest {
+public class DataFileReaderTest {
 
 
     private String directoryNameLegal = "inputFiles/";

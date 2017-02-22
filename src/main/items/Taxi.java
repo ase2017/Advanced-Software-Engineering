@@ -56,7 +56,7 @@ public class Taxi {
 				InvalidBrandNameException e){
 			
 			System.out.println(e.getMessage()); //Show error message
-			
+			DataFileReader.objectChecker = false;
 		}	
 		
 		/* End of checks */
