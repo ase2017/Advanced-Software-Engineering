@@ -44,14 +44,10 @@ public class DataFormatValidator {
 	 */
 	public static boolean validateRegistrationNumber(String registrationNumber) {
 
-		if ( registrationNumber == null )
+		if ( registrationNumber == null || !Pattern.matches("(^[A-Z]{2})([0-9]{3})([A-Z]{2})", registrationNumber))
 			return false;
-		else if (!Pattern.matches("(^[A-Z]{2})([0-9]{3})([A-Z]{2})", registrationNumber))
-			return false;
-		else if ( registrationNumber.length() == TAXI_REGISTRATION_NUMBER_LENGTH )
-			return true;
 		else
-			return false;
+			return true;
 
 	}
 
