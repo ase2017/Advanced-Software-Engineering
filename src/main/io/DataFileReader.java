@@ -94,16 +94,16 @@ public class DataFileReader {
 	 * @param directory: locate the directory's path for the input file.
 	 * @param filename: the filename of journey's data.
 	 *
-	 * @exception InvalidInputArgumentsException
-	 * @exception InvalidIDException
-	 * @exception InvalidMaximumVelocityException
-	 * @exception InvalidRegistrationNumberException
-	 * @exception InvalidTimeException
-	 * @exception InvalidNumberOfPassengersException
-	 * @exception NumberFormatException
-	 * @exception ArrayIndexOutOfBoundsException
-	 * @exception IOException
-	 * @exception NullPointerException
+	 * @exception InvalidInputArgumentsException If the number of arguments in record is not correct
+	 * @exception InvalidIDException If the journey's ID is null, empty or zero
+	 * @exception InvalidMaximumVelocityException If the maximum velocity is null, empty or zero
+	 * @exception InvalidRegistrationNumberException If the registration number is null, empty or zero
+	 * @exception InvalidTimeException If the journey's time is null, empty or zero
+	 * @exception InvalidNumberOfPassengersException If the number of passengers is null, empty or zero
+	 * @exception NumberFormatException If instead of an integer we get a string
+	 * @exception ArrayIndexOutOfBoundsException If the reading process fails
+	 * @exception IOException If there is not input file
+	 * @exception NullPointerException If cannot read the file
 	 *
 	 * @return an object of JourneyTreeMap, which is a TreeMap of all journeys.
 	 */
@@ -250,13 +250,13 @@ public class DataFileReader {
 	 * @param directory: locate the directory's path for the input file.
 	 * @param filename: the filename of journey's data.
 	 *
-	 * @exception InvalidRegistrationNumberException
-	 * @exception InvalidTaxiNameException
-	 * @exception InvalidBrandNameException
-	 * @exception InvalidInputArgumentsException
-	 * @exception ArrayIndexOutOfBoundsException
-	 * @exception IOException
-	 * @exception NullPointerException
+	 * @exception InvalidRegistrationNumberException If the registration number is null, empty or zero
+	 * @exception InvalidTaxiNameException If the driver's name is null, empty or zero
+	 * @exception InvalidBrandNameException If the brand name is null, empty or zero
+	 * @exception InvalidInputArgumentsException If the number of arguments is not correct
+	 * @exception ArrayIndexOutOfBoundsException If the reading process fails
+	 * @exception IOException If the file does not exist
+	 * @exception NullPointerException If cannot read file
 	 *
 	 * @return an object of taxiTreeMap, which is a TreeMap of all taxis.
 	 */
@@ -373,11 +373,11 @@ public class DataFileReader {
 	 * @param directory: locate the directory's path for the input file.
 	 * @param filename: the filename of journey's data.
 	 *
-	 * @exception InvalidDestinationNameException
-	 * @exception InvalidInputArgumentsException
-	 * @exception ArrayIndexOutOfBoundsException
-	 * @exception IOException
-	 * @exception NullPointerException
+	 * @exception InvalidDestinationNameException If the destination's name is null, empty or zero
+	 * @exception InvalidInputArgumentsException If the number of arguments in record is not correct
+	 * @exception ArrayIndexOutOfBoundsException If the reading process fails
+	 * @exception IOException If the file does not exist
+	 * @exception NullPointerException If cannot read file
 	 *
 	 * @return an object of DestinationTreeSet, which is a TreeSet of all the destinations visited by the taxis in 2016.
 	 */
@@ -468,12 +468,12 @@ public class DataFileReader {
 	 * @exception InvalidIDException If a destination with null, empty or zero ID exists
 	 * @exception InvalidInputArgumentsException If the arguments of a record are null, empty or zero
 	 * @exception InvalidDestinationNameException If the destination's name is null, empty or zero
-	 * @exception InvalidDistanceException If the destination's distance
-	 * @exception InvalidUrbanException
-	 * @exception NumberFormatException
-	 * @exception ArrayIndexOutOfBoundsException
-	 * @exception IOException
-	 * @exception NullPointerException
+	 * @exception InvalidDistanceException If the destination's distance is null, empty or zero
+	 * @exception InvalidUrbanException If the urban identifier is null, empty or zero
+	 * @exception NumberFormatException If instead of a number we get a string
+	 * @exception ArrayIndexOutOfBoundsException If the reading process fails
+	 * @exception IOException If the input file does not exist
+	 * @exception NullPointerException If cannot open the file
 	 *
 	 * @return an object of DestinationTreeMap, which is a TreeMap of all the destinations visited by the taxis in 2017.
 	 */
