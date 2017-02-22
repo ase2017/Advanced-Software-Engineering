@@ -7,7 +7,7 @@ import org.junit.Test;
  * Class that tests CarBrand methods :
  *
  *      equalsName
- *      containszBrand
+ *      containsBrand
  *      toString
  *
  * @author Jules
