@@ -99,12 +99,12 @@ public class Destination implements Comparable<Destination>{
 			return "destinationName=" + destinationName;
 		}
 
-			return "Destination{" +
-					"destinationID=" + destinationID +
-					", destinationName='" + destinationName + '\'' +
-					", distance=" + distance +
-					", urban=" + urban +
-					'}';
+		return "Destination{" +
+				"destinationID=" + destinationID +
+				", destinationName='" + destinationName + '\'' +
+				", distance=" + distance +
+				", urban=" + urban +
+				'}';
 
 	}
 	

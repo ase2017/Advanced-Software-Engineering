@@ -25,7 +25,6 @@ public class DataFormatValidator {
 	private static final int MAX_DESTINATION_NAME_LENGTH = 30;
 	private static final int MIN_DRIVER_NAME_LENGTH = 5;
 	private static final int MAX_DRIVER_NAME_LENGTH = 30;
-	private static final int TAXI_REGISTRATION_NUMBER_LENGTH = 7;
 	private static final int MIN_NUMBER_OF_PASSENGERS = 1;
 	private static final int MAX_NUMBER_OF_PASSENGERS = 8;
 	private static final double MIN_VELOCITY = 0.0;
