@@ -170,7 +170,7 @@ public class TaxiDataTest{
     @Test
     public void formatTopJourneys() {
 
-        // N > number of journeys stored
+        // N < number of journeys stored
         assertNotEquals(null,taxiData.formatTopJourneys(5,true));
         assertNotEquals("",taxiData.formatTopJourneys(5,true));
         assertNotEquals(null,taxiData.formatTopJourneys(5,false));
