@@ -1,8 +1,0 @@
-1,Palace of Holyroodhouse,2.9,N
-,Heriot Watt University,10.3,Y
-ABC,Heriot Watt University,10.3,Y
-,,,,
-3,,6.3,N
-4,Edinburgh Airport,,Y
-5,Edinburgh Airport,3.6,
-6,Heriot Watt University,XYZ,Y
