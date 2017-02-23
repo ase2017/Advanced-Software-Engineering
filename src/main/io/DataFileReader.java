@@ -144,7 +144,8 @@ public class DataFileReader {
 
             } catch (NumberFormatException e) {
 
-                System.out.println("\t --Number Format exception in file: " + FILE_NAME_JOURNEYS + " [ " + e.getMessage() + " ].");
+                System.out.println("\t --Number Format exception in file: " + FILE_NAME_JOURNEYS + " in line " + line_counter +
+                        "[ " + e.getMessage() + " ].");
                 return false;
 
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -236,7 +237,8 @@ public class DataFileReader {
 
                 } catch (NumberFormatException e) {
 
-                    System.out.println("\t --Number Format exception in file: " + filename + " [ " + e.getMessage() + " ].");
+                    System.out.println("\t --Number Format exception in file: " + filename + " in line " + line_counter +
+                            "[ " + e.getMessage() + " ].");
 
                 } catch (ArrayIndexOutOfBoundsException e) {
 
@@ -423,7 +425,8 @@ public class DataFileReader {
 
             } catch (NumberFormatException e) {
 
-                System.out.println("\t --Number Format exception in file: " + FILE_NAME_JOURNEYS + " [ " + e.getMessage() + " ].");
+                System.out.println("\t --Number Format exception in file: " + FILE_NAME_DESTINATIONS_2017  + " in line " + line_counter +
+                        "[ " + e.getMessage() + " ].");
                 return false;
 
             }
@@ -521,7 +524,7 @@ public class DataFileReader {
                 } catch (NumberFormatException e) {
 
                     System.out.println("\t --Not a number exception in file: " + FILE_NAME_DESTINATIONS_2017
-                            + " [ " + e.getMessage() + " ].");
+                            + " in line " + line_counter + "[ " + e.getMessage() + " ].");
 
                 }
             }
