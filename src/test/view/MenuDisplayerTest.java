@@ -7,8 +7,21 @@ import java.io.PrintStream;
 
 import org.junit.Test;
 
+/**
+ * Class Name: MenuDisplayerTest.java
+ *
+ * Description: This class includes JUnit tests for the class MenuDisplayer.
+ *
+ * @author George Goniotakis
+ * @since Feb 9, 2017
+ */
+
+
 public class MenuDisplayerTest {
-	
+
+	/**
+	 * This method test if the main menu is shown properly.
+	 */
 	@Test
 	public void showMenuTest(){
 		

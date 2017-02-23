@@ -7,19 +7,26 @@ import static org.junit.Assert.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+/**
+ * Class Name: JourneyTest.java
+ *
+ * Description: This class includes JUnit tests for the class Journey.
+ *
+ * @author George Goniotakis
+ * @since Feb 9, 2017
+ */
+
 public class JourneyTest {
 
-    /*
-    public Journey(int destinationID, String taxiRegistrationNumber,
-                   int numberOfPassengers, double time, double maximumVelocity)
-    */
+    private int trueDestinationID = 1; //An example of a correct destination ID
+    private String trueTaxiRegistrationNumber = "AA111AA"; //An example of a correct registration number
+    private int trueNumberOfPassengers = 2; //An example of a correct number of passengers
+    private double trueTime = 11; //An example of a correct duration
+    private double trueMaximumVelocity = 10; //An example of a correct maximum velocity
 
-    private int trueDestinationID = 1;
-    private String trueTaxiRegistrationNumber = "AA111AA";
-    private int trueNumberOfPassengers = 2;
-    private double trueTime = 11;
-    private double trueMaximumVelocity = 10;
-
+    /**
+     * This method tries to create a new Journey Object with a null destination ID
+     */
     @Test
     public void testWrongDestinationID(){
 
@@ -34,6 +41,10 @@ public class JourneyTest {
                 + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
+    /**
+     * This method tries to create a new Journey Object using a registration
+     * number with wrong length.
+     */
     @Test
     public void testWrongLengthRegistrationNumber(){
 
@@ -48,6 +59,10 @@ public class JourneyTest {
                 + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
+    /**
+     * This method tries to create a new Journey Object using a registration
+     * number with wrong pattern.
+     */
     @Test
     public void testWrongPatternRegistrationNumber(){
 
@@ -63,6 +78,9 @@ public class JourneyTest {
 
     }
 
+    /**
+     * This method tries to create a new Journey Object with a wrong passenger number.
+     */
     @Test
     public void testWrongPassengerNumber(){
 
@@ -77,6 +95,9 @@ public class JourneyTest {
                 + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
+    /**
+     * This method tries to create a new Journey Object with a wrong duration.
+     */
     @Test
     public void testWrongTime(){
 
@@ -91,6 +112,9 @@ public class JourneyTest {
                         "(in file journeys.txt in line: " + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
     }
 
+    /**
+     * This method tries to create a new Journey Object with a wrong maximum velocity.
+     */
     @Test
     public void testWrongMaximumVelocity(){
 
@@ -103,5 +127,16 @@ public class JourneyTest {
 
         assertEquals("Error! The maximum velocity is not in the correct range " +
                 "(in file journeys.txt in line: " + DataFileReader.line_counter + " ).\r\n", serialContent.toString());
+    }
+
+    /**
+     * This method tests the creation of a Journey Object.
+     */
+    @Test
+    public void trueCaseExample(){
+
+        assertNotEquals(null, new Journey( trueDestinationID, trueTaxiRegistrationNumber, trueNumberOfPassengers,
+                trueTime, trueMaximumVelocity));
+
     }
 }
