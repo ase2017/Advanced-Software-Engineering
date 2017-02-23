@@ -179,7 +179,7 @@ public class DataFormatValidator {
 	 */
 	public static boolean validateUrban(String urban) {
 
-		if (urban == "Y" || urban == "N")
+		if (urban.equals("Y") || urban.equals("N"))
 			return true;
 		else if ( urban == null )
 			return false;
