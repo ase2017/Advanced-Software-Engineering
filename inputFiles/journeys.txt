@@ -41,8 +41,6 @@
 0,PP204SV,2,15,43.4
 -10,XX204SV,3,33,52.3
 ABC,XX367DG,2,21,39.1
-//Next line will throw a dublicate id exception.
-1,XX204SV,2,15,43.4
 
 ===========================================================================
 		Invalid Registration Number in journeys.txt file. 
