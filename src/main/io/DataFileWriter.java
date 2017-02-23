@@ -9,8 +9,8 @@ import main.items.TaxiData;
 
 /**
  * DataFileWriter is a public class that writes the computation result
- * to three output files <top-5.txt>, <driver-Journeys.txt>
- * and <visited-Places.txt>
+ * to three output files top-5.txt, driver-Journeys.txt
+ * and visited-Places.txt
  *
  * @author Chiotis
  *
@@ -46,10 +46,15 @@ public class DataFileWriter {
 			System.out.println("\nCreating output files...\n");
 
 			// Creates the output Directory, if does not exists.
-			File f = new File(OUTPUT_DIRECTORY_NAME);
-			if (!f.isDirectory()) {
-				f.mkdir();
+			try{
+				File f = new File(OUTPUT_DIRECTORY_NAME);
+				if (!f.isDirectory()) {
+					f.mkdir();
+				}
+			} catch (Exception e){
+				System.out.print(e.getMessage());
 			}
+
 			file1_OK = writeFile1(taxidata);
 			file2_OK = writeFile2(taxidata);
 			file3_OK = writeFile3(taxidata);
@@ -92,6 +97,7 @@ public class DataFileWriter {
 	 *
 	 * @exception IOException If the file cannot be created/written
 	 * @exception NullPointerException In case that the file pointer is null
+	 * @exception SecurityException In case that file cannot be created
 	 *
 	 * @return true if process ended successfully else return false.
 	 *
@@ -101,6 +107,11 @@ public class DataFileWriter {
 		if(taxidata == null) {
 			throw new NullPointerException("TaxiData is null!");
 		} else {
+
+			File f = new File(OUTPUT_DIRECTORY_NAME);
+			if (!f.isDirectory()) {
+				f.mkdir();
+			}
 
 			BufferedWriter buffWriterFile1 = null;
 			FileWriter fileWriterFile1 = null;
@@ -122,7 +133,7 @@ public class DataFileWriter {
 					buffWriterFile1.write(fileContents);			// Writes the data to the file
 
 
-			} catch (IOException | NullPointerException e) {
+			} catch (IOException | NullPointerException | SecurityException e) {
 
 				System.out.println( "\t +In file: " + FILE_NAME_TOP_5 + " failed to write content. [" + e.getMessage() + "]." );
 				return false;
@@ -158,6 +169,7 @@ public class DataFileWriter {
 	 *
 	 * @exception IOException If the file cannot be created/written
 	 * @exception NullPointerException In case that the file pointer is null
+	 * @exception SecurityException In case that file cannot be created
 	 *
 	 * @return true if process ended successfully
 	 * 	       else return false.
@@ -168,6 +180,11 @@ public class DataFileWriter {
 		if(taxidata == null) {
 			throw new NullPointerException("TaxiData is null!");
 		} else {
+
+			File f = new File(OUTPUT_DIRECTORY_NAME);
+			if (!f.isDirectory()) {
+				f.mkdir();
+			}
 
 			BufferedWriter buffWriterFile2 = null;
 			FileWriter fileWriterFile2 = null;
@@ -189,7 +206,7 @@ public class DataFileWriter {
 					buffWriterFile2.write(fileContents);                        // Writes the data to the file.
 
 
-			} catch (IOException | NullPointerException e) {
+			} catch (IOException | NullPointerException | SecurityException e) {
 
 				System.out.println("\t +In file: " + FILE_NAME_PLACES_PER_DRIVER + " failed to write content. [" + e.getMessage() + "].");
 				return false;
@@ -224,6 +241,7 @@ public class DataFileWriter {
 	 *
 	 * @exception IOException If the file cannot be created/written
 	 * @exception NullPointerException In case that the file pointer is null
+	 * @exception SecurityException In case that file cannot be created
 	 *
 	 * @return true if process ended successfully
 	 * 	       else return false.
@@ -240,6 +258,11 @@ public class DataFileWriter {
 
 			try {
 
+				File f = new File(OUTPUT_DIRECTORY_NAME);
+				if (!f.isDirectory()) {
+					f.mkdir();
+				}
+
 				String fileContents = "";
 
 				fileWriterFile3 = new FileWriter(OUTPUT_DIRECTORY_NAME + "/" + FILE_NAME_PLACES);
@@ -254,7 +277,7 @@ public class DataFileWriter {
 					buffWriterFile3.write(fileContents);                // Writes the data to the file.
 
 
-			} catch (IOException | NullPointerException e) {
+			} catch (IOException | NullPointerException | SecurityException e) {
 
 				System.out.println("\t +In file: " + FILE_NAME_PLACES + " failed to write content. [" + e.getMessage() + "].");
 				return false;
