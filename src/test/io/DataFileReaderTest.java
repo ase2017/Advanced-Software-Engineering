@@ -223,7 +223,7 @@ public class DataFileReaderTest {
 
         // id is String
         String invalidLine2 = "A,Palace of Holyroodhouse,2.9,N";
-        assertTrue(fileReaderObject.processDestination2017Line(invalidLine2));
+        assertFalse(fileReaderObject.processDestination2017Line(invalidLine2));
 
         // id is empty
         String invalidLine3 = "";
@@ -324,7 +324,7 @@ public class DataFileReaderTest {
 
         // invalid (string)
         String invalidLine3 = "ABC,XX367DG,2,21,39.1";
-        assertTrue(fileReaderObject.processJourneyLine(invalidLine3));
+        assertFalse(fileReaderObject.processJourneyLine(invalidLine3));
 
         // invalid (missing)
         String invalidLine4 = ",PP204SV,2,15,43.4";
