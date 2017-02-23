@@ -27,7 +27,7 @@ public class DestinationTreeMapTest {
     /**
      * This method tries to push in the TreeMap two destinations with the same ID.
      *
-     * @throws DuplicateIDException
+     * @throws DuplicateIDException In case that there are two Objects with the same ID
      */
     @Test
     public void testAddDestination2017() throws DuplicateIDException{
@@ -49,7 +49,7 @@ public class DestinationTreeMapTest {
     /**
      * This method tries to create a new DestinationTreeMap and pushes a new Destination in it.
      *
-     * @throws DuplicateIDException
+     * @throws DuplicateIDException In case that there are two Objects with the same ID
      */
     @Test
     public void testTrueCase() throws DuplicateIDException {

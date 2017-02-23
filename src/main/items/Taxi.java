@@ -25,9 +25,9 @@ public class Taxi {
 	/**
 	 * This constructor creates objects of type Taxi.
 	 * 
-	 * @exception InvalidRegistrationNumberException If the taxi`s registration number is invalid show an error message
-	 * @exception InvalidTaxiNameException If the taxi`s name is invalid show an error message
-	 * @exception InvalidBrandNameException If the taxi`s brand name is invalid show an error mesage
+	 * @throws InvalidRegistrationNumberException If the taxi`s registration number is invalid show an error message
+	 * @throws InvalidTaxiNameException If the taxi`s name is invalid show an error message
+	 * @throws InvalidBrandNameException If the taxi`s brand name is invalid show an error mesage
 	 * 
 	 * @param registrationNumber Taxi`s registration number
 	 * @param driverName Taxi`s driver name

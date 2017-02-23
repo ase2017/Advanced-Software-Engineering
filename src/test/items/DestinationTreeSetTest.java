@@ -23,8 +23,6 @@ public class DestinationTreeSetTest {
 
     /**
      * This method tries to create a new DestinationTreeSet and push a null Destination in it.
-     *
-     * @exception NullPointerException
      */
     @Test(expected = IllegalArgumentException.class)
     public void checkNullDestinationName(){

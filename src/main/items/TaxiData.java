@@ -155,6 +155,7 @@ public class TaxiData {
 
 	/**
 	 * Returns a treemap of arraylist of journeys, with keys being the price
+	 * @param mostExpensive If true gets the most expensive journeys otherwise the cheapest
 	 * @return a treemap of arraylist of journeys, with keys being the price
 	 */
 	public TreeMap<Double,ArrayList<Journey>> getJourneysByPrice(boolean mostExpensive) {
@@ -402,7 +403,7 @@ public class TaxiData {
 
 	/**
 	 * Checks that all 4 collections contain at least one element
-	 * @return
+	 * @return true/false
      */
 	public boolean checkAllCollectionsAreInitialized() {
 		if (this != null && this.getTaxis() != null && this.getCurrentYearDestinations() != null

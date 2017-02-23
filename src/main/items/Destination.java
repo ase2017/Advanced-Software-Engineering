@@ -30,9 +30,9 @@ public class Destination implements Comparable<Destination>{
 	 * This constructor creates a destination by using the parameters that
 	 * are shown below. This constructor is used for destinations of 2017.
 	 *
-	 * @exception InvalidIDException If destination`s ID is invalid
-	 * @exception InvalidDestinationNameException If destination`s name is invalid show error
-	 * @exception InvalidDistanceException If destination`s distance is invalid show error
+	 * @throws InvalidIDException If destination`s ID is invalid
+	 * @throws InvalidDestinationNameException If destination`s name is invalid show error
+	 * @throws InvalidDistanceException If destination`s distance is invalid show error
 	 * 
 	 * @param destinationID The destination`s ID
 	 * @param destinationName The destination`s name
@@ -72,7 +72,7 @@ public class Destination implements Comparable<Destination>{
 	 * This constructor creates a destination by using the parameters that
 	 * are shown below. This constructor is used for destinations of 2016.
 	 *
-	 * @exception InvalidDestinationNameException If the destination`s name is invalid show error
+	 * @throws InvalidDestinationNameException If the destination`s name is invalid show error
 	 * @param destinationName The destination`s name
 	 */
 	public Destination(String destinationName){

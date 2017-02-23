@@ -166,7 +166,7 @@ public class DataFileReader {
 
     /**
      * journeyChecker reads the file that is specified by the two arguments (default case:
-     * <journey.txt> in inputFiles directory).
+     * journey.txt in inputFiles directory).
      * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
      * also checks if those words are not empty, converts strings to double or integers when needed,
      * and finally uses Journey's constructor for each valid line and add this journey object to a TreeMap.
@@ -292,7 +292,7 @@ public class DataFileReader {
 
     /**
      * destination2016Checker reads the file that is specified by the two arguments (default case:
-     * <destinations_2016.txt> in inputFiles directory).
+     * destinations_2016.txt in inputFiles directory).
      * <p>
      * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
      * then checks if those words are not empty,  and for each valid line add this Destination object to a DestinationTreeSet.
@@ -441,7 +441,7 @@ public class DataFileReader {
 
     /**
      * destination2017Checker reads the file that is specified by the two arguments (default case:
-     * <destinations_2017.txt> in inputFiles directory).
+     * destinations_2017.txt in inputFiles directory).
      * <p>
      * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
      * then checks if those words are not empty, converts strings to double or integers when needed,
@@ -611,7 +611,7 @@ public class DataFileReader {
 
     /**
      * taxiChecker reads the file that is specified by the two arguments (default case:
-     * <taxi.txt> in inputFiles directory).
+     * taxi.txt in inputFiles directory).
      * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
      * also checks if those words are not empty, converts strings to double or integers when needed,
      * and finally uses Taxi's constructor for each valid line and add this Taxi object to a TreeMap.
