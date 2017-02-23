@@ -19,7 +19,7 @@ Duddingston Golf Club
 ===========================================================================
 			Invalid Entries in destinations_2016.txt file. 
 
-Napier University,Ocean Terminal
+Napier University,Ocean Terminal 
 Napier University,Ocean Terminal,Duddingston Golf Club
 ,
 ,,,,,,,,,,,,
