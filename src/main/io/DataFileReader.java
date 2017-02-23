@@ -84,662 +84,601 @@ public class DataFileReader {
 		return destination2017Checker( FILE_NAME_FOLDER, FILE_NAME_DESTINATIONS_2017 );
 	}
 
+    /**
+     * This method is processing a line of the file journeys.txt
+     *
+     * @param line The line to be processed
+     * @return boolean Whether the line does not include any errors or not
+     * @throws InvalidInputArgumentsException     If the number of arguments in record is not correct
+     * @throws InvalidIDException                 If the journey's ID is null, empty or zero
+     * @throws InvalidMaximumVelocityException    If the maximum velocity is null, empty or zero
+     * @throws InvalidRegistrationNumberException If the registration number is null, empty or zero
+     * @throws InvalidTimeException               If the journey's time is null, empty or zero
+     * @throws InvalidNumberOfPassengersException If the number of passengers is null, empty or zero
+     * @throws NumberFormatException              If instead of an integer we get a string
+     * @throws ArrayIndexOutOfBoundsException     If the reading process fails
+     * @throws NullPointerException               If cannot read the file
+     */
+    public boolean processJourneyLine(String line) {
 
+        String[] journey_info = null;
 
-	public boolean processJourneyLine(String line){
+        try {
 
-		String[] journey_info = null;
+            journey_info = line.split(DATA_SEPARATOR, -1);        // split the line using the given separator
 
-		try{
+            try {
 
-			journey_info = line.split(DATA_SEPARATOR, -1);		// split the line using the given separator
+                if (journey_info.length != 5) // check if this line has exactly five words
+                    throw new InvalidInputArgumentsException(FILE_NAME_JOURNEYS, line_counter);
 
-			try{
+                // Then check if any of those five words are an empty string
+                // and if this happens  for any of those strings, throw the appropriate exception
 
-				if (journey_info.length != 5) {        // check if this line has exactly five words
-					// if not throw an exception
+                if (journey_info[0] == null || journey_info[0].trim().isEmpty())
+                    throw new InvalidIDException(FILE_NAME_JOURNEYS, line_counter);
 
-					throw new InvalidInputArgumentsException(FILE_NAME_JOURNEYS, line_counter);
-				}
+                if (journey_info[1] == null || journey_info[1].trim().isEmpty())
+                    throw new InvalidRegistrationNumberException(FILE_NAME_JOURNEYS, line_counter);
 
-				// Then check if any of those five words are an empty string
-				// and if this happens  for any of those strings, throw the appropriate exception
+                if (journey_info[2] == null || journey_info[2].trim().isEmpty())
+                    throw new InvalidNumberOfPassengersException(FILE_NAME_JOURNEYS, line_counter);
 
-				if (journey_info[0] == null || journey_info[0].trim().isEmpty()) {
+                if (journey_info[3] == null || journey_info[3].trim().isEmpty())
+                    throw new InvalidTimeException(FILE_NAME_JOURNEYS, line_counter);
 
-					throw new InvalidIDException(FILE_NAME_JOURNEYS, line_counter);
-				}
+                if (journey_info[4] == null || journey_info[4].trim().isEmpty())
+                    throw new InvalidMaximumVelocityException(FILE_NAME_JOURNEYS, line_counter);
 
+            } catch (InvalidInputArgumentsException | InvalidIDException | InvalidMaximumVelocityException
+                    | InvalidRegistrationNumberException | InvalidTimeException | InvalidNumberOfPassengersException e) {
 
-				if (journey_info[1] == null || journey_info[1].trim().isEmpty()) {
+                System.out.println(e.getMessage());
+                return false;
 
-					throw new InvalidRegistrationNumberException(FILE_NAME_JOURNEYS, line_counter);
-				}
+            } catch (NumberFormatException e) {
 
+                System.out.println("\t --Number Format exception in file: " + FILE_NAME_JOURNEYS + " [ " + e.getMessage() + " ].");
+                return false;
 
-				if (journey_info[2] == null || journey_info[2].trim().isEmpty()) {
+            } catch (ArrayIndexOutOfBoundsException e) {
 
-					throw new InvalidNumberOfPassengersException(FILE_NAME_JOURNEYS, line_counter);
-				}
+                System.out.println("\t --Reading process in file " + FILE_NAME_JOURNEYS + " failed... [ " + e.getMessage() + " ].");
+                return false;
 
+            }
 
-				if (journey_info[3] == null || journey_info[3].trim().isEmpty()) {
+        } catch (NullPointerException e) {
 
-					throw new InvalidTimeException(FILE_NAME_JOURNEYS, line_counter);
-				}
+            System.out.println("\t --File: " + FILE_NAME_JOURNEYS + " failed to open. [ " + e.getMessage() + " ].");
+            return false;
+        }
 
-				if (journey_info[4] == null || journey_info[4].trim().isEmpty()) {
+        return true;
+    }
 
-					throw new InvalidMaximumVelocityException(FILE_NAME_JOURNEYS, line_counter);
-				}
 
-			} catch (InvalidInputArgumentsException | InvalidIDException | InvalidMaximumVelocityException
-					| InvalidRegistrationNumberException | InvalidTimeException | InvalidNumberOfPassengersException e){
+    /**
+     * journeyChecker reads the file that is specified by the two arguments (default case:
+     * <journey.txt> in inputFiles directory).
+     * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
+     * also checks if those words are not empty, converts strings to double or integers when needed,
+     * and finally uses Journey's constructor for each valid line and add this journey object to a TreeMap.
+     *
+     * @param directory: locate the directory's path for the input file.
+     * @param filename:  the filename of journey's data.
+     * @return an object of JourneyTreeMap, which is a TreeMap of all journeys.
+     * @throws NumberFormatException          If instead of an integer we get a string
+     * @throws ArrayIndexOutOfBoundsException If the reading process fails
+     * @throws IOException                    If there is not input file
+     * @throws NullPointerException           If cannot read the file
+     */
+    public JourneyTreeMap journeyChecker(String directory, String filename) {
 
-				System.out.println(e.getMessage());
-				return false;
+        TreeMap<String, ArrayList<Journey>> temporaryTreeMap = new TreeMap<>();
+        JourneyTreeMap journeyTreeMap = new JourneyTreeMap(temporaryTreeMap);
 
-			} catch ( NumberFormatException e ) {
+        FileReader fd_journeys = null;
+        objectChecker = true;
 
-				System.out.println("\t --Number Format exception in file: " + FILE_NAME_JOURNEYS + " [ " + e.getMessage() + " ]." );
-				return false;
+        int id = 0;
+        int numOfPassengers = 0;
+        double time = 0.0;
+        double maxVelocity = 0.0;
 
-			} catch ( ArrayIndexOutOfBoundsException e ) {
+        try {
 
-				System.out.println("\t --Reading process in file " + FILE_NAME_JOURNEYS + " failed... [ " + e.getMessage() + " ]." );
-				return false;
+            // Open the file that contains the journeys.
+            fd_journeys = new FileReader(directory + filename);
+            BufferedReader journey_reader = new BufferedReader(fd_journeys);
 
-			}
+            String line = null;
+            String[] journey_info = null;
+            line_counter = 0;  // Initializes the line counter.
 
-		} catch (NullPointerException e){
+            // Read it line-by-line
+            while ((line = journey_reader.readLine()) != null) {
 
-			System.out.println("\t --File: " + FILE_NAME_JOURNEYS + " failed to open. [ " + e.getMessage() + " ].");
-			return false;
-		}
+                objectChecker = true;
+                line_counter++; // specify the line of the file
+                journey_info = line.split(DATA_SEPARATOR, -1); // split the line using the given separator
 
-		return true;
-	}
+                try {
 
+                    if (processJourneyLine(line)) {
 
-	/**
-	 * journeyChecker reads the file that is specified by the two arguments (default case:
-	 * <journey.txt> in inputFiles directory).
-	 * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
-	 * also checks if those words are not empty, converts strings to double or integers when needed,
-	 * and finally uses Journey's constructor for each valid line and add this journey object to a TreeMap.
-	 *
-	 * @param directory: locate the directory's path for the input file.
-	 * @param filename: the filename of journey's data.
-	 *
-	 * @exception InvalidInputArgumentsException If the number of arguments in record is not correct
-	 * @exception InvalidIDException If the journey's ID is null, empty or zero
-	 * @exception InvalidMaximumVelocityException If the maximum velocity is null, empty or zero
-	 * @exception InvalidRegistrationNumberException If the registration number is null, empty or zero
-	 * @exception InvalidTimeException If the journey's time is null, empty or zero
-	 * @exception InvalidNumberOfPassengersException If the number of passengers is null, empty or zero
-	 * @exception NumberFormatException If instead of an integer we get a string
-	 * @exception ArrayIndexOutOfBoundsException If the reading process fails
-	 * @exception IOException If there is not input file
-	 * @exception NullPointerException If cannot read the file
-	 *
-	 * @return an object of JourneyTreeMap, which is a TreeMap of all journeys.
-	 */
+                        time = Double.parseDouble(journey_info[3]); // Converts the time needed for this journey to double.
+                        numOfPassengers = Integer.parseInt(journey_info[2]); // Converts Number of Passenger of this journey to integer.
+                        id = Integer.parseInt(journey_info[0]);  // Converts Journey's id to integer.
 
-	public JourneyTreeMap journeyChecker( String directory, String filename ) {
 
-		TreeMap<String, ArrayList<Journey>> temporaryTreeMap = new TreeMap<>();
-		JourneyTreeMap journeyTreeMap = new JourneyTreeMap(temporaryTreeMap);
+                        maxVelocity = Double.parseDouble(journey_info[4]);  // Converts maximum velocity of this journey to double.
 
 
-		FileReader fd_journeys = null;
-		objectChecker = true;
+                        // Creates a Journey Object
+                        Journey jrn = new Journey(id, journey_info[1], numOfPassengers, time, maxVelocity);
 
-		int id = 0;
-		int numOfPassengers = 0;
-		double time = 0.0;
-		double maxVelocity = 0.0;
 
-		try {
+                        if (objectChecker) { // if the object has been created normally
 
-			// Open the file that contains the journeys.
-			fd_journeys = new FileReader( directory + filename );
-			BufferedReader journey_reader = new BufferedReader(fd_journeys);
+                            journeyTreeMap.addJourney(jrn);   // add this Journey to the JourneyTreeMap
+                            // -- which is a TreeMap of ArrayLists of Journey's objects --
+                            // using the addJourney public method of the
+                            // JourneyTreeMap class.
+                        }
+                    }
 
-			String line = null;
-			String[] journey_info = null;
-			line_counter = 0;		// Initializes the line counter.
+                } catch (NumberFormatException e) {
 
-			// Read it line-by-line
-			while ((line = journey_reader.readLine()) != null) {
+                    System.out.println("\t --Number Format exception in file: " + filename + " [ " + e.getMessage() + " ].");
 
-				objectChecker = true;
-				line_counter++;		// specify the line of the file
-				journey_info = line.split(DATA_SEPARATOR, -1);		// split the line using the given separator
+                } catch (ArrayIndexOutOfBoundsException e) {
 
-				try {
+                    System.out.println("\t --Reading process in file " + filename + " failed... [ " + e.getMessage() + " ].");
 
-					if(processJourneyLine(line)){
+                }
 
-						time = Double.parseDouble(journey_info[3]);        // Converts the time needed for this journey to double.
-						numOfPassengers = Integer.parseInt(journey_info[2]);        // Converts Number of Passenger of this journey to integer.
-						id = Integer.parseInt(journey_info[0]);        // Converts Journey's id to integer.
+            }
 
+        } catch (IOException | NullPointerException e) {
 
-						maxVelocity = Double.parseDouble(journey_info[4]);        // Converts maximum velocity of this journey to double.
+            System.out.println("\t --File: " + filename + " failed to open. [ " + e.getMessage() + " ].");
+        } finally {
 
+            try {
+                if (fd_journeys != null)
+                    fd_journeys.close(); // Close the file reader.
 
-						// Creates a Journey Object
-						Journey jrn = new Journey(id, journey_info[1], numOfPassengers, time, maxVelocity);
+            } catch (IOException e) {
 
+                System.out.println("\t --File: " + filename + " failed to close. [ " + e.getMessage() + " ].");
 
-						if (objectChecker) {    // if the object has been created normally
+            }
+        }
 
-							journeyTreeMap.addJourney(jrn);        // add this Journey to the JourneyTreeMap
-							// -- which is a TreeMap of ArrayLists of Journey's objects --
-							// using the addJourney public method of the
-							// JourneyTreeMap class.
-						}
-					}
 
-				} catch ( NumberFormatException e ) {
+        return journeyTreeMap;
+    }
 
-					System.out.println("\t --Number Format exception in file: " + filename + " [ " + e.getMessage() + " ]." );
+    /**
+     * This method is processing a line of the file destinations_2016.txt
+     *
+     * @param line The line to be processed
+     * @return boolean Whether the line does not include any errors or not
+     * @throws InvalidDestinationNameException If the destination's name is null, empty or zero
+     */
+    public boolean processDestination2016Line(String line) {
 
-				} catch ( ArrayIndexOutOfBoundsException e ) {
+        try {
 
-					System.out.println("\t --Reading process in file " + filename + " failed... [ " + e.getMessage() + " ]." );
+            if (line == null || line.trim().isEmpty())
+                throw new InvalidDestinationNameException(FILE_NAME_DESTINATIONS_2016, line_counter);
 
-				}
+        } catch (InvalidDestinationNameException e) {
 
-			}
+            System.out.println(e.getMessage());
+            return false;
+        }
 
-		} catch ( IOException |  NullPointerException e ) {
+        return true;
+    }
 
-			System.out.println("\t --File: " + filename + " failed to open. [ " + e.getMessage() + " ].");
-		}
-		finally {
 
-			try {
-				if(fd_journeys != null)
-					fd_journeys.close();	// Close the file reader.
+    /**
+     * destination2016Checker reads the file that is specified by the two arguments (default case:
+     * <destinations_2016.txt> in inputFiles directory).
+     * <p>
+     * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
+     * then checks if those words are not empty,  and for each valid line add this Destination object to a DestinationTreeSet.
+     *
+     * @param directory: locate the directory's path for the input file.
+     * @param filename:  the filename of journey's data.
+     * @return an object of DestinationTreeSet, which is a TreeSet of all the destinations visited by the taxis in 2016.
+     * @throws IOException                     If the file does not exist
+     * @throws NullPointerException            If cannot read file
+     */
+    public DestinationTreeSet destination2016Checker(String directory, String filename) {
 
-			} catch (IOException e) {
+        TreeSet<Destination> temporaryTreeSet = new TreeSet<Destination>();
+        DestinationTreeSet destinations2016 = new DestinationTreeSet(temporaryTreeSet);
 
-				System.out.println( "\t --File: " + filename + " failed to close. [ " + e.getMessage() + " ]." );
 
-			}
-		}
+        FileReader fd_destination_2016 = null;
+        objectChecker = true;
 
+        try {
 
+            // Open the file that contains the last's year destinations.
+            fd_destination_2016 = new FileReader(directory + filename);
+            BufferedReader destination_2016_reader = new BufferedReader(fd_destination_2016);
 
-		return journeyTreeMap;
-	}
+            String line = null;
+            line_counter = 0; // Initializes the line counter
 
+            // Read it line-by-line
+            while ((line = destination_2016_reader.readLine()) != null) {
 
+                line_counter++; // Specifies the number of the current line.
+                objectChecker = true;
 
 
-	public boolean processDestination2016Line(String line){
+                if (processDestination2016Line(line)) {
 
-		try{
+                    // Create the Destination Object using the appropriate constructor.
+                    Destination dest2016 = new Destination(line);
 
-			try{
 
-				if( line == null || line.trim().isEmpty() ) {
+                    if (objectChecker) { // if the object has been created normally
 
-					throw new InvalidDestinationNameException(FILE_NAME_DESTINATIONS_2016, line_counter);
-				}
+                        temporaryTreeSet.add(dest2016);        // add this Destination to the DestinationTreeSet
+                        // -- which is a TreeSet of Destination's objects --
+                        // using the add method of the TreeSet data structure.
 
-			} catch ( InvalidDestinationNameException e ) {
+                    }
+                }
+            }
 
-				System.out.println(e.getMessage());
-				return false;
-			}
+        } catch (IOException | NullPointerException e) {
 
-		}catch (NullPointerException e){
+            System.out.println("\t --File: " + filename + " failed to open. [ " + e.getMessage() + " ].");
 
-			System.out.println("\t --File: " + FILE_NAME_DESTINATIONS_2016 + " failed to open. [ " + e.getMessage() + " ].");
-			return false;
+        } finally {
 
-		}
+            try {
+                if (fd_destination_2016 != null)
+                    fd_destination_2016.close();    // Close the file descriptor.
 
-		return true;
-	}
+            } catch (IOException e) {
 
+                System.out.println("\t --File: " + filename + " failed to close. [ " + e.getMessage() + " ].");
 
+            }
+        }
 
+        return destinations2016;
+    }
 
-	/**
-	 * destination2016Checker reads the file that is specified by the two arguments (default case:
-	 * <destinations_2016.txt> in inputFiles directory).
-	 *
-	 * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
-	 * then checks if those words are not empty,  and for each valid line add this Destination object to a DestinationTreeSet.
-	 *
-	 * @param directory: locate the directory's path for the input file.
-	 * @param filename: the filename of journey's data.
-	 *
-	 * @exception InvalidDestinationNameException If the destination's name is null, empty or zero
-	 * @exception InvalidInputArgumentsException If the number of arguments in record is not correct
-	 * @exception ArrayIndexOutOfBoundsException If the reading process fails
-	 * @exception IOException If the file does not exist
-	 * @exception NullPointerException If cannot read file
-	 *
-	 * @return an object of DestinationTreeSet, which is a TreeSet of all the destinations visited by the taxis in 2016.
-	 */
-	public DestinationTreeSet destination2016Checker( String directory, String filename ) {
+    /**
+     * This method is processing a line of the file destinations_2017.txt
+     *
+     * @param line The line to be processed
+     * @return boolean Whether the line does not include any errors or not
+     * @throws DuplicateIDException            If a destination with the same ID already exists
+     * @throws InvalidIDException              If a destination with null, empty or zero ID exists
+     * @throws InvalidInputArgumentsException  If the arguments of a record are null, empty or zero
+     * @throws InvalidDestinationNameException If the destination's name is null, empty or zero
+     * @throws InvalidDistanceException        If the destination's distance is null, empty or zero
+     * @throws InvalidUrbanException           If the urban identifier is null, empty or zero
+     * @throws ArrayIndexOutOfBoundsException  If the reading process fails
+     * @throws NullPointerException            If cannot open the file
+     */
+    public boolean processDestination2017Line(String line) {
 
-		TreeSet<Destination> temporaryTreeSet = new TreeSet<Destination>();
-		DestinationTreeSet destinations2016 = new DestinationTreeSet(temporaryTreeSet);
+        String[] destination_2017_info = null;
 
+        try {
 
-		FileReader fd_destination_2016 = null;
-		objectChecker = true;
+            destination_2017_info = line.split(DATA_SEPARATOR, -1);        // Split its words as to the given separator.
 
-		try {
+            try {
 
-			// Open the file that contains the last's year destinations.
-			fd_destination_2016 = new FileReader( directory + filename );
-			BufferedReader destination_2016_reader = new BufferedReader(fd_destination_2016);
 
-			String line = null;
-			line_counter = 0;		// Initializes the line counter
+                if (destination_2017_info.length != 4) // check if this line has exactly four words
+                    throw new InvalidInputArgumentsException(FILE_NAME_DESTINATIONS_2017, line_counter);
 
-			// Read it line-by-line
-			while ((line = destination_2016_reader.readLine()) != null) {
+                if (destination_2017_info[0] == null || destination_2017_info[0].trim().isEmpty())
+                    throw new InvalidIDException(FILE_NAME_DESTINATIONS_2017, line_counter);
 
-				line_counter++;		// Specifies the number of the current line.
-				objectChecker = true;
+                if (destination_2017_info[1] == null || destination_2017_info[1].trim().isEmpty())
+                    throw new InvalidDestinationNameException(FILE_NAME_DESTINATIONS_2017, line_counter);
 
+                if (destination_2017_info[2] == null || destination_2017_info[2].trim().isEmpty())
+                    throw new InvalidDistanceException(FILE_NAME_DESTINATIONS_2017, line_counter);
 
-				if(processDestination2016Line(line)){
+                if (destination_2017_info[3] == null || destination_2017_info[3].trim().isEmpty() ||
+                        (destination_2017_info[3].equals("N") && destination_2017_info[3].equals("Y")))
+                    throw new InvalidUrbanException(FILE_NAME_DESTINATIONS_2017, line_counter);
 
-					// Create the Destination Object using the appropriate constructor.
-					Destination dest2016 = new Destination( line );
 
+            } catch (InvalidIDException | InvalidInputArgumentsException | InvalidDestinationNameException |
+                    InvalidDistanceException | InvalidUrbanException e) {
 
-					if ( objectChecker ) { 	// if the object has been created normally
+                System.out.println(e.getMessage());
+                return false;
 
-						temporaryTreeSet.add(dest2016);		// add this Destination to the DestinationTreeSet
-						// -- which is a TreeSet of Destination's objects --
-						// using the add method of the TreeSet data structure.
+            } catch (ArrayIndexOutOfBoundsException e) {
 
-					}
+                System.out.println("\t --Reading process in file" + FILE_NAME_DESTINATIONS_2017
+                        + " failed... [ " + e.getMessage() + " ].");
+                return false;
 
-				}
-			}
+            }
 
-		} catch ( IOException |  NullPointerException e ) {
+        } catch (NullPointerException e) {
 
-			System.out.println("\t --File: " + filename + " failed to open. [ " + e.getMessage() + " ].");
-		}
-		finally {
+            System.out.println("\t --File: " + FILE_NAME_DESTINATIONS_2017 + " failed to open. [ " + e.getMessage() + " ].");
+            return false;
 
-			try {
-				if(fd_destination_2016 != null)
-					fd_destination_2016.close();	// Close the file descriptor.
+        }
 
-			} catch (IOException e) {
+        return true;
+    }
 
-				System.out.println("\t --File: " + filename + " failed to close. [ " + e.getMessage() + " ].");
 
-			}
-		}
+    /**
+     * destination2017Checker reads the file that is specified by the two arguments (default case:
+     * <destinations_2017.txt> in inputFiles directory).
+     * <p>
+     * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
+     * then checks if those words are not empty, converts strings to double or integers when needed,
+     * and for each valid line add this Destination object to a DestinationTreeMap.
+     *
+     * @param directory: locate the directory's path for the input file.
+     * @param filename:  the filename of journey's data.
+     * @return an object of DestinationTreeMap, which is a TreeMap of all the destinations visited by the taxis in 2017.
+     * @throws NumberFormatException           If instead of a number we get a string
+     * @throws ArrayIndexOutOfBoundsException  If the reading process fails
+     * @throws IOException                     If the input file does not exist
+     * @throws NullPointerException            If cannot open the file
+     */
+    public DestinationTreeMap destination2017Checker(String directory, String filename) {
 
+        TreeMap<Integer, Destination> temporaryTreeMap = new TreeMap<>();
+        DestinationTreeMap destination2017_TreeMap = new DestinationTreeMap(temporaryTreeMap);
 
-		return destinations2016;
-	}
 
+        FileReader fd_destination_2017 = null;
+        objectChecker = true;
 
+        int id = 0;
+        double distance = 0.0;
+        boolean urban = false;
 
+        try {
 
+            // Open the file that contains the current's year destinations.
+            fd_destination_2017 = new FileReader(directory + filename);
+            BufferedReader destination_2017_reader = new BufferedReader(fd_destination_2017);
 
-	public boolean processDestination2017Line(String line){
+            String line = null;
+            String[] destination_2017_info = null;
+            line_counter = 0;        // Initializes the line counter.
 
-		String[] destination_2017_info = null;
-		int id = 0;
-		double distance = 0.0;
-		boolean urban = false;
+            // Read it line-by-line
+            while ((line = destination_2017_reader.readLine()) != null) {
 
-		try{
+                line_counter++;        // Specify the current number of the line.
+                objectChecker = true;
 
-			destination_2017_info = line.split(DATA_SEPARATOR, -1);		// Split its words as to the given separator.
+                try {
 
-			try{
+                    if (processDestination2017Line(line)) {
 
+                        destination_2017_info = line.split(DATA_SEPARATOR, -1);  // Split its words as to the given separator.
+                        id = Integer.parseInt(destination_2017_info[0]);  // Converts the destination's ID to integer.
+                        distance = Double.parseDouble(destination_2017_info[2]);  // Converts the distance of its journey to double.
 
-				if( destination_2017_info.length != 4 ) {	// check if this line has exactly four words
-					// if not throw an exception.
+                        if (destination_2017_info[3].equals("Y")) // If the Urban Variable is Y(es) return true.
+                            urban = true;
+                        else if (destination_2017_info[3].equals("N")) // If the Urban Variable is N(o) return false.
+                            urban = false;
 
-					throw new InvalidInputArgumentsException( FILE_NAME_DESTINATIONS_2017, line_counter );
-				}
 
+                        // Create the Destination Object using the appropriate constructor.
+                        Destination dest2017 = new Destination(id, destination_2017_info[1], distance, urban);
 
+                        if (objectChecker) { // if the object has been created normally
 
-				if ( destination_2017_info[0] == null  || destination_2017_info[0].trim().isEmpty()) {
+                            try {
 
-					throw new InvalidIDException( FILE_NAME_DESTINATIONS_2017, line_counter );
-				}
+                                destination2017_TreeMap.addDestination2017(dest2017);    // add this Destination to the DestinationTreeMap
+                                // -- which is a TreeMap of Destination's objects --
+                                // using the public addDestination2017 method of the
+                                // DestinationTreeMap's class.
 
+                            } catch (DuplicateIDException e) {
 
-				if (destination_2017_info[1] == null || destination_2017_info[1].trim().isEmpty()) {
+                                System.out.println(e.getMessage());
 
-					throw new InvalidDestinationNameException( FILE_NAME_DESTINATIONS_2017, line_counter );
-				}
+                            }
+                        }
+                    }
 
+                } catch (NumberFormatException e) {
 
-				if (destination_2017_info[2] == null || destination_2017_info[2].trim().isEmpty()) {
+                    System.out.println("\t --Not a number exception in file: " + FILE_NAME_DESTINATIONS_2017
+                            + " [ " + e.getMessage() + " ].");
 
-					throw new InvalidDistanceException( FILE_NAME_DESTINATIONS_2017, line_counter );
-				}
+                }
+            }
+        } catch (IOException | NullPointerException e) {
 
+            System.out.println("\t --File: " + filename + " failed to open. [ " + e.getMessage() + " ].");
 
+        } finally {
 
-				if (destination_2017_info[3] == null || destination_2017_info[3].trim().isEmpty() ||
-						(destination_2017_info[3].equals("N") && destination_2017_info[3].equals("Y"))) {
+            try {
+                if (fd_destination_2017 != null)
+                    fd_destination_2017.close();    // Close the file descriptor.
 
-					throw new InvalidUrbanException( FILE_NAME_DESTINATIONS_2017, line_counter );
-				}
+            } catch (IOException e) {
 
+                System.out.println("\t --File: " + filename + " failed to close. [ " + e.getMessage() + " ].");
 
-			}  catch (InvalidIDException | InvalidInputArgumentsException | InvalidDestinationNameException |
-					InvalidDistanceException | InvalidUrbanException e ) {
+            }
+        }
 
-				System.out.println(e.getMessage());
-				return false;
+        return destination2017_TreeMap;
+    }
 
-			} catch ( ArrayIndexOutOfBoundsException e ){
 
-				System.out.println("\t --Reading process in file" + FILE_NAME_DESTINATIONS_2017
-						+  " failed... [ " + e.getMessage() + " ]." );
-				return false;
+    /**
+     * This method is processing a line of the file taxis.txt
+     *
+     * @param line The line to be processed
+     * @return boolean Whether the line does not include any errors or not
+     * @throws InvalidRegistrationNumberException If the registration number is null, empty or zero
+     * @throws InvalidTaxiNameException           If the driver's name is null, empty or zero
+     * @throws InvalidBrandNameException          If the brand name is null, empty or zero
+     * @throws InvalidInputArgumentsException     If the number of arguments is not correct
+     * @throws ArrayIndexOutOfBoundsException     If the reading process fails
+     * @throws NullPointerException               If cannot read file
+     */
+    public boolean processTaxiLine(String line) {
 
-			}
+        String[] taxi_info = null;
+        String[] nameComponents = null;
 
+        try {
 
-		} catch(NullPointerException e){
+            taxi_info = line.split(DATA_SEPARATOR, -1); // split the line using the given separator.
 
-			System.out.println("\t --File: " + FILE_NAME_DESTINATIONS_2017 + " failed to open. [ " + e.getMessage() + " ].");
-			return false;
+            try {
 
-		}
+                nameComponents = taxi_info[1].split(" ");  // slit the driver's name (first name, last name).
 
-		return true;
-	}
+                if (taxi_info.length != 3) // check if this line has exactly three words
+                    throw new InvalidInputArgumentsException(FILE_NAME_TAXIS, line_counter);
 
+                // Then check if any of those three words are an empty string
+                // and if this happens for any of those strings, throw the appropriate exception
 
-	/**
-	 * destination2017Checker reads the file that is specified by the two arguments (default case:
-	 * <destinations_2017.txt> in inputFiles directory).
-	 *
-	 * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
-	 * then checks if those words are not empty, converts strings to double or integers when needed,
-	 * and for each valid line add this Destination object to a DestinationTreeMap.
-	 *
-	 * @param directory: locate the directory's path for the input file.
-	 * @param filename: the filename of journey's data.
-	 *
-	 * @exception DuplicateIDException If a destination with the same ID already exists
-	 * @exception InvalidIDException If a destination with null, empty or zero ID exists
-	 * @exception InvalidInputArgumentsException If the arguments of a record are null, empty or zero
-	 * @exception InvalidDestinationNameException If the destination's name is null, empty or zero
-	 * @exception InvalidDistanceException If the destination's distance is null, empty or zero
-	 * @exception InvalidUrbanException If the urban identifier is null, empty or zero
-	 * @exception NumberFormatException If instead of a number we get a string
-	 * @exception ArrayIndexOutOfBoundsException If the reading process fails
-	 * @exception IOException If the input file does not exist
-	 * @exception NullPointerException If cannot open the file
-	 *
-	 * @return an object of DestinationTreeMap, which is a TreeMap of all the destinations visited by the taxis in 2017.
-	 */
-	public DestinationTreeMap destination2017Checker(String directory, String filename) {
+                if (taxi_info[0] == null || taxi_info[0].trim().isEmpty())
+                    throw new InvalidRegistrationNumberException(FILE_NAME_TAXIS, line_counter);
 
-		TreeMap<Integer, Destination> temporaryTreeMap = new TreeMap<>();
-		DestinationTreeMap destination2017_TreeMap = new DestinationTreeMap(temporaryTreeMap);
+                if (taxi_info[1] == null || taxi_info[1].trim().isEmpty()
+                        || nameComponents[0].length() == 0 || nameComponents[1].length() == 0)
+                    throw new InvalidTaxiNameException(FILE_NAME_TAXIS, line_counter);
 
+                if (taxi_info[2] == null || taxi_info[2].trim().isEmpty())
+                    throw new InvalidBrandNameException(FILE_NAME_TAXIS, line_counter);
 
-		FileReader fd_destination_2017 = null;
-		objectChecker = true;
+            } catch (ArrayIndexOutOfBoundsException e) {
 
-		int id = 0;
-		double distance = 0.0;
-		boolean urban = false;
+                System.out.println("\t --Reading process in file " + FILE_NAME_TAXIS + " failed... [ " + line_counter + " ].");
+                return false;
 
-		try {
+            } catch (InvalidRegistrationNumberException | InvalidTaxiNameException | InvalidBrandNameException
+                    | InvalidInputArgumentsException e) {
 
-			// Open the file that contains the current's year destinations.
-			fd_destination_2017 = new FileReader(directory + filename);
-			BufferedReader destination_2017_reader = new BufferedReader(fd_destination_2017);
+                System.out.println(e.getMessage());
+                return false;
 
-			String line = null;
-			String[] destination_2017_info = null;
-			line_counter = 0;        // Initializes the line counter.
+            }
 
-			// Read it line-by-line
-			while ((line = destination_2017_reader.readLine()) != null) {
+        } catch (NullPointerException e) {
+            System.out.println("\t --File: " + FILE_NAME_TAXIS + " failed to open. [ " + e.getMessage() + " ].");
+            return false;
+        }
 
-				line_counter++;        // Specify the current number of the line.
-				objectChecker = true;
+        return true;
+    }
 
-				try {
 
-					if (processDestination2017Line(line)) {
+    /**
+     * taxiChecker reads the file that is specified by the two arguments (default case:
+     * <taxi.txt> in inputFiles directory).
+     * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
+     * also checks if those words are not empty, converts strings to double or integers when needed,
+     * and finally uses Taxi's constructor for each valid line and add this Taxi object to a TreeMap.
+     *
+     * @param directory: locate the directory's path for the input file.
+     * @param filename:  the filename of journey's data.
+     * @return an object of taxiTreeMap, which is a TreeMap of all taxis.
+     * @throws IOException                        If the file does not exist
+     * @throws NullPointerException               If cannot read file
+     */
+    public TaxiTreeMap taxiChecker(String directory, String filename) {
 
-						destination_2017_info = line.split(DATA_SEPARATOR, -1);        // Split its words as to the given separator.
-						id = Integer.parseInt(destination_2017_info[0]);        // Converts the destination's ID to integer.
-						distance = Double.parseDouble(destination_2017_info[2]);    // Converts the distance of its journey to double.
+        TreeMap<String, Taxi> temporaryTreeMap = new TreeMap<>();
+        TaxiTreeMap taxiTreeMap = new TaxiTreeMap(temporaryTreeMap);
 
-						if ( destination_2017_info[3].equals("Y") )			// If the Urban Variable is Y(es) return true.
-							urban = true;
-						else if ( destination_2017_info[3].equals("N")  )	// If the Urban Variable is N(o) return false.
-							urban = false;
+        FileReader fd_taxis = null;
+        objectChecker = true;
 
+        try {
 
-						// Create the Destination Object using the appropriate constructor.
-						Destination dest2017 = new Destination(id, destination_2017_info[1], distance, urban);
+            // Open the file that contains the taxis.
+            fd_taxis = new FileReader(directory + filename);
+            BufferedReader taxis_reader = new BufferedReader(fd_taxis);
 
-						if ( objectChecker ) {	// if the object has been created normally
+            String line = null;
+            String[] taxi_info = null;
+            line_counter = 0;        // Initializes the line counter.
 
-							try {
+            // Read it line-by-line
+            while ((line = taxis_reader.readLine()) != null) {
 
-								destination2017_TreeMap.addDestination2017(dest2017);	// add this Destination to the DestinationTreeMap
-								// -- which is a TreeMap of Destination's objects --
-								// using the public addDestination2017 method of the
-								// DestinationTreeMap's class.
+                objectChecker = true;
+                line_counter++; // specify the line of the file
 
 
-							} catch (DuplicateIDException e) {
+                if (processTaxiLine(line)) {
 
-								System.out.println(e.getMessage());
+                    try {
 
-							}
+                        taxi_info = line.split(DATA_SEPARATOR, -1); // split the line using the given separator.
 
-						}
+                        // Creates a Taxi Object
+                        Taxi tx = new Taxi(taxi_info[0].trim(), taxi_info[1], taxi_info[2].trim());
 
-					}
 
-				} catch (NumberFormatException e) {
+                        if (objectChecker) {  // if the object has been created normally
 
-					System.out.println("\t --Not a number exception in file: " + FILE_NAME_DESTINATIONS_2017
-							+ " [ " + e.getMessage() + " ].");
+                            taxiTreeMap.addTaxi(tx); // add this Taxi to the TaxiTreeMap
+                            // -- which is a TreeMap of Taxi's objects --
+                            // using the addTaxi public method of the
+                            // TaxiTreeMap class.
+                        }
 
-				}
-			}
-		} catch (IOException | NullPointerException e) {
+                    } catch (NullPointerException e) {
 
-			System.out.println("\t --File: " + filename + " failed to open. [ " + e.getMessage() + " ].");
+                        System.out.println("\t --File: " + filename + " failed to open. [ " + e.getMessage() + " ].");
 
-		} finally {
+                    }
 
-			try {
-				if (fd_destination_2017 != null)
-					fd_destination_2017.close();    // Close the file descriptor.
+                }
+            }
+        } catch (IOException | NullPointerException e) {
 
-			} catch (IOException e) {
+            System.out.println("\t --File: " + filename + " failed to open. [ " + e.getMessage() + " ].");
 
-				System.out.println("\t --File: " + filename + " failed to close. [ " + e.getMessage() + " ].");
+        } finally {
 
-			}
-		}
+            try {
 
-		return destination2017_TreeMap;
-	}
+                if (fd_taxis != null)
+                    fd_taxis.close();  // Close the file descriptor.
 
+            } catch (IOException e) {
 
+                System.out.println("\t --File: " + filename + " failed to close. [ " + e.getMessage() + " ].");
 
+            }
+        }
 
-
-	public boolean processTaxiLine(String line){
-
-
-		String[] taxi_info = null;
-		String [] nameComponents = null;
-
-		try{
-
-			taxi_info = line.split(DATA_SEPARATOR, -1);		// split the line using the given separator.
-
-			try {
-				nameComponents = taxi_info[1].split(" ");        // slit the driver's name (first name, last name).
-
-				if (taxi_info.length != 3) {        // check if this line has exactly three words
-					// if not throw an exception
-
-					throw new InvalidInputArgumentsException(FILE_NAME_TAXIS, line_counter);
-				}
-
-				// Then check if any of those three words are an empty string
-				// and if this happens for any of those strings, throw the appropriate exception
-
-				if (taxi_info[0] == null || taxi_info[0].trim().isEmpty()) {
-
-					throw new InvalidRegistrationNumberException(FILE_NAME_TAXIS, line_counter);
-				}
-
-				if (taxi_info[1] == null || taxi_info[1].trim().isEmpty()
-						|| nameComponents[0].length() == 0 || nameComponents[1].length() == 0) {
-
-					throw new InvalidTaxiNameException(FILE_NAME_TAXIS, line_counter);
-				}
-
-				if (taxi_info[2] == null || taxi_info[2].trim().isEmpty()) {
-
-					throw new InvalidBrandNameException(FILE_NAME_TAXIS, line_counter);
-				}
-
-			} catch (ArrayIndexOutOfBoundsException e){
-
-				System.out.println("\t --Reading process in file " + FILE_NAME_TAXIS + " failed... [ " + line_counter + " ]." );
-				return false;
-
-			} catch ( InvalidRegistrationNumberException | InvalidTaxiNameException | InvalidBrandNameException
-					| InvalidInputArgumentsException e) {
-
-				System.out.println(e.getMessage());
-				return false;
-
-			}
-
-		} catch(NullPointerException e){
-			System.out.println("\t --File: " + FILE_NAME_TAXIS + " failed to open. [ " + e.getMessage() + " ].");
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
-	 * taxiChecker reads the file that is specified by the two arguments (default case:
-	 * <taxi.txt> in inputFiles directory).
-	 * Checks its structure as to the number of words separated by DATA_SEPARATOR (instance variable),
-	 * also checks if those words are not empty, converts strings to double or integers when needed,
-	 * and finally uses Taxi's constructor for each valid line and add this Taxi object to a TreeMap.
-	 *
-	 * @param directory: locate the directory's path for the input file.
-	 * @param filename: the filename of journey's data.
-	 *
-	 * @exception InvalidRegistrationNumberException If the registration number is null, empty or zero
-	 * @exception InvalidTaxiNameException If the driver's name is null, empty or zero
-	 * @exception InvalidBrandNameException If the brand name is null, empty or zero
-	 * @exception InvalidInputArgumentsException If the number of arguments is not correct
-	 * @exception ArrayIndexOutOfBoundsException If the reading process fails
-	 * @exception IOException If the file does not exist
-	 * @exception NullPointerException If cannot read file
-	 *
-	 * @return an object of taxiTreeMap, which is a TreeMap of all taxis.
-	 */
-	public TaxiTreeMap taxiChecker( String directory, String filename) {
-
-		TreeMap<String,Taxi> temporaryTreeMap = new TreeMap<>();
-		TaxiTreeMap taxiTreeMap = new TaxiTreeMap(temporaryTreeMap);
-
-		FileReader fd_taxis = null;
-		objectChecker = true;
-
-		try {
-
-			// Open the file that contains the taxis.
-			fd_taxis = new FileReader(directory + filename);
-			BufferedReader taxis_reader = new BufferedReader(fd_taxis);
-
-			String line = null;
-			String[] taxi_info = null;
-			line_counter = 0;		// Initializes the line counter.
-
-			// Read it line-by-line
-			while ((line = taxis_reader.readLine()) != null) {
-
-				objectChecker = true;
-				line_counter++;		// specify the line of the file
-
-
-				if(processTaxiLine(line)){
-
-					try {
-
-						taxi_info = line.split(DATA_SEPARATOR, -1);		// split the line using the given separator.
-
-						// Creates a Taxi Object
-						Taxi tx = new Taxi(taxi_info[0].trim(), taxi_info[1], taxi_info[2].trim());
-
-
-						if ( objectChecker ) {		// if the object has been created normally
-
-							taxiTreeMap.addTaxi(tx);	// add this Taxi to the TaxiTreeMap
-							// -- which is a TreeMap of Taxi's objects --
-							// using the addTaxi public method of the
-							// TaxiTreeMap class.
-						}
-
-
-					} catch ( NullPointerException  e) {
-
-						System.out.println("\t --File: " + filename + " failed to open. [ " + e.getMessage() + " ].");
-
-					}
-
-				}
-			}
-		} catch ( IOException |  NullPointerException e ) {
-
-			System.out.println("\t --File: " + filename + " failed to open. [ " + e.getMessage() + " ].");
-
-		}
-		finally {
-
-			try {
-
-				if(fd_taxis != null)
-					fd_taxis.close();		// Close the file descriptor.
-
-			} catch ( IOException e ) {
-
-				System.out.println("\t --File: " + filename + " failed to close. [ " + e.getMessage() + " ].");
-
-			}
-		}
-
-		return taxiTreeMap;
-	}
+        return taxiTreeMap;
+    }
 
 
 }
