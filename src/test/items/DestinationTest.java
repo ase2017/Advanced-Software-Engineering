@@ -132,7 +132,7 @@ public class DestinationTest {
     }
 
     /**
-     * This method test the creation of a Destination 2016 Object.
+     * This method tests the creation of a Destination 2016 Object.
      */
     @Test
     public void testTrueCase2016(){

@@ -7,12 +7,25 @@ import static org.junit.Assert.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+/**
+ * Class Name: TaxiTest.java
+ *
+ * Description: This class includes JUnit tests for the class Taxi.
+ *
+ * @author George Goniotakis
+ * @since Feb 9, 2017
+ */
+
+
 public class TaxiTest {
 	
-	private String trueRegistrationNumber = "AA123AB";
-	private String trueDriverName = "John Bend";
-	private String trueBrand = "Toyota";
-	
+	private String trueRegistrationNumber = "AA123AB"; //An example of a correct registration number
+	private String trueDriverName = "John Bend"; //An example of a correct driver's name
+	private String trueBrand = "Toyota"; //An example of a correct brand name
+
+	/**
+	 * This method tries to create a new Taxi Object using a registration number with wrong length.
+	 */
 	@Test
 	public void testWrongLengthRegistrationNumber(){
 		
@@ -25,7 +38,10 @@ public class TaxiTest {
 		assertEquals("Error! Wrong registration number (in file taxis.txt in line: "
 				+ DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 	}
-	
+
+	/**
+	 * This method tries to create a new Taxi Object using a registration number with wrong pattern.
+	 */
 	@Test
 	public void testWrongPatternRegistrationNumber(){
 		
@@ -39,7 +55,10 @@ public class TaxiTest {
 				+ DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 		
 	}
-	
+
+	/**
+	 * This method tries to create a new Taxi Object using a driver name with wrong length.
+	 */
 	@Test
 	public void testWrongLengthDriverName(){
 		
@@ -53,6 +72,9 @@ public class TaxiTest {
 				+ DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 	}
 
+	/**
+	 * This method tries to create a new Taxi Object using a driver name with wrong number of words.
+	 */
 	@Test
 	public void testWrongNumberOfWordsDriverName(){
 
@@ -67,6 +89,9 @@ public class TaxiTest {
 
 	}
 
+	/**
+	 * This method tries to create a new Taxi Object using a null driver's name.
+	 */
 	@Test
 	public void testNullDriverName(){
 		
@@ -80,6 +105,9 @@ public class TaxiTest {
 				+ DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 	}
 
+	/**
+	 * This method tries to create a new Taxi Object using a null brand name.
+	 */
 	@Test
 	public void testNullBrandName(){
 		
@@ -92,7 +120,10 @@ public class TaxiTest {
 		assertEquals("Error! Wrong car`s brand (in file taxis.txt in line: "
 				+ DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 	}
-	
+
+	/**
+	 * This method tries to create a new Taxi Object using a brand name with wrong length.
+	 */
 	@Test
 	public void testWrongLengthBrandName(){
 		
@@ -105,13 +136,14 @@ public class TaxiTest {
 		assertEquals("Error! Wrong car`s brand (in file taxis.txt in line: "
 				+ DataFileReader.line_counter + " ).\r\n", serialContent.toString());
 	}
-	
+
+	/**
+	 * This method tests the creation of a Taxi Object.
+	 */
 	@Test
 	public void testCorrectExample(){
-		
-		Taxi ex = new Taxi(trueRegistrationNumber, trueDriverName, trueBrand);
-		boolean result = ex.equals(null);
-		
-		assertFalse(result);
+
+		assertNotEquals(null, new Taxi( trueRegistrationNumber, trueDriverName, trueBrand));
+
 	}
 }

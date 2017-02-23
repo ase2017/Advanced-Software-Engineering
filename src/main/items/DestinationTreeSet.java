@@ -54,11 +54,11 @@ public class DestinationTreeSet {
     /**
      * This method adds a new destination to the TreeSet
      * 
-     * @param destination
+     * @param destination The Destination Object
      */
     public void add(Destination destination) {
 
-        if(containsDestinationName(destination))
+        if(!containsDestinationName(destination))
             destinations.add(destination);
     }
   

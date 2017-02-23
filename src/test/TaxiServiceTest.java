@@ -2,6 +2,15 @@ package test;
 
 import org.junit.Test;
 
+/**
+ * Class Name: TaxiServiceTest.java
+ *
+ * Description: This class includes JUnit tests for the class TaxiService.
+ *
+ * @author George Goniotakis
+ * @since Feb 9, 2017
+ */
+
 
 public class TaxiServiceTest {
 
