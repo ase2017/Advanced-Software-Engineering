@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.DoubleSummaryStatistics;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -108,6 +109,11 @@ public class DataFileReader {
             journey_info = line.split(DATA_SEPARATOR, -1);        // split the line using the given separator
 
             try {
+
+                int id = Integer.parseInt(journey_info[0]);  // Converts Journey's id to integer.
+                int numOfPassengers = Integer.parseInt(journey_info[2]); // Converts Number of Passenger of this journey to integer.
+                double time = Double.parseDouble(journey_info[3]); // Converts the time needed for this journey to double.
+                double maxVelocity = Double.parseDouble(journey_info[4]);  // Converts maximum velocity of this journey to double.
 
                 if (journey_info.length != 5) // check if this line has exactly five words
                     throw new InvalidInputArgumentsException(FILE_NAME_JOURNEYS, line_counter);
@@ -371,6 +377,7 @@ public class DataFileReader {
      * @throws InvalidUrbanException           If the urban identifier is null, empty or zero
      * @throws ArrayIndexOutOfBoundsException  If the reading process fails
      * @throws NullPointerException            If cannot open the file
+     * @throws NumberFormatException           If instead of a number we get a string
      */
     public boolean processDestination2017Line(String line) {
 
@@ -382,6 +389,8 @@ public class DataFileReader {
 
             try {
 
+                int id = Integer.parseInt(destination_2017_info[0]);
+                double distance = Double.parseDouble(destination_2017_info[2]);
 
                 if (destination_2017_info.length != 4) // check if this line has exactly four words
                     throw new InvalidInputArgumentsException(FILE_NAME_DESTINATIONS_2017, line_counter);
@@ -410,6 +419,11 @@ public class DataFileReader {
 
                 System.out.println("\t --Reading process in file" + FILE_NAME_DESTINATIONS_2017
                         + " failed... [ " + e.getMessage() + " ].");
+                return false;
+
+            } catch (NumberFormatException e) {
+
+                System.out.println("\t --Number Format exception in file: " + FILE_NAME_JOURNEYS + " [ " + e.getMessage() + " ].");
                 return false;
 
             }
