@@ -36,7 +36,7 @@ public class DataFormatValidator {
 	/**
 	 * Validates the taxi's registration number, as to its length.
 	 *
-	 * @param registrationNumber
+	 * @param registrationNumber The registration number
 	 * @return true if the registration number's length equals the indicated length
 	 *         by the corresponding instance variable.
 	 *         Else return false.
@@ -54,7 +54,7 @@ public class DataFormatValidator {
 	 * Validates the driver's name, as to the range of its length and also checks
 	 * the number of components that driver's name consist.
 	 *
-	 * @param driverName
+	 * @param driverName The driver's name
 	 * @return true if the taxi's driver name is in the indicated range
 	 *         by the corresponding instance variables.
 	 *         Else return false.
@@ -79,7 +79,7 @@ public class DataFormatValidator {
 	/**
 	 * Validates the taxi's brand name, as to the range of its length. 
 	 * 
-	 * @param brandName
+	 * @param brandName The brand's name
 	 * @return true if the brand name is in the Enum CarBrand
 	 *         Else return false. 
 	 */
@@ -94,7 +94,7 @@ public class DataFormatValidator {
 	/**
 	 * Validates the journey's destination name, as to the range of its length.
 	 *
-	 * @param destinationName
+	 * @param destinationName The destination's name
 	 * @return true if the destination's name is in the indicated range
 	 *              by the corresponding instance variables.
 	 *              Else return false.
@@ -112,7 +112,7 @@ public class DataFormatValidator {
 	/**
 	 * Validates the distance covered by the taxi in a journey, as to a specified range.
 	 *
-	 * @param distance
+	 * @param distance The journey's distance
 	 * @return true if the distance covered by the taxi is in the indicated range
 	 *              by the corresponding instance variables.
 	 *              Else return false.
@@ -128,7 +128,7 @@ public class DataFormatValidator {
 	/**
 	 * Validates the number of the passenger, as to a specified range.
 	 *
-	 * @param passengerNumber
+	 * @param passengerNumber The number of passengers
 	 * @return true if the number of the passengers are in the indicated range by the
 	 *         corresponding instance variables.
 	 */
@@ -143,7 +143,7 @@ public class DataFormatValidator {
 	/**
 	 * Validates the time needed a journey, as to its sign.
 	 *
-	 * @param time
+	 * @param time The journey's total duration
 	 * @return true if time is positive.
 	 *         Else return false.
 	 */
@@ -158,7 +158,7 @@ public class DataFormatValidator {
 	/**
 	 * Validates the taxi's maximum velocity of a journey.
 	 *
-	 * @param maxVelocity
+	 * @param maxVelocity The journey's maximum velocity
 	 * @return true if the maximum velocity is in the indicated range
 	 *         by the corresponding instance variables.
 	 */
@@ -173,7 +173,7 @@ public class DataFormatValidator {
 	/**
 	 * Validates whether the destination is in an urban area or not.
 	 *
-	 * @param urban
+	 * @param urban The urban identifier
 	 * @return true if the input is "Y" or "N"
 	 *              else return false.
 	 */
@@ -190,7 +190,7 @@ public class DataFormatValidator {
 	/**
 	 * Validates the registration ID, as to its sign.
 	 *
-	 * @param destinationID
+	 * @param destinationID The destination's ID
 	 * @return true if it is positive
 	 *         else return false.
 	 */

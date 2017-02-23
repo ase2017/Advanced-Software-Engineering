@@ -36,7 +36,7 @@ public class TaxiTreeMap {
 	 * Method that checks if a taxi with the same details already exists and
 	 * if not it adds it in the TreeMap.
 	 * 
-	 * @exception DuplicateIDException If a taxi with the same ID already exists, show an error message
+	 * @throws DuplicateIDException If a taxi with the same ID already exists, show an error message
 	 * 
 	 * @param taxi The taxi object that we want to push
 	 */

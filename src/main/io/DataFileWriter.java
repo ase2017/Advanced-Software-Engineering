@@ -29,7 +29,7 @@ public class DataFileWriter {
 	 *
 	 * @param taxidata contains the Strings that we will write to the output files.
 	 *
-	 * @exception NullPointerException In case that some file pointer is null
+	 * @throws NullPointerException In case that some file pointer is null
 	 */
 	public void writeFiles(TaxiData taxidata) {
 
@@ -95,9 +95,9 @@ public class DataFileWriter {
 	 *
 	 * @param taxidata contains the String needed for the top-5 journey's output file.
 	 *
-	 * @exception IOException If the file cannot be created/written
-	 * @exception NullPointerException In case that the file pointer is null
-	 * @exception SecurityException In case that file cannot be created
+	 * @throws IOException If the file cannot be created/written
+	 * @throws NullPointerException In case that the file pointer is null
+	 * @throws SecurityException In case that file cannot be created
 	 *
 	 * @return true if process ended successfully else return false.
 	 *
@@ -167,9 +167,9 @@ public class DataFileWriter {
 	 *
 	 * @param taxidata contains the String needed for the top-5 driver's Journey output file.
 	 *
-	 * @exception IOException If the file cannot be created/written
-	 * @exception NullPointerException In case that the file pointer is null
-	 * @exception SecurityException In case that file cannot be created
+	 * @throws IOException If the file cannot be created/written
+	 * @throws NullPointerException In case that the file pointer is null
+	 * @throws SecurityException In case that file cannot be created
 	 *
 	 * @return true if process ended successfully
 	 * 	       else return false.
@@ -239,9 +239,9 @@ public class DataFileWriter {
 	 *
 	 * @param taxidata contains the String needed for the visited Places by taxis output file.
 	 *
-	 * @exception IOException If the file cannot be created/written
-	 * @exception NullPointerException In case that the file pointer is null
-	 * @exception SecurityException In case that file cannot be created
+	 * @throws IOException If the file cannot be created/written
+	 * @throws NullPointerException In case that the file pointer is null
+	 * @throws SecurityException In case that file cannot be created
 	 *
 	 * @return true if process ended successfully
 	 * 	       else return false.

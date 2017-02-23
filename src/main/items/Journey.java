@@ -26,11 +26,11 @@ public class Journey {
 	 * This constructor creates Journey objects using the parameters
 	 * that can found below.
 	 * 
-	 * @exception InvalidIDException If the journey`s ID invalid id show an error
-	 * @exception InvalidRegistrationNumberException If the taxi`s registration number is invalid show an error message
-	 * @exception InvalidNumberOfPassengersException If the journey's number of passengers is invalid show an error message
-	 * @exception InvalidTimeException If the journey`s duration is invalid show an error message
-	 * @exception InvalidMaximumVelocityException If the journey`s maximum velocity is invalid show an error message
+	 * @throws InvalidIDException If the journey`s ID invalid id show an error
+	 * @throws InvalidRegistrationNumberException If the taxi`s registration number is invalid show an error message
+	 * @throws InvalidNumberOfPassengersException If the journey's number of passengers is invalid show an error message
+	 * @throws InvalidTimeException If the journey`s duration is invalid show an error message
+	 * @throws InvalidMaximumVelocityException If the journey`s maximum velocity is invalid show an error message
 	 * 
 	 * @param destinationID Destination`s ID
 	 * @param taxiRegistrationNumber Taxi`s registration number
