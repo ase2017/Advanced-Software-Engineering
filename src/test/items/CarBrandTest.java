@@ -1,7 +1,9 @@
 package test.items;
-import static org.junit.Assert.*;
+
 import main.items.CarBrand;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Class that tests CarBrand methods :

@@ -1,8 +1,9 @@
 package main.items;
 
-import java.util.TreeMap;
 import main.exceptions.DuplicateIDException;
 import main.io.DataFileReader;
+
+import java.util.TreeMap;
 
 /**
  * Class Name: DestinationTreeMap.java

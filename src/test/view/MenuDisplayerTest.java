@@ -1,11 +1,12 @@
 package test.view;
 
-import main.view.*;
-import static org.junit.Assert.*;
+import main.view.MenuDisplayer;
+import org.junit.Test;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Class Name: MenuDisplayerTest.java

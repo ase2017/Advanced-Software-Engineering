@@ -1,10 +1,11 @@
 package main.io;
 
+import main.items.TaxiData;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import main.items.TaxiData;
 
 
 /**

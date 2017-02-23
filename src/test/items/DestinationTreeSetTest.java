@@ -1,8 +1,8 @@
 package test.items;
 
-import main.items.*;
+import main.items.Destination;
+import main.items.DestinationTreeSet;
 import org.junit.Test;
-
 
 import java.util.TreeSet;
 
