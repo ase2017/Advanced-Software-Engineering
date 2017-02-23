@@ -1,10 +1,13 @@
 package test.items;
 
+import main.items.Journey;
+import main.items.JourneyTreeMap;
 import org.junit.Test;
-import main.items.*;
-import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.TreeMap;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Class Name: JourneyTreeMapTest.java

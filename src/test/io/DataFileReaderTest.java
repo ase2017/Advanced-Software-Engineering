@@ -1,27 +1,12 @@
 package test.io;
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertFalse;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-
-import org.junit.*;
+import main.io.DataFileReader;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import main.exceptions.InvalidBrandNameException;
-import main.exceptions.InvalidDestinationNameException;
-import main.exceptions.InvalidDistanceException;
-import main.exceptions.InvalidIDException;
-import main.exceptions.InvalidInputArgumentsException;
-import main.exceptions.InvalidMaximumVelocityException;
-import main.exceptions.InvalidNumberOfPassengersException;
-import main.exceptions.InvalidRegistrationNumberException;
-import main.exceptions.InvalidTaxiNameException;
-import main.exceptions.InvalidTimeException;
-import main.exceptions.InvalidUrbanException;
-import main.io.DataFileReader;
+
+import static org.junit.Assert.*;
 
 public class DataFileReaderTest {
 

@@ -1,26 +1,14 @@
 package main.io;
 
+import main.exceptions.*;
+import main.items.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.DoubleSummaryStatistics;
 import java.util.TreeMap;
 import java.util.TreeSet;
-
-import main.exceptions.DuplicateIDException;
-import main.exceptions.InvalidBrandNameException;
-import main.exceptions.InvalidDestinationNameException;
-import main.exceptions.InvalidDistanceException;
-import main.exceptions.InvalidInputArgumentsException;
-import main.exceptions.InvalidMaximumVelocityException;
-import main.exceptions.InvalidNumberOfPassengersException;
-import main.exceptions.InvalidRegistrationNumberException;
-import main.exceptions.InvalidTaxiNameException;
-import main.exceptions.InvalidTimeException;
-import main.exceptions.InvalidUrbanException;
-import main.exceptions.InvalidIDException;
-import main.items.*;
 
 
 /**
