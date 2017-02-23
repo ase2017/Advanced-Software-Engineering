@@ -47,8 +47,6 @@ ABC,XX367DG,2,21,39.1
 		
 51,,2,15,43.4
 52,QQQQQQQ,3,33,52.3
-//Next line throws a dublicate registration number exception.
-1,BR204SV,2,15,43.4
 
 ===========================================================================
 		Invalid Number of Passengers in journeys.txt file. 
