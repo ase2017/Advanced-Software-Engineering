@@ -21,6 +21,7 @@ AZ345JR,Walter Scott,Audi
 				Invalid brand names in taxi's file. 
 
 XX743HE,Antonio Ivanov,
+XX713HE,Antonio Ivanov,  
 XX345JR,Walter Scott,AbrandNameNotinOurEnumList
 
 ===========================================================================
@@ -34,8 +35,10 @@ XX247GE,AnameThatContains moreThan30Characters12323435,Toyota
 ===========================================================================
 			Invalid Registration Number names in taxi's file. 
 
-,Nicholas Ivanov,Toyouta
+,Nicholas Ivanov,Nissan
+   ,Nicholas Ivanov,Nissan
 XXXXXXX,Peter Parker,Bentley
+X!@$#@$$RegistrationNum,Peter Parker,Bentley
 //Next line throws a dublicate registration number exception.
 AZ345JR,Walter Scott,Audi
 
