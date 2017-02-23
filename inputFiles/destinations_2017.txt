@@ -59,7 +59,8 @@ ABC,Heriot Watt University,10.3,Y
 61,Heriot Watt University,-1,Y
 62,Napier University,0.0,N
 63,George Street,1000000003,N
-			
+64,Jack Bens,,Y
+
 ===========================================================================
 		Invalid urban in destinations_2017.txt file. 
 
