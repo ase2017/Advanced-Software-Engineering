@@ -45,6 +45,8 @@
 ABC,Heriot Watt University,10.3,Y
 //Next line will throw a dublicate id exception.
 1,Palace of Holyroodhouse,2.9,N
+,George Street,2.5,N
+    ,George Street,2.5,N
 
 ===========================================================================
 		Invalid destination name in destinations_2017.txt file. 
@@ -52,6 +54,7 @@ ABC,Heriot Watt University,10.3,Y
 50,,6.6,Y
 51,XX,0.4,N
 52,ThisISAdestinationNameWithMoreThan30Characters,0.4,N
+53,  ,6.6,Y
 
 ===========================================================================
 		Invalid distance in destinations_2017.txt file. 
@@ -60,6 +63,8 @@ ABC,Heriot Watt University,10.3,Y
 62,Napier University,0.0,N
 63,George Street,1000000003,N
 64,Jack Bens,,Y
+65,Jack Bens,  ,Y
+66,Jack Bens,DISTANCE,Y
 
 ===========================================================================
 		Invalid urban in destinations_2017.txt file. 
@@ -67,6 +72,8 @@ ABC,Heriot Watt University,10.3,Y
 71,Heriot Watt University,7.2,
 72,Napier University,5.0,X
 73,George Street,10,23
+74,George Street,10,  
+75,George Street,10,
 			
 			
 ===========================================================================
