@@ -110,11 +110,6 @@ public class DataFileReader {
 
             try {
 
-                int id = Integer.parseInt(journey_info[0]);  // Converts Journey's id to integer.
-                int numOfPassengers = Integer.parseInt(journey_info[2]); // Converts Number of Passenger of this journey to integer.
-                double time = Double.parseDouble(journey_info[3]); // Converts the time needed for this journey to double.
-                double maxVelocity = Double.parseDouble(journey_info[4]);  // Converts maximum velocity of this journey to double.
-
                 if (journey_info.length != 5) // check if this line has exactly five words
                     throw new InvalidInputArgumentsException(FILE_NAME_JOURNEYS, line_counter);
 
@@ -135,6 +130,12 @@ public class DataFileReader {
 
                 if (journey_info[4] == null || journey_info[4].trim().isEmpty())
                     throw new InvalidMaximumVelocityException(FILE_NAME_JOURNEYS, line_counter);
+
+                int id = Integer.parseInt(journey_info[0]);  // Converts Journey's id to integer.
+                int numOfPassengers = Integer.parseInt(journey_info[2]); // Converts Number of Passenger of this journey to integer.
+                double time = Double.parseDouble(journey_info[3]); // Converts the time needed for this journey to double.
+                double maxVelocity = Double.parseDouble(journey_info[4]);  // Converts maximum velocity of this journey to double.
+
 
             } catch (InvalidInputArgumentsException | InvalidIDException | InvalidMaximumVelocityException
                     | InvalidRegistrationNumberException | InvalidTimeException | InvalidNumberOfPassengersException e) {
@@ -391,9 +392,6 @@ public class DataFileReader {
 
             try {
 
-                int id = Integer.parseInt(destination_2017_info[0]);
-                double distance = Double.parseDouble(destination_2017_info[2]);
-
                 if (destination_2017_info.length != 4) // check if this line has exactly four words
                     throw new InvalidInputArgumentsException(FILE_NAME_DESTINATIONS_2017, line_counter);
 
@@ -410,6 +408,8 @@ public class DataFileReader {
                         (!destination_2017_info[3].equals("N") && !destination_2017_info[3].equals("Y")))
                     throw new InvalidUrbanException(FILE_NAME_DESTINATIONS_2017, line_counter);
 
+                int id = Integer.parseInt(destination_2017_info[0]);
+                double distance = Double.parseDouble(destination_2017_info[2]);
 
             } catch (InvalidIDException | InvalidInputArgumentsException | InvalidDestinationNameException |
                     InvalidDistanceException | InvalidUrbanException e) {
