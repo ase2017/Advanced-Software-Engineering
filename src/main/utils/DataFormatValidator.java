@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
  * @author Chiotis
  *
  * DataFormatValidator exclusively contains static instance variables and methods so to be accessible
- * from all the other classes. It validates all the input data from the four data files <taxis.txt>, <journeys.txt>,
- * <destinations_2016.txt> and <destinations_2017.txt> just before the creation of the objects.
+ * from all the other classes. It validates all the input data from the four data files taxis.txt, journeys.txt,
+ * destinations_2016.txt and destinations_2017.txt just before the creation of the objects.
  *
  * The instance variables are static and final, so that cannot be mutable from any methods.
  *

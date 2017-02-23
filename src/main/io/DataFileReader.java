@@ -25,7 +25,7 @@ import main.items.*;
 
 /**
  * DataFileReader is a public class that reads the data from four files
- * <taxis.txt>, <journeys.txt>, <destinations_2016.txt> and <destinations_2017.txt>,
+ * taxis.txt, journeys.txt, destinations_2016.txt and destinations_2017.txt,
  * then checks if the file is in the wright format, checks if those values exist (not empty),
  * make some converts and finally store them to the appropriate data structure.
  *
