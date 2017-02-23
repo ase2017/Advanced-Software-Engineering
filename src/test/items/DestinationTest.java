@@ -1,11 +1,14 @@
 package test.items;
 
 import main.io.DataFileReader;
-import main.items.*;
+import main.items.Destination;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Class Name: DestinationTest.java

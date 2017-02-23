@@ -1,11 +1,12 @@
 package main;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
 import main.io.DataFileReader;
 import main.io.DataFileWriter;
 import main.items.TaxiData;
 import main.view.MenuDisplayer;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
  * Class Name: TaxiService.java

@@ -1,18 +1,21 @@
 package test.io;
-import static org.junit.Assert.*;
+
+import main.exceptions.DuplicateIDException;
+import main.io.DataFileWriter;
+import main.items.*;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import main.exceptions.DuplicateIDException;
-import main.items.*;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import main.io.DataFileWriter;
-import org.junit.rules.ExpectedException;
+
+import static org.junit.Assert.*;
 
 public class DataFileWriterTest {
 
@@ -58,7 +61,7 @@ public class DataFileWriterTest {
                 Files.deleteIfExists(filePlacesPerDriver.toPath());
             }
 
-        }catch(IOException e){
+        }catch(Exception e){
 
             e.printStackTrace();
 

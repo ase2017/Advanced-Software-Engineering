@@ -1,12 +1,15 @@
 package test.items;
 
-import main.items.*;
 import main.exceptions.DuplicateIDException;
+import main.items.Destination;
+import main.items.DestinationTreeMap;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.TreeMap;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Class Name: DestinationTreeMapTest.java
