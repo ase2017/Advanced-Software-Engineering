@@ -5,7 +5,7 @@ BR204SV,Eric Smith,Mercedes
 CO367DG,Giovanni Campbell,Mercedes
 AA743HE,Antonio Ivanov,Toyota
 AC123UV,Alice Smith,Nissan
-AC321RE,Nicholas Ivanov,Toyouta
+AC321RE,Nicholas Ivanov,Toyota
 FR098IQ,Jack Hunter,Mercedes
 GR853WE,Leo Greco,Mercedes
 OP743RH,Violet Fischer,Audi
