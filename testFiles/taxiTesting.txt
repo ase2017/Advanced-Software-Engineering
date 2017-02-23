@@ -1,6 +1,0 @@
-BR204SV,Eric Smith,Mercedes
-CO367DG,Giovanni Campbell,Mercedes
-AA743HE,Antonio Ivanov,
-AC123UV,,Nissan
-,Nicholas Ivanov,Toyouta
-,,,

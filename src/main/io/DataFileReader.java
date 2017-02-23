@@ -396,7 +396,7 @@ public class DataFileReader {
                     throw new InvalidDistanceException(FILE_NAME_DESTINATIONS_2017, line_counter);
 
                 if (destination_2017_info[3] == null || destination_2017_info[3].trim().isEmpty() ||
-                        (destination_2017_info[3].equals("N") && destination_2017_info[3].equals("Y")))
+                        (!destination_2017_info[3].equals("N") && !destination_2017_info[3].equals("Y")))
                     throw new InvalidUrbanException(FILE_NAME_DESTINATIONS_2017, line_counter);
 
 
@@ -567,7 +567,7 @@ public class DataFileReader {
                     throw new InvalidRegistrationNumberException(FILE_NAME_TAXIS, line_counter);
 
                 if (taxi_info[1] == null || taxi_info[1].trim().isEmpty()
-                        || nameComponents[0].length() == 0 || nameComponents[1].length() == 0)
+                        || nameComponents.length < 2)
                     throw new InvalidTaxiNameException(FILE_NAME_TAXIS, line_counter);
 
                 if (taxi_info[2] == null || taxi_info[2].trim().isEmpty())
